@@ -17,8 +17,13 @@ $topbar-height:				64px;
 $sidebar-bg:				lighten($accent, 5%);
 $sidebar-color:				$white;
 $sidebar-shadow:			1px 1px 5px 0px rgba(0,0,0,0.4);
-$sidebar-width:				230px;
+$sidebar-width:				160px;
 $sidebar-adjusted: 			7.5px;
+
+$spacer:                     1rem !default;
+$spacer-x:                   $spacer !default;
+$spacer-y:                   $spacer !default;
+$border-width:               .0625rem !default;
 
 $gray-dark:                 #373a3c;
 $gray:                      #55595c;

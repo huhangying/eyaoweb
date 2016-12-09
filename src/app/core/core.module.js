@@ -9,7 +9,6 @@
                 'ngResource',
                 'ui.bootstrap',
                 'ui.router',
-                'toastr',
-                'chart.js'
+                'toastr'
             ]);
 })();

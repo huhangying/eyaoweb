@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function config($stateProvider) {
-        
+
         $stateProvider.state('app.login', {
             url  : '/login',
             views: {
@@ -16,7 +16,7 @@
                     templateUrl: 'app/core/layouts/basic.html'
                 },
                 'content@app.login': {
-                    templateUrl: 'app/login/login.html',
+                    templateUrl: 'app/frame/login/login.html',
                     controller : 'LoginController as vm'
                 }
             }

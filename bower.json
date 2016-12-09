@@ -1,33 +1,31 @@
 {
-  "name": "Rin",
+  "name": "harry",
   "description": "Angular & Bootstrap 4 dashboard boiler",
   "main": "gulpfile.js",
   "authors": [
-    "Matt Christians <christians.matt@gmail.com> (http://mdchristians.com)"
+    "harry hu"
   ],
   "license": "MIT",
-  "homepage": "http://www.mdchristians.com/",
+  "homepage": "http://www.harryhu.com/",
   "dependencies": {
-    "angular": "~1.4.0",
+    "angular": "~1.4.9",
     "angular-animate": "~1.4.8",
-    "jquery": "~2.2.0",
-    "bootstrap": "4.0.0-alpha",
+    "jquery": "~1.12.4",
+    "bootstrap": "~3.3.6",
     "bootstrap-additions": "~0.3.1",
     "angular-bootstrap": "~0.14.3",
-    "angular-chart.js": "~0.8.8",
     "angular-moment": "~0.10.3",
     "angular-resource": "~1.4.8",
     "angular-toastr": "~1.6.0",
     "angular-touch": "~1.4.8",
     "angular-ui-router": "~0.2.15",
-    "d3": "~3.5.12",
     "moment": "~2.10.6",
     "toastr": "~2.1.2",
-    "angular-charts": "~0.2.7"
+    "font-awesome": "~4.5.0",
+    "angular-ui-bootstrap": "^2.3.0"
   },
   "resolutions": {
-    "angular": "~1.4.0",
-    "d3": "~3.5.12"
+    "angular": "~1.4.9"
   },
   "overrides": {
     "jquery": {

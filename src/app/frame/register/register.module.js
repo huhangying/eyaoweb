@@ -1,5 +1,5 @@
 (function() {
-    
+
     'use strict';
 
     angular
@@ -8,7 +8,7 @@
 
     /** @ngInject */
     function config($stateProvider) {
-        
+
         $stateProvider.state('app.register', {
             url: '/register',
             views: {
@@ -16,7 +16,7 @@
                     templateUrl: 'app/core/layouts/basic.html'
                 },
                 'content@app.register': {
-                    templateUrl: 'app/register/register.html',
+                    templateUrl: 'app/frame/register/register.html',
                     controller : 'RegisterController as vm'
                 }
             }

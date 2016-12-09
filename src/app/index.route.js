@@ -19,11 +19,11 @@
                         templateUrl: 'app/core/layouts/default.html'
                     },
                     'topbar@app': {
-                        templateUrl: 'app/navigation/topbar/topbar.html',
+                        templateUrl: 'app/frame/navigation/topbar/topbar.html',
                         controller : 'TopbarController as vm'
                     },
                     'sidebar@app': {
-                        templateUrl: 'app/navigation/sidebar/sidebar.html',
+                        templateUrl: 'app/frame/navigation/sidebar/sidebar.html',
                         controller : 'SidebarController as vm'
                     }
                 }

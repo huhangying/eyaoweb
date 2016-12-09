@@ -16,7 +16,8 @@
             'app.login',
             'app.register',
             'app.home',
-            'app.components'
+            'app.components',
+			'app.articlePush'
 
         ]);
 })();
