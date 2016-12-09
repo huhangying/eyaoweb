@@ -9,12 +9,12 @@
 	<div id="navbar">
 		<nav class="nav navbar-nav pull-right">
 			<div class="btn-group">
-				<a class="text-uppercase" data-toggle="dropdown">
-					我
+				<a data-toggle="dropdown">
+					{{login.name}}
 					<img class="avatar menu-img" src="https://pbs.twimg.com/profile_images/726100805/4394612844_0b36f6a9db_o.jpg">
 				</a>
 				<div class="dropdown-menu right">
-					<a class="dropdown-item" ui-sref="app.login" href>Logout</a>
+					<a class="dropdown-item" ng-click="logout()" href>退出</a>
 				</div>
 			</div>
 		</nav>

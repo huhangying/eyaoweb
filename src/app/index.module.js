@@ -17,7 +17,8 @@
             'app.register',
             'app.home',
             'app.components',
-			'app.articlePush'
+			'app.articlePush',
+			'app.articlePushS'
 
         ]);
 })();

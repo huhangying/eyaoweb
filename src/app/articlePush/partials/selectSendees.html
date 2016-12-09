@@ -1,0 +1,21 @@
+<div ng-controller="SelectSendeesCtrl">
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">宣教材料推送</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<ul>
+		<li ng-repeat="item in $ctrl.items">
+			<a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+		</li>
+	</ul>
+
+	{{test}}
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ctrl.ok()">确认</button>
+	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
+</div>
+
+</div>
+
+

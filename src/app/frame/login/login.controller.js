@@ -7,7 +7,7 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController($scope, $http, $window, toastr) {
+    function LoginController($scope, $http, $state, $window, toastr) {
 
         var vm = this;
 		$scope.testTitle = 'ddd';
@@ -31,7 +31,8 @@
 						$window.sessionStorage.currentUrl = null;
 					}
 					else{
-						$window.location.href = '/#/home' + response._id;
+						//$window.location.href = '/#/home';// + response._id;
+						$state.go('app.home');
 					}
 
 				})

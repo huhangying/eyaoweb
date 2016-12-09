@@ -5,29 +5,31 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <form class="box center-block">
-							<div class="box-header">
-								<h2>Login{{testTitle}}</h2>
+        <div class="col-sm-4 col-sm-offset-4">
+            <form class="box center-block" name="form">
+
+							<div class="box-header text-center">
+								<h2>药师登录</h2>
 							</div>
 							<div class="box-body">
 								<fieldset class="form-group">
-									<label for="email">Email address</label>
-									<input type="email" class="form-control" id="email" placeholder="Enter 	email" ng-model="credentials.user_id">
+									<label for="email">用户名</label>
+									<input type="text" class="form-control" id="email" placeholder="用户名" ng-model="credentials.user_id" required="">
 								</fieldset>
 								<fieldset class="form-group">
-									<label for="password">Password</label>
-									<input type="password" class="form-control" id="password" placeholder="	Password" ng-model="credentials.password">
+									<label for="password">密码</label>
+									<input type="password" class="form-control" id="password" placeholder="密码" ng-model="credentials.password" required>
 								</fieldset>
 								<div class="form-group row">
 									<div class="col-sm-12 text-right">
-										<button type="" ng-click="login()" class="btn btn-primary-outline" ui-sref="app.home">Login</button>
+										<button ng-disabled="form.$invalid" ng-click="login()" class="btn btn-primary-outline">
+											登录</button>
 									</div>
 								</div>
 							</div>
 						</form>
             <div class="text-center">
-                <button class="btn btn-link" ui-sref="app.register">Register</button>
+                <button class="btn btn-link" ui-sref="app.register">注册</button>
             </div>
         </div>
     </div>
