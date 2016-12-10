@@ -18,7 +18,8 @@
             'app.home',
             'app.components',
 			'app.articlePush',
-			'app.articlePushS'
+			'app.articlePush.receivers',
+			'app.articlePush.template'
 
         ]);
 })();

@@ -1,12 +1,12 @@
 <div class="modal-header">
-	<h3 class="modal-title" id="modal-title">选择收信人</h3>
+	<h3 class="modal-title" id="modal-title">选择模版</h3>
 </div>
 <div class="modal-body" id="modal-body">
-	<div ng-repeat="group in groups track by $index" class="m-a-0 p-a-0"> 
-		<div class="alert alert-info">
+	<div ng-repeat="group in groups track by $index"> 
+		<div >
 			<label class="text-primary"><input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
 		</div> 
-		<div class="p-a-0 m-a-0"> 
+		<div class=""> 
 			<label class="col-sm-3" ng-repeat="user in group.users">
 				<input type="checkbox" class="form-check-input" ng-model="user.selected">&nbsp;{{user.name}}
 			</label>
