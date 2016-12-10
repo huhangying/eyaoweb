@@ -1,16 +1,72 @@
-<div class="modal-header">
-	<h3 class="modal-title" id="modal-title">选择模版</h3>
+<div class="modal-header row">
+	<h3 class="modal-title col-sm-2" id="modal-title">选择模版</h3>
+	<div class="col-sm-2 text-right m-t-md"><span>材料类别:</span></div>
+	<div class="col-sm-3 m-t-md">
+            <span>
+                <select class="form-control" ng-model="search.cat"
+												ng-options="cat._id as cat.name for cat in cats">
+									<option>dd</option>
+                </select>
+            </span>
+	</div>
+	<div class="col-sm-1 text-right m-t-md"><span>模版:</span></div>
+	<div class="col-sm-3 m-t-md">
+		<span>
+                <select class="form-control" ng-model="selectedTemplate"
+												ng-options="template._id as template.name for template in templates  | filter: search.cat">
+                </select>
+    </span>
+	</div>
+
 </div>
-<div class="modal-body" id="modal-body">
-	<div ng-repeat="group in groups track by $index"> 
-		<div >
-			<label class="text-primary"><input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
-		</div> 
-		<div class=""> 
-			<label class="col-sm-3" ng-repeat="user in group.users">
-				<input type="checkbox" class="form-check-input" ng-model="user.selected">&nbsp;{{user.name}}
-			</label>
-		</div> 
+<div class="modal-body clearfix" id="modal-body">
+
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				<label for="inputTitle" class="control-label">消息标题</label>
+				<textarea class="form-control" id="inputTitle" rows="2" ng-model="template.title" required></textarea>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div flow-init="{singleFile:true}"
+					 flow-files-submitted="$flow.upload()"
+					 flow-file-success="$file.msg = $message;template.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
+					 flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
+				<div class="row">
+					<div class="col-sm-4">
+						<div>
+							<label class="control-label">标题图片</label>
+						</div>
+						<div>
+							<button class="btn btn-info btn-sm" ng-show="!$flow.files.length" flow-btn="">
+								上传图片<input type="file" style="visibility: hidden; position: absolute;">
+							</button>
+							<button class="btn btn-info btn-sm ng-hide" ng-show="$flow.files.length" flow-btn="">
+								更改图片<input type="file" style="visibility: hidden; position: absolute;">
+							</button>
+							<button class="btn btn-danger btn-sm ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+								删除
+							</button>
+						</div>
+						<small>
+							只支持 JPG 格式图片。
+						</small>
+					</div>
+					<div class="col-sm-8">
+						<div class="thumbnail" ng-show="$flow.files.length && !updated">
+							<img flow-img="$flow.files[0]" style="height:90px" />
+						</div>
+						<div class="thumbnail" ng-show="updated">
+							<img ng-src="{{displayedUrl}}" style="height:90px" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
 	</div>
 
 </div>

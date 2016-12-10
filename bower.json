@@ -22,7 +22,9 @@
     "moment": "~2.10.6",
     "toastr": "~2.1.2",
     "font-awesome": "~4.5.0",
-    "angular-ui-bootstrap": "^2.3.0"
+    "angular-ui-bootstrap": "^2.3.0",
+    "ng-flow": "~2",
+    "textAngular": "^1.5.16"
   },
   "resolutions": {
     "angular": "~1.4.9"
