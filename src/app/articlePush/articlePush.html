@@ -3,16 +3,84 @@
 	<div class="box-header">
 		<h3>选择患者 </h3>
 	</div>
-	{{groups}}
+	<div cg-busy="myPromise"></div>
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
 				<button class="btn btn-default" ng-click="vm.selectSendees()">选择推送人</button>
 
 				<button class="btn btn-default" ng-click="vm.selectTemplate()">选择模版</button>
-				<p>.</p>
+
+				<button class="btn btn-default pull-right" ng-click="vm.sendMessage()">发送</button>
+				<hr/>
 			</div>
 		</div>
+
+		<div ng-if="article">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label for="inputTitle" class="control-label">消息标题</label>
+						<textarea class="form-control" id="inputTitle" rows="2" ng-model="article.title" required></textarea>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div flow-init="{singleFile:true}"
+							 flow-files-submitted="$flow.upload()"
+							 flow-file-success="$file.msg = $message;article.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
+							 flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
+						<div class="row">
+							<div class="col-sm-4">
+								<div>
+									<label class="control-label">标题图片</label>
+								</div>
+								<div>
+									<button class="btn btn-info btn-sm" ng-show="!$flow.files.length" flow-btn="">
+										上传图片<input type="file" style="visibility: hidden; position: absolute;">
+									</button>
+									<button class="btn btn-info btn-sm ng-hide" ng-show="$flow.files.length" flow-btn="">
+										更改图片<input type="file" style="visibility: hidden; position: absolute;">
+									</button>
+									<button class="btn btn-danger btn-sm ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+										删除
+									</button>
+								</div>
+								<small>
+									只支持 JPG 格式图片。
+								</small>
+							</div>
+							<div class="col-sm-8">
+								<div class="thumbnail" ng-show="$flow.files.length && !updated">
+									<img flow-img="$flow.files[0]" style="height:90px" />
+								</div>
+								<div class="thumbnail" ng-show="updated">
+									<img ng-src="{{displayedUrl}}" style="height:90px" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="box">
+				<div class="box-header clearfix">
+					<span class="pull-left">文章内容</span>
+					<button type="button" class="btn btn-sm {{preview?'btn-success':'btn-secondary'}} pull-right" ng-click="previewToggle()">预览</button>
+				</div>
+				<hr/>
+				<div>
+					<text-angular ng-model="article.content" ng-if="!preview"></text-angular>
+					<text-angular ng-model="article.content" ng-if="preview" ta-bind></text-angular>
+				</div>
+
+
+			</div>
+		</div>
+		<div ng-if="!article" class="blockquote m-t-md">
+			编辑文章以前, 请先选择一个模版。
+		</div>
+
 	</div>
 </div>
 

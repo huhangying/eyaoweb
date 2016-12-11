@@ -1,6 +1,10 @@
 <div class="modal-header">
-	<h3 class="modal-title" id="modal-title">选择收信人</h3>
+	<h3 class="modal-title pull-left" id="modal-title">选择收信人</h3>
+	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss('cancel')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
+<div cg-busy="myPromise"></div>
 <div class="modal-body" id="modal-body">
 	<div ng-repeat="group in groups track by $index" class="m-a-0 p-a-0"> 
 		<div class="alert alert-info">
@@ -16,7 +20,7 @@
 </div>
 <div class="modal-footer">
 	<button class="btn btn-primary" type="button" ng-click="selectOk()">确认</button>
-	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
+	<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 </div>
 
 

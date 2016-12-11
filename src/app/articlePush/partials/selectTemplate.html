@@ -2,23 +2,28 @@
 	<h3 class="modal-title col-sm-2" id="modal-title">选择模版</h3>
 	<div class="col-sm-2 text-right m-t-md"><span>材料类别:</span></div>
 	<div class="col-sm-3 m-t-md">
-            <span>
-                <select class="form-control" ng-model="search.cat"
-												ng-options="cat._id as cat.name for cat in cats">
-									<option>dd</option>
-                </select>
-            </span>
+		<span>
+			<select class="form-control" ng-model="search.cat"
+							ng-options="cat._id as cat.name for cat in cats">
+			</select>
+		</span>
 	</div>
 	<div class="col-sm-1 text-right m-t-md"><span>模版:</span></div>
 	<div class="col-sm-3 m-t-md">
 		<span>
-                <select class="form-control" ng-model="selectedTemplate"
-												ng-options="template._id as template.name for template in templates  | filter: search.cat">
-                </select>
+			<select class="form-control" ng-model="selectedTemplate"
+							ng-options="template._id as template.name for template in templates  | filter: search.cat">
+			</select>
     </span>
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+			<span aria-hidden="true">&times;</span>
+		</button>
 	</div>
 
 </div>
+<div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
 
@@ -30,48 +35,17 @@
 			</div>
 		</div>
 		<div class="col-md-7">
-			<div flow-init="{singleFile:true}"
-					 flow-files-submitted="$flow.upload()"
-					 flow-file-success="$file.msg = $message;template.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
-					 flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
-				<div class="row">
-					<div class="col-sm-4">
-						<div>
-							<label class="control-label">标题图片</label>
-						</div>
-						<div>
-							<button class="btn btn-info btn-sm" ng-show="!$flow.files.length" flow-btn="">
-								上传图片<input type="file" style="visibility: hidden; position: absolute;">
-							</button>
-							<button class="btn btn-info btn-sm ng-hide" ng-show="$flow.files.length" flow-btn="">
-								更改图片<input type="file" style="visibility: hidden; position: absolute;">
-							</button>
-							<button class="btn btn-danger btn-sm ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
-								删除
-							</button>
-						</div>
-						<small>
-							只支持 JPG 格式图片。
-						</small>
-					</div>
-					<div class="col-sm-8">
-						<div class="thumbnail" ng-show="$flow.files.length && !updated">
-							<img flow-img="$flow.files[0]" style="height:90px" />
-						</div>
-						<div class="thumbnail" ng-show="updated">
-							<img ng-src="{{displayedUrl}}" style="height:90px" />
-						</div>
-					</div>
-				</div>
+			<div class="thumbnail">
+				<img ng-src="{{displayedUrl}}" style="height:90px" />
 			</div>
-
-
 		</div>
 	</div>
 
+	<text-angular ng-model="template.content" ta-bind></text-angular>
+
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="selectOk()">确认</button>
+	<button class="btn btn-primary" type="button" ng-click="selectOk()">选择</button>
 	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
 </div>
 

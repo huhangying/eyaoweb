@@ -9,6 +9,11 @@
                 'ngResource',
                 'ui.bootstrap',
                 'ui.router',
-                'toastr'
-            ]);
+                'toastr',
+				'cgBusy'
+            ])
+		.value('cgBusyDefaults',{
+			message:'正在加载...',
+			backdrop: false
+		});
 })();
