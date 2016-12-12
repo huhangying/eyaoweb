@@ -1,13 +1,13 @@
 
 <div class="box">
 	<div class="box-header">
-		<h3>选择患者 </h3>
+		<h3>宣教材料推送 </h3>
 	</div>
 	<div cg-busy="myPromise"></div>
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-default" ng-click="vm.selectSendees()">选择推送人</button>
+				<button class="btn btn-default" ng-click="vm.selectSendees()">选择患者</button>
 
 				<button class="btn btn-default" ng-click="vm.selectTemplate()">选择模版</button>
 
@@ -27,7 +27,7 @@
 				<div class="col-md-7">
 					<div flow-init="{singleFile:true}"
 							 flow-files-submitted="$flow.upload()"
-							 flow-file-success="$file.msg = $message;article.title_image='upload/'+$flow.files[0].relativePath;uploadedImg();"
+							 flow-file-success="$file.msg = $message;article.title_image=$flow.files[0].relativePath;uploadedImg();"
 							 flow-file-added="!!{jpg:1,jpeg:1}[$file.getExtension()]">
 						<div class="row">
 							<div class="col-sm-4">
@@ -65,7 +65,7 @@
 			</div>
 			<div class="box">
 				<div class="box-header clearfix">
-					<span class="pull-left">文章内容</span>
+					<h4 class="pull-left">文章内容</h4>
 					<button type="button" class="btn btn-sm {{preview?'btn-success':'btn-secondary'}} pull-right" ng-click="previewToggle()">预览</button>
 				</div>
 				<hr/>

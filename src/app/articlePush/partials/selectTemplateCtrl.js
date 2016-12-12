@@ -10,14 +10,12 @@
 
 		.controller('SelectTemplateController', function ($scope, $rootScope, $http, toastr) {
 			var ctrl = this;
-			$scope.template = {};
-
 
 			$scope.selectOk = function() {
 				this.$close($scope.template);
 			};
 			var baseApiUrl = 'http://139.224.68.92:3000/';
-			var baseImageServer = 'http://139.224.68.92:3031/';
+			var baseImageServer = 'http://139.224.68.92:81/';
 
 			var templateChanged = function() {
 				if (!$scope.selectedTemplate) {return;}

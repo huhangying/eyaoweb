@@ -26,22 +26,27 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-
-	<div class="row">
-		<div class="col-md-5">
-			<div class="form-group">
-				<label for="inputTitle" class="control-label">消息标题</label>
-				<textarea class="form-control" id="inputTitle" rows="2" ng-model="template.title" required></textarea>
+	<div ng-if="template">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="inputTitle" class="control-label">消息标题</label>
+					<textarea class="form-control" id="inputTitle" rows="2" ng-model="template.title" required></textarea>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="thumbnail">
+					<img ng-src="{{displayedUrl}}" style="height:90px" />
+				</div>
 			</div>
 		</div>
-		<div class="col-md-7">
-			<div class="thumbnail">
-				<img ng-src="{{displayedUrl}}" style="height:90px" />
-			</div>
-		</div>
+		<hr/>
+		<text-angular ng-model="template.content" ta-bind></text-angular>
 	</div>
 
-	<text-angular ng-model="template.content" ta-bind></text-angular>
+	<div ng-if="!template" class="blockquote m-t-md">
+		编辑文章以前, 请先选择一个模版。
+	</div>
 
 </div>
 <div class="modal-footer">
