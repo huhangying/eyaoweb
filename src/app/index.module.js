@@ -16,6 +16,8 @@
             'app.login',
             'app.register',
             'app.home',
+			'app.chat',
+			'app.book',
             'app.components',
 			'app.articlePush',
 			'app.articlePush.receivers',

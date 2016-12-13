@@ -26,11 +26,13 @@
 		&:hover {
 			color: lighten($topbar-color, 10%);
 			text-decoration: none;
-			cursor: pointer; 
+			cursor: pointer;
 			cursor: hand;
 		}
 	}
 	.navbar-brand {
 		padding-top: .6rem;
 	}
+
+
 }

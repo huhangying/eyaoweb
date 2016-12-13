@@ -1,16 +1,19 @@
 <div class="modal-header">
 	<h3 class="modal-title pull-left" id="modal-title">选择收信人</h3>
+	<em class="m-l-lg p-t-md">选择发送宣教材料的人员</em>
 	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss('cancel')">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
 <div cg-busy="myPromise"></div>
-<div class="modal-body" id="modal-body">
+<div class="modal-body my-body-adjust" id="modal-body">
 	<div ng-repeat="group in groups track by $index" class="m-a-0 p-a-0"> 
-		<div class="alert alert-info">
-			<label class="text-primary"><input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
+		<div class="alert-info my-title-adjust">
+			<label class="text-primary">
+				&nbsp;
+				<input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
 		</div> 
-		<div class="p-a-0 m-a-0"> 
+		<div class="my-content-adjust row"> 
 			<label class="col-sm-3" ng-repeat="user in group.users">
 				<input type="checkbox" class="form-check-input" ng-model="user.selected">&nbsp;{{user.name}}
 			</label>
@@ -18,7 +21,7 @@
 	</div>
 
 </div>
-<div class="modal-footer">
+<div class="modal-footer clearfix">
 	<button class="btn btn-primary" type="button" ng-click="selectOk()">确认</button>
 	<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 </div>
