@@ -6,14 +6,14 @@
 	</button>
 </div>
 <div cg-busy="myPromise"></div>
-<div class="modal-body my-body-adjust" id="modal-body">
-	<div ng-repeat="group in groups track by $index" class="m-a-0 p-a-0"> 
-		<div class="alert-info my-title-adjust">
+<div class="modal-body" id="modal-body">
+	<div ng-repeat="group in groups track by $index" class="m-a-0 p-a-0 clearfix"> 
+		<div class="alert-info">
 			<label class="text-primary">
 				&nbsp;
 				<input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
 		</div> 
-		<div class="my-content-adjust row"> 
+		<div class="row my-content-adjust"> 
 			<label class="col-sm-3" ng-repeat="user in group.users">
 				<input type="checkbox" class="form-check-input" ng-model="user.selected">&nbsp;{{user.name}}
 			</label>

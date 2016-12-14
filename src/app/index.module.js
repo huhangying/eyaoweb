@@ -21,7 +21,8 @@
             'app.components',
 			'app.articlePush',
 			'app.articlePush.receivers',
-			'app.articlePush.template'
+			'app.articlePush.template',
+			'app.articlePush.old'
 
         ]);
 })();

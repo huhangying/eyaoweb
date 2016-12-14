@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h3 class="modal-title pull-left" id="modal-title">从已经发送的文章中选择</h3>
+
+	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div cg-busy="myPromise"></div>
+<div class="modal-body clearfix" id="modal-body">
+
+	<div ng-if="articles">
+		<div class="radio p-x-md" ng-repeat="article in articles">
+			<label>
+				<input type="radio" name="article" class="form-radio-input" ng-model="articleId" ng-click="selectArticle(articleId)" ng-value="article._id">
+				&nbsp;&nbsp{{article.title}}&nbsp;({{article.name}})
+			</label>
+		</div>
+		<div ng-if="!articles" class="blockquote m-t-md">
+			无已发送文章。
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="selectOk()">选择</button>
+		<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
+	</div>
+</div>
+
+
