@@ -13,7 +13,7 @@
 		<div class="radio p-x-md" ng-repeat="article in articles">
 			<label>
 				<input type="radio" name="article" class="form-radio-input" ng-model="articleId" ng-click="selectArticle(articleId)" ng-value="article._id">
-				&nbsp;&nbsp{{article.title}}&nbsp;({{article.name}})
+				&nbsp;&nbsp{{article.title}}&nbsp;({{article.timestamp}})
 			</label>
 		</div>
 		<div ng-if="!articles" class="blockquote m-t-md">

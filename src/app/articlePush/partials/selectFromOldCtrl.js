@@ -51,6 +51,9 @@
 							}
 							else {
 								$scope.articles = response;
+								$scope.articles.map(function(article) {
+									article.timestamp = moment(article.createdAt).format('YYYY年M月D日');
+								});
 							}
 
 						})

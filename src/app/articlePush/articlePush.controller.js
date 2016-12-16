@@ -11,7 +11,8 @@
         var vm = this;
 		var baseApiUrl = 'http://139.224.68.92:3000/';
 		var baseImageServer = 'http://139.224.68.92:81/';
-		var msgPostUrl = 'http://wx.rostensoft.com.ngrok.4kb.cn/rosten-wx/test/pushNews';
+		//var msgPostUrl = 'http://wx.rostensoft.com.ngrok.4kb.cn/rosten-wx/test/pushNews';
+		var msgPostUrl = 'http://yyl.rostensoft.com/zhaoys/doctor/pushNews';
 
 		$scope.updated = false;
 		$scope.article = {};
@@ -176,20 +177,20 @@
 			// 发送消息给微信
 			var reqBody = {
 				openidList: list,
-				article: [
+				articles: [
 					{
 						title: $scope.article.name,
 						description: $scope.article.title,
 						url: baseApiUrl + 'article/' + $scope.article._id,
-						picurl: $scope.article.image_title
+						picurl: baseImageServer + $scope.article.title_image
 					}
 				]
 			};
 
+			$http.defaults.headers.post["Content-Type"] = "text/plain";
 			$scope.myPromise = $http.post(msgPostUrl, reqBody)
 				.success(function(response) {
-					if (!response || response.length < 1 ||
-						(response.return && response.return.length > 0)) {
+					if (!response || response.result != 1) {
 						toastr.error('宣教材料发送失败.');
 						return;
 					}
@@ -197,7 +198,7 @@
 					toastr.success('宣教材料发送成功。');
 				})
 				.error(function(err){
-					toastr.error(err);
+					toastr.error("宣教材料发送失败");
 				});
 
 		};

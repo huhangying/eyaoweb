@@ -13,7 +13,7 @@
 				'cgBusy'
             ])
 		.value('cgBusyDefaults',{
-			message:'正在加载...',
+			message:'正在处理...',
 			backdrop: false
 		});
 })();
