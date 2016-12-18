@@ -17,6 +17,7 @@
             'app.register',
             'app.home',
 			'app.main',
+			'app.main.patient',
 			'app.chat',
 			'app.book',
 			'app.articlePush',

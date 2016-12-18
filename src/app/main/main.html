@@ -1,11 +1,27 @@
 
 <div class="box">
 	<div class="box-header">
-		<h3>门诊 </h3>
+		<div class="h3 pull-left">门诊 </div>
+		<span class="btn bg-success pull-right" style="padding: 3px 11px;">{{ patient? patient.name : '未选患者' }}</span>
 	</div>
+	<div cg-busy="myPromise"></div>
 	<div class="box-body">
+		<div class="row">
+			<div class="col-sm-12">
+				<button class="btn btn-primary-outline" ng-click="vm.selectPatient()">选择患者</button>
+				<button class="btn btn-primary-outline" ng-if="!patient">新建患者</button>
 
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()">随访问卷</button>
 
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()">开药</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()">录入化验结果</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()">发送问卷</button>
+
+				<button class="btn btn-primary-outline pull-right" ng-click="vm.sendMessage()">发送</button>
+				<button class="btn btn-primary{{article._id?'':'-outline'}} pull-right m-r-md" ng-click="vm.saveArticle()">保存</button>
+				<hr/>
+			</div>
+		</div>
 	</div>
 </div>
 
