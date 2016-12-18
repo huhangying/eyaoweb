@@ -16,13 +16,14 @@
             'app.login',
             'app.register',
             'app.home',
+			'app.main',
 			'app.chat',
 			'app.book',
-            'app.components',
 			'app.articlePush',
 			'app.articlePush.receivers',
 			'app.articlePush.template',
-			'app.articlePush.old'
+			'app.articlePush.old',
+			'app.components'
 
-        ]);
+		]);
 })();

@@ -2,6 +2,9 @@
 	<a class="navbar-brand p-r-lg" href ui-sref="app.home"><img src="/assets/images/logo.png" height="33px"> </a>
 	<ul class="nav navbar-nav pull-left">
 		<li class="nav-item">
+			<a class="nav-link" href ui-sref="app.main">门诊</a>
+		</li>
+		<li class="nav-item">
 			<a class="nav-link" href ui-sref="app.chat">在线咨询</a>
 		</li>
 		<li class="nav-item">
@@ -11,8 +14,9 @@
 			<a class="nav-link" href ui-sref="app.articlePush" ui-sref-active="active">宣教材料推送</a>
 		</li>
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href ui-sref="app.home" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">用户管理</a>
+			<a class="nav-link dropdown-toggle" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">用户管理</a>
 			<div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
+				<a class="dropdown-item" href ui-sref="app.home">用户管理</a>
 				<a class="dropdown-item" href ui-sref="app.home">用户组管理</a>
 			</div>
 		</li>
@@ -24,6 +28,7 @@
 				<img class="avatar menu-img" src="https://pbs.twimg.com/profile_images/726100805/4394612844_0b36f6a9db_o.jpg">
 			</a>
 			<div class="dropdown-menu right">
+				<a class="dropdown-item" ng-click="" href>个人信息</a>
 				<a class="dropdown-item" ng-click="logout()" href>退出</a>
 			</div>
 		</div>
