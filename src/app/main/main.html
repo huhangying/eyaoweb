@@ -31,13 +31,25 @@
 				</div>
 
 
-				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">开药</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">随访评估</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">随访小结</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">监测计划</button>
 				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">录入化验结果</button>
 
 				<button class="btn btn-primary-outline pull-right" ng-click="vm.sendMessage()">结论推送</button>
 				<button class="btn btn-primary{{article._id?'':'-outline'}} pull-right m-r-md" ng-click="vm.saveArticle()">保存</button>
 				<hr/>
 			</div>
+
+		</div>
+		<div style="padding-top: 10px;" ng-if="patient">
+			<h5>用药计划（处方）</h5>
+			<div>
+
+			</div>
+		</div>
+		<div style="padding-top: 14px;" ng-if="!patient">
+			使用说明内容。。。
 		</div>
 	</div>
 </div>
