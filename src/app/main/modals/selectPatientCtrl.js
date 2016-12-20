@@ -7,9 +7,8 @@
 
 	angular
 		.module('app.main.patient', [])
-		.controller('SelectPatientController', function ($scope, $rootScope, $http, toastr) {
+		.controller('SelectPatientController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var vm = this;
-			var baseApiUrl = 'http://139.224.68.92:3000/';
 
 			$scope.selectOk = function() {
 				// toastr.info($scope.selectedPatient);
@@ -45,7 +44,7 @@
 
 				$scope.patients = [];
 
-				$scope.myPromise = $http.post(baseApiUrl + 'users/search', searchCriteria)
+				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'users/search', searchCriteria)
 					.then(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){

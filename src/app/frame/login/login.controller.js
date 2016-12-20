@@ -7,15 +7,13 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController($scope, $http, $state, $window, toastr) {
+    function LoginController($scope, $http, $state, $window, toastr, CONFIG) {
 
         var vm = this;
-		$scope.testTitle = 'ddd';
 
 		$scope.login = function() {
-			var baseApiUrl = 'http://139.224.68.92:3000/';
 
-			$http.patch(baseApiUrl + 'login/doctor', $scope.credentials)
+			$http.patch(CONFIG.baseApiUrl + 'login/doctor', $scope.credentials)
 				.success(function(response) {
 					if (!response || response.length < 1 ||
 						(response.return && response.return.length > 0)) {

@@ -7,13 +7,12 @@
 
 	angular
 		.module('app.articlePush.receivers', [])
-		.controller('SelectSendeesController', function ($scope, $rootScope, $http, toastr) {
+		.controller('SelectSendeesController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
 
 			$scope.selectOk = function() {
 				this.$close($scope.groups);
 			};
-			var baseApiUrl = 'http://139.224.68.92:3000/';
 
 			$scope.toggleGroup = function(index) {
 				var gs = !$scope.groups[index].selected;
@@ -40,7 +39,7 @@
 				else {
 					$scope.groups = [];
 
-					$scope.myPromise =$http.get(baseApiUrl + 'relationships/doctor/' + $rootScope.login._id + '/select')
+					$scope.myPromise =$http.get(CONFIG.baseApiUrl + 'relationships/doctor/' + $rootScope.login._id + '/select')
 						.success(function(response) {
 							if (!response || response.length < 1 ||
 								(response.return && response.return.length > 0)) {

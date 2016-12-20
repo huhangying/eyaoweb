@@ -7,12 +7,12 @@
         .controller('ArticlePushController', ArticlePushController);
 
     /** @ngInject */
-    function ArticlePushController($scope, $rootScope, $http, toastr, $uibModal, $window) {
+    function ArticlePushController($scope, $rootScope, $http, toastr, $uibModal, $window, CONFIG) {
         var vm = this;
-		var baseApiUrl = 'http://139.224.68.92:3000/';
-		var baseImageServer = 'http://139.224.68.92:81/';
-		//var msgPostUrl = 'http://wx.rostensoft.com.ngrok.4kb.cn/rosten-wx/test/pushNews';
-		var msgPostUrl = 'http://yyl.rostensoft.com/zhaoys/doctor/pushNews';
+		// var baseApiUrl = 'http://139.224.68.92:3000/';
+		// var baseImageServer = 'http://139.224.68.92:81/';
+		// //var msgPostUrl = 'http://wx.rostensoft.com.ngrok.4kb.cn/rosten-wx/test/pushNews';
+		// var msgPostUrl = 'http://yyl.rostensoft.com/zhaoys/doctor/pushNews';
 
 		$scope.updated = false;
 		$scope.article = {};
@@ -80,11 +80,11 @@
 		};
 
 		$scope.previewArticle = function() {
-			$window.open(baseApiUrl + 'article/' + $scope.article._id);
+			$window.open(CONFIG.baseApiUrl + 'article/' + $scope.article._id);
 		};
 
 		$scope.uploadedImg = function() {
-			$scope.displayedUrl = baseImageServer + $scope.article.title_image;
+			$scope.displayedUrl = CONFIG.baseImageServer + $scope.article.title_image;
 			$scope.updated = true;
 		};
 
@@ -94,7 +94,7 @@
 			}
 
 			if ($scope.article.title_image) {
-				$scope.displayedUrl = baseImageServer + $scope.article.title_image;
+				$scope.displayedUrl = CONFIG.baseImageServer + $scope.article.title_image;
 				$scope.updated = true;
 			}
 		}
@@ -110,7 +110,7 @@
 				// create
 				$scope.article.apply = true;
 				$scope.article.doctor = $rootScope.login._id;
-				$scope.myPromise = $http.post(baseApiUrl + 'page', $scope.article)
+				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'page', $scope.article)
 					.success(function(response) {
 						if (!response || response.length < 1 ||
 							(response.return && response.return.length > 0)) {
@@ -128,7 +128,7 @@
 			}
 			else {
 				// update
-				$scope.myPromise = $http.patch(baseApiUrl + 'page/' + $scope.article._id, $scope.article)
+				$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'page/' + $scope.article._id, $scope.article)
 					.success(function(response) {
 						if (!response || response.length < 1 ||
 							(response.return && response.return.length > 0)) {
@@ -181,14 +181,14 @@
 					{
 						title: $scope.article.name,
 						description: $scope.article.title,
-						url: baseApiUrl + 'article/' + $scope.article._id,
-						picurl: baseImageServer + $scope.article.title_image
+						url: CONFIG.baseApiUrl + 'article/' + $scope.article._id,
+						picurl: CONFIG.baseImageServer + $scope.article.title_image
 					}
 				]
 			};
 
 			$http.defaults.headers.post["Content-Type"] = "text/plain";
-			$scope.myPromise = $http.post(msgPostUrl, reqBody)
+			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
 				.success(function(response) {
 					if (!response || response.result != 1) {
 						toastr.error('宣教材料发送失败.');

@@ -7,6 +7,7 @@
 
             // Core
             'app.core',
+			//'CONFIG',
 
             // Navigation
             'app.sidebar',

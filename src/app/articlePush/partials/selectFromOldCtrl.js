@@ -8,12 +8,12 @@
 	angular
 		.module('app.articlePush.old', [])
 
-		.controller('SelectFromOldController', function ($scope, $rootScope, $http, toastr) {
+		.controller('SelectFromOldController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
 
 			$scope.selectOk = function() {
 				// get article by id
-				$scope.myPromise = $http.get(baseApiUrl + 'page/' + $scope.articleId)
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'page/' + $scope.articleId)
 					.success(function (response) {
 						var selectArticle;
 						// check if return null
@@ -32,9 +32,6 @@
 
 			};
 
-			var baseApiUrl = 'http://139.224.68.92:3000/';
-			var baseImageServer = 'http://139.224.68.92:81/';
-
 			$scope.selectArticle = function(id) {
 				$scope.articleId = id;
 			};
@@ -43,7 +40,7 @@
 			var init = function () {
 				$scope.articles = [];
 				$scope.loadArticles = function() {
-					$scope.myPromise = $http.get(baseApiUrl + 'pages/doctor/' + $rootScope.login._id)
+					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'pages/doctor/' + $rootScope.login._id)
 						.success(function (response) {
 							// check if return null
 							if (response.return && response.return == 'null'){

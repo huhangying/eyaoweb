@@ -8,20 +8,18 @@
 	angular
 		.module('app.articlePush.template', ['textAngular', 'flow'])
 
-		.controller('SelectTemplateController', function ($scope, $rootScope, $http, toastr) {
+		.controller('SelectTemplateController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
 
 			$scope.selectOk = function() {
 				this.$close($scope.template);
 			};
-			var baseApiUrl = 'http://139.224.68.92:3000/';
-			var baseImageServer = 'http://139.224.68.92:81/';
 
 			var templateChanged = function() {
 				if (!$scope.selectedTemplate) {return;}
 
 				// load template
-				$scope.myPromise = $http.get(baseApiUrl + 'template/' + $scope.selectedTemplate)
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'template/' + $scope.selectedTemplate)
 					.success(function(response) {
 						if (!response || response.length < 1 ||
 							(response.return && response.return.length > 0)) {
@@ -31,7 +29,7 @@
 
 						$scope.template = response;
 						if ($scope.template.title_image) {
-							$scope.displayedUrl = baseImageServer + $scope.template.title_image;
+							$scope.displayedUrl = CONFIG.baseImageServer + $scope.template.title_image;
 						}
 					})
 					.error(function(err){
@@ -42,7 +40,7 @@
 			var init = function () {
 				$scope.cats = [];
 				$scope.loadCats = function() {
-					$scope.myPromise = $http.get(baseApiUrl + 'articlecats/department/' + $rootScope.login.department)
+					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'articlecats/department/' + $rootScope.login.department)
 						.success(function (response) {
 							// check if return null
 							if (response.return && response.return == 'null'){
@@ -61,7 +59,7 @@
 
 				$scope.templates = [];
 				$scope.myPromise = $scope.loadTemplates = function() {
-					$http.get(baseApiUrl + 'templates/department/' + $rootScope.login.department)
+					$http.get(CONFIG.baseApiUrl + 'templates/department/' + $rootScope.login.department)
 						.success(function (response) {
 							// check if return null
 							if (response.return && response.return == 'null'){
