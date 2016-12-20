@@ -187,7 +187,7 @@
 				]
 			};
 
-			$http.defaults.headers.post["Content-Type"] = "text/plain";
+			$http.defaults.headers.post['Content-Type'] = 'text/plain';
 			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
 				.success(function(response) {
 					if (!response || response.result != 1) {
