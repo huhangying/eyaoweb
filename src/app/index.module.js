@@ -19,6 +19,8 @@
             'app.home',
 			'app.main',
 			'app.main.patient',
+			'app.main.newPatient',
+			'app.main.surveyFirst',
 			'app.chat',
 			'app.book',
 			'app.articlePush',
