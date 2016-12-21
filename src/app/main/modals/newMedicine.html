@@ -1,0 +1,90 @@
+<div class="modal-header">
+	<h3 class="modal-title pull-left" id="modal-title">创建新处方</h3>
+
+	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div cg-busy="myPromise"></div>
+<div class="modal-body clearfix" id="modal-body">
+
+	<form name="editQForm" >
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputName" class="control-label">问题</label>
+					<input type="text" class="form-control" id="inputName" placeholder="" ng-model="newMedicine.question" required />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="inputAnswerType" class="control-label">答案类型</label>
+					<select class="form-control" id="inputAnswerType" ng-model="newMedicine.answer_type" ng-change="changeEditAnswerType()">
+						<option value=""> -- 选择答案类型 -- </option>
+						<option value="0">是非题</option>
+						<option value="1">单选题</option>
+						<option value="2">多选题</option>
+						<option value="3">填空</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<!--<div class="form-group" ng-show="newMedicine.answer_type === '1' || newMedicine.answer_type === '2'">-->
+					<label for="inputoptionNumber" class="control-label">答案个数</label>
+					<input type="number" class="form-control" id="inputoptionNumber" ng-model="newMedicine.optionNumber" ng-blur="changeEditOptionNumber()" min="1" max="10">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label for="inputWeight" class="control-label">分值</label>
+					<input type="number" class="form-control" id="inputWeight" ng-model="newMedicine.weight" min="0" max="100">
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					<label for="inputOrder" class="control-label">排序</label>
+					<input type="number" class="form-control" id="inputOrder" ng-model="newMedicine.order">
+				</div>
+			</div>
+			<div class="col-md-1">
+				<div class="form-group">
+					<label for="radioRequired" class="control-label">必填?</label>
+					<input type="checkbox" class="form-control" id="radioRequired" ng-model="newMedicine.required">
+				</div>
+			</div>
+			<div class="col-md-1">
+				<div class="form-group">
+					<label for="radioApply" class="control-label">有效?</label>
+					<input type="checkbox" class="form-control" id="radioApply" ng-model="newMedicine.apply">
+				</div>
+			</div>
+		</div>
+		<table class="table" ng-show="newMedicine.optionNumber > 0">
+			<thead class="bold-text bg-info">
+			<td style="width:4%">#</td>
+			<td style="width:76%">答案</td>
+			<td style="width:10%">用户填空</td>
+			<td style="width:10%" ng-if="newMedicine.weight>0">分值</td>
+			</thead>
+			<tbody>
+			<tr ng-repeat="option in newMedicine.options track by $index">
+				<td>{{$index+1}}</td>
+				<td><input type="text" class="form-control" ng-model="option.answer" placeholder="设置答案"></td>
+				<td><input type="checkbox" class="form-control" ng-model="option.input_required"></td>
+				<td><input type="number" class="form-control" ng-model="option.weight" ng-if="newMedicine.weight>0"></td>
+			</tr>
+			</tbody>
+		</table>
+
+	</form>
+
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="selectOk()">选择</button>
+	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
+</div>
+

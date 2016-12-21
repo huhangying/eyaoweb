@@ -22,6 +22,7 @@
 			'app.main.newPatient',
 			'app.main.surveyFirst',
 			'app.main.conclusion',
+			'app.main.newMedicine',
 			'app.chat',
 			'app.book',
 			'app.articlePush',

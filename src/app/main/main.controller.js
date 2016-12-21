@@ -90,10 +90,31 @@
 				});
 		};
 
+		vm.addMedicine = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/newMedicine.html',
+				controller: 'NewMedicineController',
+				size: 'lg'
+			})
+				.result.then(
+				function (medicine) {
+					$scope.prescription.push(medicine);
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+
 		var init = function () {
 			$scope.patient = {
 				name: 'test'
-			}
+			};
+			$scope.prescription = [];
 		};
 		init();
 	}
