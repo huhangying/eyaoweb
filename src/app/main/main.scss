@@ -5,3 +5,35 @@
 	border-left: 1px solid #f2f2f2;
   }
 }
+
+.tab-pane {
+  padding: 20px 10px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+
+#main-conclusion {
+  .tab-header {
+	padding: 2px 20px 2px;
+  }
+
+  .nav-justified > li {
+	padding-bottom: 0 !important;
+  }
+  .nav-tabs.nav-justified > li > a {
+	margin-left: 2px ;
+	top: 1px;
+	border: none;
+  }
+  .nav-tabs.nav-justified > li:first-child > a {
+	margin-left: 0;
+  }
+  .nav-tabs.nav-justified > li > a:link {
+	background: #eee;
+  }
+
+}

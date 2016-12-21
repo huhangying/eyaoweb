@@ -34,11 +34,22 @@
 
 
 				<button class="btn btn-primary-outline" ng-click="" ng-if="patient">随访评估</button>
-				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">随访小结</button>
 				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">监测计划</button>
-				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">录入化验结果</button>
+				<div class="btn-group" ng-if="patient">
+					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
+						<span ng-click="">化验结果</span>
+						<span class="divider-vertical"></span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown-item"><a href="#">录入 A 化验结果</a></li>
+						<li class="dropdown-item"><a href="#">录入 B 化验结果</a></li>
+						<li class="dropdown-item"><a href="#">录入 C 化验结果</a></li>
+					</ul>
+				</div>
+				<button class="btn btn-primary-outline" ng-click="vm.drawConclusion()" ng-if="patient">门诊结论</button>
 
-				<button class="btn btn-primary-outline pull-right" ng-click="vm.sendMessage()" ng-if="patient">结论推送</button>
 				<button class="btn btn-primary{{article._id?'':'-outline'}} pull-right m-r-md" ng-click="vm.saveArticle()" ng-if="patient">保存</button>
 				<hr/>
 			</div>

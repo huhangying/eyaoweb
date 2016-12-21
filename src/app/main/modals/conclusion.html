@@ -1,0 +1,54 @@
+<div class="modal-header">
+	<h3 class="modal-title pull-left" id="modal-title">门诊结论</h3>
+
+	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div cg-busy="myPromise"></div>
+<div class="modal-body clearfix" id="main-conclusion" ng-cloak="true">
+
+	<uib-tabset active="activeTab" justified="true">
+		<uib-tab index="0" ng-click="activeTab = 0">
+			<uib-tab-heading class="tab-header  {{activeTab == 0?'text-warning':''}}">
+				<i class="fa fa-address-card" aria-hidden="true"></i>
+				随访小结
+			</uib-tab-heading>
+			<ng-form name="nestedForm">
+				<div class="form-group">
+					随访小结内容 goes here
+				</div>
+			</ng-form>
+		</uib-tab>
+		<uib-tab index="1" ng-click="activeTab = 1">
+			<uib-tab-heading class="tab-header {{activeTab == 1?'text-warning':''}} ">
+				<i class="fa fa-share" aria-hidden="true"></i>
+				建议转诊
+			</uib-tab-heading>
+			<div class="tab-content">
+				Some Tab Content
+			</div>
+
+		</uib-tab>
+		<uib-tab index="2" ng-click="activeTab = 2" class="">
+			<uib-tab-heading class="tab-header {{activeTab == 2?'text-warning':''}}">
+				<i class="fa fa-bell" aria-hidden="true"></i>
+				监测计划
+			</uib-tab-heading>
+			<div>
+				More Tab Content
+			</div>
+		</uib-tab>
+	</uib-tabset>
+
+
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="selectOk()">
+		<i class="fa fa-paper-plane" aria-hidden="true"></i>
+		发送门诊结论
+	</button>
+	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
+</div>
+

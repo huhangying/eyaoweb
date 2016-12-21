@@ -70,6 +70,32 @@
 				});
 		};
 
+		vm.drawConclusion = function () {
+
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/conclusion.html',
+				controller: 'ConclusionController',
+				size: 'lg'
+			})
+				.result.then(
+				function (conclusion) {
+					$scope.conclusion = survey;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+		var init = function () {
+			$scope.patient = {
+				name: 'test'
+			}
+		};
+		init();
 	}
 
 })();
