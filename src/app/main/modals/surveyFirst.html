@@ -1,4 +1,4 @@
-<div class="modal-header">
+<div class="modal-header" id="first-survey">
 	<h3 class="modal-title pull-left" id="modal-title">初诊问卷</h3>
 
 	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
@@ -9,11 +9,38 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-	初诊问卷 content goes here...
+	<div ng-repeat="group in groups track by $index">
+		{{survey.id}}
+		<div ng-repeat="survey in group.surveys " style="padding: 0 0 10px;" class="form-inline">
+			<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
+			<div class="" style="padding: 0 10px 16px;"
+					ng-repeat="question in survey.questions track by $index">
+				<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
+				<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;">
+					<div class="text-muted form-group">
+						<label>
+							<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+									 name="question{{$parent.$parent.$index}}{{$parent.$index}}"
+										 ng-value="option.selected"
+									ng-click="changeSelection(question, $index)">
+
+							<span ng-if="question.answer_type != 3">&nbsp;&nbsp;{{option.answer}}</span>
+						</label>
+						<input type="text" ng-model="option.answer" class="form-control"
+									 ng-if="question.answer_type == 3">
+						<input type="text" ng-model="option.input" class="form-control"
+									 ng-if="option.input_required && option.selected">
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	{{groups | json:2}}
 </div>
 
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="selectOk()">选择</button>
+	<button class="btn btn-primary" type="button" ng-click="selectOk()">确认</button>
 	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
 </div>
 

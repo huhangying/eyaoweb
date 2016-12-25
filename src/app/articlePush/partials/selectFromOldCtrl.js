@@ -39,26 +39,25 @@
 
 			var init = function () {
 				$scope.articles = [];
-				$scope.loadArticles = function() {
-					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'pages/doctor/' + $rootScope.login._id)
-						.success(function (response) {
-							// check if return null
-							if (response.return && response.return == 'null'){
-								$scope.articles = [];
-							}
-							else {
-								$scope.articles = response;
-								$scope.articles.map(function(article) {
-									article.timestamp = moment(article.createdAt).format('YYYY年M月D日');
-								});
-							}
+				
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'pages/doctor/' + $rootScope.login._id)
+					.success(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							$scope.articles = [];
+						}
+						else {
+							$scope.articles = response;
+							$scope.articles.map(function(article) {
+								article.timestamp = moment(article.createdAt).format('YYYY年M月D日');
+							});
+						}
 
-						})
-						.error(function(error){
-							toastr.error(error.messageFormatted);
-						});
-				};
-				$scope.loadArticles();
+					})
+					.error(function(error){
+						toastr.error(error.messageFormatted);
+					});
+
 			};
 
 			init();
