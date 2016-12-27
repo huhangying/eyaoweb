@@ -11,6 +11,7 @@
 		.controller('SurveyFirstController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
 			$scope.surveyFirst = {};
+			$scope.forms = [];
 
 			var checkContent = function() {
 				if (!$scope.groups || $scope.groups.length < 1) {
@@ -72,7 +73,8 @@
 					return;
 				}
 
-				// save
+				// convert and save
+				convertAndSave();
 
 				// return to main process
 				this.$close($scope.surveyFirst);
@@ -99,6 +101,38 @@
 				else if (question.answer_type == 2) {
 					question.options[index].selected = !question.options[index].selected;
 				}
+
+			};
+
+			var convertAndSave = function () {
+
+				$scope.groups.map(function(group) {
+					var surveys = [];
+
+					//if ($scope.forms[index].$dirty) {
+					group.surveys.map(function(survey) {
+						var reqSurvey = {
+							department: $rootScope.login.department,
+							group: group.id,
+							name: survey.name,
+							order: survey.order,
+							type: 1,
+							questions: survey.questions
+						}
+						toastr.info(reqSurvey);
+
+						// save
+						$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'survey', reqSurvey)
+							.success(function (response) {
+								surveys.push(reqSurvey);
+							})
+							.error(function(error){
+								toastr.error(error.messageFormatted);
+							});
+
+					});
+					
+				});
 
 			};
 
