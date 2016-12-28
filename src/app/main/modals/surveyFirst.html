@@ -9,9 +9,8 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-	<div ng-repeat="group in groups track by $index">
-		<ng-form name="form{{$index}}">
-			<div ng-repeat="survey in group.surveys " style="padding: 0 0 10px;" class="form-inline">
+	<div ng-repeat="survey in firstSurveys track by $index" class="form-inline" style="padding: 0 0 10px;">
+		<div>
 				<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
 				<div style="padding: 0 10px 16px;"
 						 ng-repeat="question in survey.questions track by $index">
@@ -21,7 +20,7 @@
 							<label>
 								<input type="{{getTypeById(question.answer_type)}}" class="form-control"
 											 name="question{{$parent.$parent.$index}}{{$parent.$index}}"
-											 ng-value="option.selected"
+											 ng-checked="option.selected"
 											 ng-click="changeSelection(question, $index)">
 
 								<span ng-if="question.answer_type != 3">&nbsp;&nbsp;{{option.answer}}</span>
@@ -33,9 +32,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</ng-form>
+		</div>
 	</div>
+
 </div>
 
 <div class="modal-footer">

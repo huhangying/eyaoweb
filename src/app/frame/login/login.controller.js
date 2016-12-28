@@ -30,7 +30,7 @@
 					}
 					else{
 						//$window.location.href = '/#/home';// + response._id;
-						$state.go('app.home');
+						$state.go('app.main');
 					}
 
 				})

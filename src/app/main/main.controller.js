@@ -112,7 +112,8 @@
 
 		var init = function () {
 			$scope.patient = {
-				name: 'test'
+				_id: '57981d36ccc395a90ec28020',
+				name: 'teste'
 			};
 			$scope.prescription = [];
 		};

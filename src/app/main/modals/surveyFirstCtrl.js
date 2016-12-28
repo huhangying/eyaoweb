@@ -14,51 +14,44 @@
 			$scope.forms = [];
 
 			var checkContent = function() {
-				if (!$scope.groups || $scope.groups.length < 1) {
-					toastr.warning('需要至少一个问卷');
+				if (!$scope.firstSurveys || $scope.firstSurveys.length < 1) {
+					toastr.warning('需要至少一个问卷调查');
 					return false;
 				}
 
-				for (var i=0; i<$scope.groups.length; i++) {
-					if (!$scope.groups[i] || !$scope.groups[i].surveys || $scope.groups[i].surveys.length < 1) {
-						toastr.warning('每个组内需要至少一个问卷');
+				for (var i=0; i<$scope.firstSurveys.length; i++) {
+					if (!$scope.firstSurveys[i].questions || $scope.firstSurveys[i].questions.length < 1) {
+						toastr.warning('每个问卷调查至少需要有一个问题');
 						return false;
 					}
 
-					for (var n=0; n<$scope.groups[i].surveys.length; n++) {
-						if (!$scope.groups[i].surveys[n] || !$scope.groups[i].surveys[n].questions || $scope.groups[i].surveys[n].questions.length < 1) {
-							toastr.warning('每个组每一个问卷至少需要一个问题');
+					for (var m=0; m<$scope.firstSurveys[i].questions.length; m++) {
+						var question = $scope.firstSurveys[i].questions[m];
+						if (!question.options || question.options.length < 1) {
+							toastr.warning('每个问题至少需要一个答案');
 							return false;
 						}
 
-						for (var m=0; m<$scope.groups[i].surveys[n].questions.length; m++) {
-							var question = $scope.groups[i].surveys[n].questions[m];
-							if (!question.options || question.options.length < 1) {
-								toastr.warning('每个组每一个问卷每一个问题至少需要一个答案');
-								return false;
+						if (question.apply && question.required) { // 问题为必选, 需要监测是否答案已选
+							if (question.answer_type == 3 ) {
+								if (!question.options[0].answer) {
+									toastr.warning('请输入回答问题[' + question.question + ']');
+									return false;
+								}
 							}
-
-							if (question.apply && question.required) { // 问题为必选, 需要监测是否答案已选
-								if (question.answer_type == 3 ) {
-									if (!question.options[0].answer) {
-										toastr.warning('请输入回答问题[' + question.question + ']');
-										return false;
+							else {
+								var selectedCount = 0;
+								for (var x=0; x<question.options.length; x++) {
+									if (question.options[x].selected) {
+										selectedCount++;
 									}
 								}
-								else {
-									var selectedCount = 0;
-									for (var x=0; x<question.options.length; x++) {
-										if (question.options[x].selected) {
-											selectedCount++;
-										}
-									}
-									if (selectedCount === 0) {
-										toastr.warning('请选择问题[' + question.question + ']的答案');
-										return false;
-									}
+								if (selectedCount === 0) {
+									toastr.warning('请选择问题[' + question.question + ']的答案');
+									return false;
 								}
-
 							}
+
 						}
 					}
 
@@ -106,39 +99,34 @@
 
 			var convertAndSave = function () {
 
-				$scope.groups.map(function(group) {
-					var surveys = [];
-
-					//if ($scope.forms[index].$dirty) {
-					group.surveys.map(function(survey) {
-						var reqSurvey = {
-							department: $rootScope.login.department,
-							group: group.id,
-							name: survey.name,
-							order: survey.order,
-							type: 1,
-							questions: survey.questions
-						}
-						toastr.info(reqSurvey);
-
-						// save
-						$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'survey', reqSurvey)
+				$scope.firstSurveys.map(function(survey) {
+					// save
+					if (survey._id) { // update
+						$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'survey/' + survey._id, survey)
 							.success(function (response) {
-								surveys.push(reqSurvey);
+								toastr.info('更新问卷' + survey.name + '成功');
 							})
-							.error(function(error){
-								toastr.error(error.messageFormatted);
+							.error(function(){
+								toastr.error(CONFIG.Error.Internal);
 							});
+					}
+					else {
+						$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'survey', survey)
+							.success(function (response) {
+								survey = response;
+								toastr.info('创建问卷' + survey.name + '成功');
+							})
+							.error(function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
+					}
 
-					});
-					
 				});
 
 			};
 
-			var init = function () {
-				$scope.firstSurveys = [];
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + $rootScope.login.department + '/1/0')
+			var loadFromTemplate = function(department) {
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/1')
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
@@ -146,37 +134,47 @@
 						}
 						else {
 							$scope.firstSurveys = response;
-							$scope.groups = [];
 							$scope.firstSurveys.map(function(survey) {
-								var found = false;
-								for (var i=0; i<$scope.groups.length; i++) {
-									if ($scope.groups[i].id === survey.group) {
-										found = true;
-										$scope.groups[i].surveys.push({
-											questions: survey.questions,
-											name: survey.name,
-											order: survey.order
-										});
-										break;
-									}
-								}
-								if (found === false) {
-									$scope.groups.push({
-										id: survey.group,
-										surveys: [{
-											questions: survey.questions,
-											name: survey.name,
-											order: survey.order
-										}]
-									});
-								}
+								survey.surveyTemplate = survey._id;
+								survey.user = $scope.patient._id;
+
+								survey._id = undefined;
 							});
 						}
 
 					})
-					.error(function(error){
-						toastr.error(error.messageFormatted);
+					.error(function(){
+						toastr.error(CONFIG.Error.Internal);
 					});
+			};
+
+			var init = function () {
+				$scope.firstSurveys = [];
+
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login.department
+					+ '/' + $scope.patient._id + '/1')
+					.success(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							$scope.firstSurveys = [];
+
+							loadFromTemplate($rootScope.login.department);
+						}
+						else {
+							$scope.firstSurveys = response;
+							// $scope.firstSurveys.map(function(survey) {
+							// 	survey.surveyTemplate = survey._id;
+							// 	survey.user = $scope.patient._id;
+                            //
+							// 	survey._id = undefined;
+							// });
+						}
+
+					})
+					.error(function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+
 			};
 
 			init();
