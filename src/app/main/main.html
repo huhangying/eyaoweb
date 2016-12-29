@@ -1,9 +1,18 @@
 
 <div id="main-process" class="box">
 	<div class="box-header">
-		<div class="h3 pull-left">门诊 </div>
-		<span class="btn bg-success pull-right" style="padding: 3px 11px;">{{ patient? patient.name : '未选患者' }}</span>
+		<div class="h3 pull-left">药师门诊 </div>
+
+		<div class="btn-group pull-right" style="padding-right:20px;">
+			<span class="btn bg-success " style="padding: 3px 11px;">
+				{{ patient? patient.name : '未选患者' }}&nbsp;
+				<span class="divider-vertical"></span>
+				<i class="fa fa-history" aria-hidden="true"></i>
+			</span>
+
+		</div>
 	</div>
+
 	<div cg-busy="myPromise"></div>
 	<div class="box-body">
 		<div class="row">
@@ -34,7 +43,6 @@
 
 
 				<button class="btn btn-primary-outline" ng-click="" ng-if="patient">随访评估</button>
-				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">监测计划</button>
 				<div class="btn-group" ng-if="patient">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
@@ -62,6 +70,7 @@
 		<div style="padding-top: 10px;" ng-if="patient">
 			<h5>用药计划（处方）</h5>
 			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="patient">新开处方</button>
+			<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">监测计划</button>
 
 			<div>
 
@@ -74,8 +83,8 @@
 				<td style="width:10%">单位</td>
 				<td style="width:14%">服用频率</td>
 				<td style="width:14%">服用方法</td>
-				<td style="width:8%">应用?</td>
-				<td style="width:10%"></td>
+				<td style="width:10%">注意事项</td>
+				<td style="width:8%"></td>
 				</thead>
 				<tbody>
 				<tr ng-repeat="question in prescription | orderBy:'order' track by $index">
