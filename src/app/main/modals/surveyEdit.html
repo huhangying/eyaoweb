@@ -1,5 +1,5 @@
 <div class="modal-header" id="first-survey">
-	<h3 class="modal-title pull-left" id="modal-title">初诊问卷</h3>
+	<h3 class="modal-title pull-left" id="modal-title">{{surveyTitle}}</h3>
 
 	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
 		<span aria-hidden="true">&times;</span>
@@ -9,7 +9,7 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-	<div ng-repeat="survey in firstSurveys track by $index" class="form-inline" style="padding: 0 0 10px;">
+	<div ng-repeat="survey in surveys track by $index" class="form-inline" style="padding: 0 0 10px;"	ng-if="surveys && surveys.length>0">
 		<div>
 				<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
 				<div style="padding: 0 10px 16px;"
@@ -44,6 +44,9 @@
 				</div>
 		</div>
 	</div>
+	<blockquote ng-if="!surveys || surveys.length<1" >
+		<p>无可用问卷。请联系管理者到后台增加。</p>
+	</blockquote>
 
 </div>
 

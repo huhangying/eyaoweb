@@ -20,7 +20,7 @@
 			'app.main',
 			'app.main.patient',
 			'app.main.newPatient',
-			'app.main.surveyFirst',
+			'app.main.surveyEdit',
 			'app.main.conclusion',
 			'app.main.newMedicine',
 			'app.chat',

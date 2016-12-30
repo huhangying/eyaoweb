@@ -50,20 +50,23 @@
 				});
 		};
 
-		vm.surveyFirst = function () {
-
+		vm.openSurvey = function (type) {
+			$scope.selectedSurveyType = type;
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
 				ariaLabelledBy: 'modal-title-top',
 				ariaDescribedBy: 'modal-body-top',
-				templateUrl: 'app/main/modals/surveyFirst.html',
-				controller: 'SurveyFirstController',
+				templateUrl: 'app/main/modals/surveyEdit.html',
+				controller: 'SurveyEditController',
 				size: 'lg'
 			})
 				.result.then(
 				function (survey) {
-					$scope.surveyFirst = survey;
+					switch(type) {
+						case 1:
+							$scope.surveyFirst = survey;
+					}
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
