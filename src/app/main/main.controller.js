@@ -83,7 +83,7 @@
 			})
 				.result.then(
 				function (conclusion) {
-					$scope.conclusion = survey;
+					$scope.conclusion = conclusion;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

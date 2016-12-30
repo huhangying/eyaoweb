@@ -136,6 +136,7 @@
 							$scope.firstSurveys = response;
 							$scope.firstSurveys.map(function(survey) {
 								survey.surveyTemplate = survey._id;
+								survey.doctor = $rootScope.login._id;
 								survey.user = $scope.patient._id;
 
 								survey._id = undefined;
@@ -151,7 +152,7 @@
 			var init = function () {
 				$scope.firstSurveys = [];
 
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login.department
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login._id
 					+ '/' + $scope.patient._id + '/1')
 					.success(function (response) {
 						// check if return null
