@@ -18,6 +18,7 @@
             'app.register',
             'app.home',
 			'app.main',
+			'app.main.booking',
 			'app.main.patient',
 			'app.main.newPatient',
 			'app.main.surveyEdit',

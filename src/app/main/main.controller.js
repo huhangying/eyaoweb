@@ -10,6 +10,26 @@
     function MainController($scope, $rootScope, $http, toastr, $uibModal, $window) {
         var vm = this;
 
+		vm.selectBooking = function () {
+
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/selectBooking.html',
+				controller: 'SelectBookingController',
+				size: 'lg'
+			})
+				.result.then(
+				function (patient) {
+					$scope.patient = patient;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
 		vm.selectPatient = function () {
 
 			$uibModal.open({
