@@ -17,6 +17,8 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
+				<button class="btn btn-primary-outline" ng-click="vm.selectBooking()" ng-if="patient">选择预约</button>
+
 				<div class="btn-group">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{patient? 'fa-check-circle':''}}" aria-hidden="true"></i>
@@ -28,7 +30,6 @@
 						<li class="dropdown-item"><a href="#" ng-click="vm.createPatient()">新建患者</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-primary-outline" ng-click="vm.selectBooking()" ng-if="patient">选择预约</button>
 				<div class="btn-group" ng-if="patient">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>

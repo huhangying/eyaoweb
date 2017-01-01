@@ -5,47 +5,31 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<div class="text-muted">从今天的门诊预约列表中选择</div>
+	<em class="text-muted">从今天的门诊预约列表中选择</em>
 </div>
 <div cg-busy="myPromise"></div>
 <form name="form">
 	<div class="modal-body" id="modal-body">
-		<div class="row">
-			<div class="col-sm-5">
-				<div class="form-inline">
-					<label class="form-control-label"> 请选择</label>
-					<select class="form-control form-control-" data-ng-model="searchOption">
-						<!--<option value="0" selected>搜索选项</option>-->
-						<option value=1>门诊号</option>
-						<option value="2">姓名</option>
-						<option value="3">手机号码</option>
-						<option value="4">社保号</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-sm-7">
-				<div class="form-inline">
-					<input class="form-control" type="text" placeholder="请输入..." ng-model="searchValue" required>
-					<button class="btn btn-primary" ng-click="searchPatients()">搜索</button>
-				</div>
 
-			</div>
-		</div>
-
-		<div ng-repeat="patient in patients track by $index" class="m-a-0 p-a-0 clearfix" > 
+		<div ng-repeat="booking in bookings track by $index" class="clearfix p-l-md" ng-if="bookings && bookings.length>0"> 
 			<div class="row">
 				<label class="text-primary">
 					&nbsp;
-					<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
-					&nbsp;{{patient.name}}
-					&nbsp;电话号码: {{patient.cell}}
-					&nbsp;生日: {{patient.birthdate || '未设'}}
+					<input type="radio" name="searchResults" ng-click="selectBooking($index)">
+					&nbsp;{{booking.user.name}}
+					&nbsp;手机: {{booking.user.cell}}
+					&nbsp;状态: {{booking.status}}
 				</label>
 			</div> 
 		</div>
+
+		<div ng-if="!bookings || bookings.length<1"> 
+			无今日可用预约。
+		</div>
+
 	</div>
 	<div class="modal-footer clearfix">
-		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !selectedPatient" ng-click="selectOk()">确认</button>
+		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !selectedBooking" ng-click="selectOk()">确认</button>
 		<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 	</div>
 </form>

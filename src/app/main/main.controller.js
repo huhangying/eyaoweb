@@ -22,8 +22,9 @@
 				size: 'lg'
 			})
 				.result.then(
-				function (patient) {
-					$scope.patient = patient;
+				function (booking) {
+					$scope.booking = booking;
+					$scope.patient = booking.user;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
