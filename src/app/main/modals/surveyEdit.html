@@ -19,7 +19,7 @@
 						<div class="text-muted form-group">
 							<label ng-if="question.answer_type == 0 || question.answer_type == 1">
 								<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-											 name="answer{{$parent.$parent.$index}}{{$parent.$index}}"
+											 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
 											 ng-checked="option.selected"
 											 data-ng-model="option.selected"
 											 data-ng-value="option.selected || 'trick for radio'"
@@ -29,7 +29,7 @@
 							</label>
 							<label ng-if="question.answer_type == 2">
 								<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-											 name="answer{{$parent.$parent.$index}}{{$parent.$index}}"
+											 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
 											 ng-checked="option.selected"
 											 ng-click="changeSelection(question, $index)">
 
