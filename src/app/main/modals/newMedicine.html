@@ -8,58 +8,82 @@
 
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
+	<div>
+		<select class="form-control" ng-model="selectedMedicine"
+						ng-options="option.name for option in medicines track by option._id">
+		</select>
+	</div>
+	{{selectedMedicine}}
 
-	<form name="editQForm" >
+	<form name="medicineForm" >
+
+
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="form-group">
-					<label for="inputName" class="control-label">问题</label>
-					<input type="text" class="form-control" id="inputName" placeholder="" ng-model="newMedicine.question" required />
+					<label for="inputName" class="control-label">药名</label>
+					<input type="text" class="form-control" id="inputName" placeholder="" ng-model="selectedMedicine.name" required />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label for="inputUsage" class="control-label">使用方法</label>
+					<select class="form-control" ng-model="selectedMedicine.usage" id="inputUsage" required>
+						<option value="内服">内服</option>
+						<option value="外用">外用</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label for="inputCapacity" class="control-label">药品总量</label>
+					<input type="number" class="form-control" id="inputCapacity" ng-model="selectedMedicine.capacity" min="0" max="10000" required />
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label for="inputCapacity" class="control-label">单位</label>
+					<select class="form-control" ng-model="selectedMedicine.unit" required>
+						<option value="粒" selected>粒</option>
+						<option value="毫升">毫升</option>
+					</select>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-sm-3">
+				<label class="control-label">服药时间</label>
+				<select class="form-control" ng-model="selectedMedicine.dosage.way" required>
+					<option value="0">-- 请选择 --</option>
+					<option value="1">饭后</option>
+					<option value="2">饭前</option>
+					<option value="3">饭中</option>
+					<option value="4">睡前</option>
+					<option value="5">每4小时</option>
+					<option value="6">每8小时</option>
+					<option value="7">每12小时</option>
+					<option value="8">每天</option>
+					<option value="9">隔天</option>
+				</select>
+			</div>
+			<div class="col-sm-3">
 				<div class="form-group">
-					<label for="inputAnswerType" class="control-label">答案类型</label>
-					<select class="form-control" id="inputAnswerType" ng-model="newMedicine.answer_type" ng-change="changeEditAnswerType()">
-						<option value=""> -- 选择答案类型 -- </option>
-						<option value="0">是非题</option>
-						<option value="1">单选题</option>
-						<option value="2">多选题</option>
-						<option value="3">填空</option>
-					</select>
+					<label for="inputFrequency" class="control-label">服用频率</label>
+					<input type="number" class="form-control" id="inputFrequency" min="0" max="100"
+								 ng-model="selectedMedicine.dosage.frequency" required />
 				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-sm-6">
 				<div class="form-group">
-					<!--<div class="form-group" ng-show="newMedicine.answer_type === '1' || newMedicine.answer_type === '2'">-->
-					<label for="inputoptionNumber" class="control-label">答案个数</label>
-					<input type="number" class="form-control" id="inputoptionNumber" ng-model="newMedicine.optionNumber" ng-blur="changeEditOptionNumber()" min="1" max="10">
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="form-group">
-					<label for="inputWeight" class="control-label">分值</label>
-					<input type="number" class="form-control" id="inputWeight" ng-model="newMedicine.weight" min="0" max="100">
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="form-group">
-					<label for="inputOrder" class="control-label">排序</label>
-					<input type="number" class="form-control" id="inputOrder" ng-model="newMedicine.order">
-				</div>
-			</div>
-			<div class="col-md-1">
-				<div class="form-group">
-					<label for="radioRequired" class="control-label">必填?</label>
-					<input type="checkbox" class="form-control" id="radioRequired" ng-model="newMedicine.required">
-				</div>
-			</div>
-			<div class="col-md-1">
-				<div class="form-group">
-					<label for="radioApply" class="control-label">有效?</label>
-					<input type="checkbox" class="form-control" id="radioApply" ng-model="newMedicine.apply">
+					<label for="inputCount" class="control-label">每次</label>
+					<div class="input-group">
+						<input type="number" class="form-control" id="inputCount" min="0"
+									 ng-model="selectedMedicine.dosage.count" required />
+						<span class="input-group-addon" id="basic-addon1">.</span>
+						<input type="number" class="form-control" id="inputCountFractions" min="0"
+									 ng-model="selectedMedicine.dosage.countFractions" required />
+					</div>
+
 				</div>
 			</div>
 		</div>

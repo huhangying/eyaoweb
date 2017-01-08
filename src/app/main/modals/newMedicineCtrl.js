@@ -10,16 +10,38 @@
 
 		.controller('NewMedicineController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
-			$scope.newMedicine = {};
+			$scope.selectedMedicine = {};
 
 			$scope.selectOk = function() {
-				this.$close($scope.newMedicine);
+				this.$close($scope.selectedMedicine);
 			};
 
+			$scope.selectMedicine = function (id) {
+				$scope.selectedMedicine = $scope.medicines.filter(function(med) {
+					return med._id === id;
+				});
+
+			}
 
 
 			var init = function () {
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'medicines')
+					.then(function (response) {
+							// check if return null
+							if (response.return && response.return == 'null'){
+								$scope.medicines = [];
+								return;
+							}
+							$scope.medicines = response.data;
 
+						},
+						function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
+
+				if ($scope.editedMedicine) {
+					$scope.selectedMedicine = $scope.editedMedicine;
+				}
 
 			};
 

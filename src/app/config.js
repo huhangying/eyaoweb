@@ -21,6 +21,17 @@
 				"化验结果",		//5
 				"药师评估"		//6
 			],
+			medicineDosageWays: [
+				{text: "饭后", value: "1"},
+				{text: "饭前", value: "2"},
+				{text: "饭中", value: "3"},
+				{text: "睡前", value: "4"},
+				{text: "每4小时", value: "5"},
+				{text: "每8小时", value: "6"},
+				{text: "每12小时", value: "7"},
+				{text: "每天", value: "8"},
+				{text: "隔天", value: "9"}
+			],
 			Error: {
 				Internal: '数据库访问内部错误'
 			}

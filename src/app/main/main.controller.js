@@ -7,7 +7,7 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController($scope, $rootScope, $http, toastr, $uibModal, $window) {
+    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG, $window) {
         var vm = this;
 
 		vm.selectBooking = function () {
@@ -115,6 +115,7 @@
 		};
 
 		vm.addMedicine = function () {
+			$scope.editedMedicine = undefined;
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -127,12 +128,64 @@
 				.result.then(
 				function (medicine) {
 					$scope.prescription.push(medicine);
+					updatePrescriptionNotices();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
 				});
 		};
 
+		$scope.showDosageWay = function(way) {
+			var selected = [];
+			if(way && way > 0) {
+				selected = $filter('filter')(CONFIG.medicineDosageWays, {value: way});
+			}
+			return selected.length ? selected[0].text : '未设置';
+		};
+
+		$scope.editPrescription = function(medicine) {
+			$scope.editedMedicine = medicine;
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/newMedicine.html',
+				controller: 'NewMedicineController',
+				size: 'lg'
+			})
+				.result.then(
+				function (_medicine) {
+					// update medicine
+					for (var i=0; i<$scope.prescription.length; i++) {
+						if ($scope.prescription[i]._id === _medicine._id) {
+							$scope.prescription[i] = _medicine;
+							break;
+						}
+					}
+					updatePrescriptionNotices();
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+		$scope.removePrescription = function(index) {
+			$scope.prescription.splice(index, 1);
+			updatePrescriptionNotices();
+		};
+
+		var updatePrescriptionNotices = function() {
+			$scope.prescriptionNotices = [];
+			if ($scope.prescription && $scope.prescription.length>0) {
+				for (var i=0; i<$scope.prescription.length; i++) {
+					if ($scope.prescription[i].notices && $scope.prescription[i].notices.length) {
+						$scope.prescriptionNotices.push($scope.prescription[i].notices);
+					}
+				}
+			}
+
+		};
 
 		var init = function () {
 			$scope.patient = {
@@ -140,6 +193,8 @@
 				name: '张三'
 			};
 			$scope.prescription = [];
+			$scope.prescriptionNotices = [];	// notices for doctor to select
+			$scope.notices = [];				// notices for users
 		};
 		init();
 	}

@@ -71,32 +71,27 @@
 		<div style="padding-top: 10px;" ng-if="patient">
 			<h5>用药计划（处方）</h5>
 			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="patient">新开处方</button>
-			<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient">监测计划</button>
+			<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()" ng-if="patient && prescriptionNotices.length>0">监测计划</button>
 
 			<div>
 
 			</div>
 			<table class="table">
 				<thead class="bold-text bg-info">
-				<td style="width:5%">#</td>
+				<!--<td style="width:5%">#</td>-->
 				<td style="width:30%">药名</td>
-				<td style="width:10%">剂量</td>
-				<td style="width:10%">单位</td>
-				<td style="width:14%">服用频率</td>
-				<td style="width:14%">服用方法</td>
-				<td style="width:10%">注意事项</td>
-				<td style="width:8%"></td>
+				<td style="width:15%">总量</td>
+				<td style="width:40%">服用方法</td>
+				<td style="width:15%"></td>
 				</thead>
 				<tbody>
-				<tr ng-repeat="question in prescription | orderBy:'order' track by $index">
-					<td>{{ question.order }}</td>
-					<td>{{ question.question }}</td>
-					<td>{{ question.answer_type }}</td>
-					<td>{{ question.weight }}</td>
-					<td>{{ question.apply }}</td>
+				<tr ng-repeat="medicine in prescription track by $index">
+					<td>{{ medicine.name }}</td>
+					<td>{{ medicine.capacity }} {{ medicine.unit}}</td>
+					<td>{{ medicine.usage }}: {{showDosageWay(medicine.dosage.way)}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>
-						<button class="btn btn-primary btn-xs" ng-click="editQuestion(question, $index)"><i class="ion-compose"></i></button>
-						<button class="btn btn-danger btn-xs" ng-click="removeQuestion($index)"><i class="ion-ios-trash"></i></button>
+						<button class="btn btn-primary-outline btn-sm" ng-click="editPrescription(medicine)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+						<button class="btn btn-danger-outline btn-sm" ng-click="removePrescription($index)"><i class="fa fa-trash" aria-hidden="true"></i></button>
 					</td>
 
 				</tr>
