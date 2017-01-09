@@ -23,8 +23,10 @@
 			})
 				.result.then(
 				function (booking) {
-					$scope.booking = booking;
-					$scope.patient = booking.user;
+					// $scope.booking = booking;
+					// $scope.patient = booking.user;
+					$scope.diagnose.booking = booking;
+					$scope.diagnose.patient = booking.user;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -44,7 +46,8 @@
 			})
 				.result.then(
 				function (patient) {
-					$scope.patient = patient;
+					// $scope.patient = patient;
+					$scope.diagnose.patient = patient;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -127,7 +130,7 @@
 			})
 				.result.then(
 				function (medicine) {
-					$scope.prescription.push(medicine);
+					$scope.diagnose.prescription.push(medicine);
 					updatePrescriptionNotices();
 				},
 				function (err) {
@@ -157,9 +160,9 @@
 				.result.then(
 				function (_medicine) {
 					// update medicine
-					for (var i=0; i<$scope.prescription.length; i++) {
-						if ($scope.prescription[i]._id === _medicine._id) {
-							$scope.prescription[i] = _medicine;
+					for (var i=0; i<$scope.diagnose.prescription.length; i++) {
+						if ($scope.diagnose.prescription[i]._id === _medicine._id) {
+							$scope.diagnose.prescription[i] = _medicine;
 							break;
 						}
 					}
@@ -171,26 +174,54 @@
 		};
 
 		$scope.removePrescription = function(index) {
-			$scope.prescription.splice(index, 1);
+			$scope.diagnose.prescription.splice(index, 1);
 			updatePrescriptionNotices();
 		};
 
 		var updatePrescriptionNotices = function() {
 			$scope.prescriptionNotices = [];
-			if ($scope.prescription && $scope.prescription.length>0) {
-				for (var i=0; i<$scope.prescription.length; i++) {
-					if ($scope.prescription[i].notices && $scope.prescription[i].notices.length) {
-						$scope.prescriptionNotices.push($scope.prescription[i].notices);
+			if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
+				for (var i=0; i<$scope.diagnose.prescription.length; i++) {
+					if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length) {
+						for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
+							if ($scope.diagnose.prescription[i].notices[j].apply) {
+								$scope.prescriptionNotices.push($scope.diagnose.prescription[i].notices[j]);
+							}
+						}
 					}
 				}
 			}
 
 		};
 
+		vm.selectNotices = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/editNotices.html',
+				controller: 'EditNoticesController',
+				size: 'lg'
+			})
+				.result.then(
+				function (notices) {
+					$scope.diagnose.notices = notices;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+
 		var init = function () {
-			$scope.patient = {
-				_id: '57981d36ccc395a90ec28020',
-				name: '张三'
+			$scope.diagnose = {
+				patient: {
+					_id: '57981d36ccc395a90ec28020',
+					name: '张三'
+				},
+				prescription: [],
+				notices: []
 			};
 			$scope.prescription = [];
 			$scope.prescriptionNotices = [];	// notices for doctor to select

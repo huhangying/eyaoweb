@@ -10,7 +10,8 @@
                 'ui.bootstrap',
                 'ui.router',
                 'toastr',
-				'cgBusy'
+				'cgBusy',
+				'xeditable'
             ])
 		.value('cgBusyDefaults',{
 			message:'正在处理...',

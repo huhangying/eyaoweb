@@ -24,6 +24,7 @@
 			'app.main.surveyEdit',
 			'app.main.conclusion',
 			'app.main.newMedicine',
+			'app.main.notices',
 			'app.chat',
 			'app.book',
 			'app.articlePush',
