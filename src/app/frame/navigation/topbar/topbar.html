@@ -1,5 +1,6 @@
 <nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
-	<a class="navbar-brand p-r-lg" href ui-sref="app.home"><img src="/assets/images/logo.png" height="33px"> </a>
+	<a class="navbar-brand p-r-md" href ui-sref="app.home"><img src="/assets/images/logo.png" height="33px"> </a>
+
 	<ul class="nav navbar-nav pull-left">
 		<li class="nav-item">
 			<a class="nav-link" href ui-sref="app.main">门诊</a>
@@ -24,6 +25,7 @@
 	<form class="form-inline pull-right">
 		<div class="btn-group">
 			<a data-toggle="dropdown">
+				<span class="badge bg-danger" ng-if="$root.debug">{{$root.debug}}</span>
 				{{login.name}}
 				<img class="avatar menu-img" src="https://pbs.twimg.com/profile_images/726100805/4394612844_0b36f6a9db_o.jpg">
 			</a>

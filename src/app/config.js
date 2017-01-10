@@ -4,7 +4,8 @@
 
 	angular
 		.module('rin')
-		.constant('CONFIG', {
+		.value('CONFIG', {
+		// .constant('CONFIG', {
 
 			//baseApiUrl: 'http://127.0.0.1:3000/',
 			baseApiUrl: 'http://139.224.68.92:3000/',
