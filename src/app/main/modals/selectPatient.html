@@ -35,13 +35,16 @@
 		<div ng-repeat="patient in patients track by $index" class="m-a-0 p-a-0 clearfix" > 
 			<div class="row">
 				<label class="text-primary">
-					&nbsp;
+					&nbsp;&nbsp;
 					<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
 					&nbsp;{{patient.name}}
-					&nbsp;电话号码: {{patient.cell}}
-					&nbsp;生日: {{patient.birthdate || '未设'}}
+					&nbsp;&nbsp;电话号码: {{patient.cell}}
+					&nbsp;&nbsp;生日: {{patient.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
 				</label>
 			</div> 
+		</div>
+		<div class="well text-info" ng-if="patients && patients.length < 1 && getResults">
+			无搜索结果
 		</div>
 	</div>
 	<div class="modal-footer clearfix">

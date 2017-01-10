@@ -43,6 +43,7 @@
 				}
 
 				$scope.patients = [];
+				$scope.getResults = true;
 
 				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'users/search', searchCriteria)
 					.then(function (response) {
