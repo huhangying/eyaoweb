@@ -10,6 +10,29 @@
     function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG, $window) {
         var vm = this;
 
+		var updateDiagnose = function() {
+			if ($scope.diagnose._id) {
+				// update
+
+			}
+			else { // create
+				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'diagnose', $scope.diagnose)
+					.then(function (response) {
+							// check if return null
+							if (response.return && response.return == 'null'){
+								//$scope.diagnose = [];
+								return;
+							}
+							$scope.diagnose = response.data;
+
+						},
+						function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
+			}
+
+		};
+
 		vm.selectBooking = function () {
 
 			$uibModal.open({
@@ -26,7 +49,10 @@
 					// $scope.booking = booking;
 					// $scope.patient = booking.user;
 					$scope.diagnose.booking = booking;
-					$scope.diagnose.patient = booking.user;
+					$scope.patient = booking.user;
+					$scope.diagnose.user = booking.user._id;
+
+					updateDiagnose();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -46,8 +72,10 @@
 			})
 				.result.then(
 				function (patient) {
-					// $scope.patient = patient;
-					$scope.diagnose.patient = patient;
+					$scope.patient = patient;
+					$scope.diagnose.user = patient._id;
+
+					updateDiagnose();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -215,11 +243,12 @@
 
 
 		var init = function () {
+			$scope.patient = {
+				_id: '57981d36ccc395a90ec28020',
+				name: '张三'
+			};
 			$scope.diagnose = {
-				patient: {
-					_id: '57981d36ccc395a90ec28020',
-					name: '张三'
-				},
+				doctor: $rootScope.login._id,
 				prescription: [],
 				notices: []
 			};

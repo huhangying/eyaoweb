@@ -9,7 +9,8 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 	<div>
-		<select class="form-control" ng-model="selectedMedicine"
+		<label for="selectAMedicine" class="control-label">选择药品</label>
+		<select class="form-control" ng-model="selectedMedicine" id="selectAMedicine"
 						ng-options="option.name for option in medicines track by option._id">
 		</select>
 	</div>
@@ -81,6 +82,7 @@
 						<span class="input-group-addon" id="basic-addon1">.</span>
 						<input type="number" class="form-control" id="inputCountFractions" min="0"
 									 ng-model="selectedMedicine.dosage.countFractions" required />
+						<span class="input-group-addon" id="basic-addon2">{{selectedMedicine.unit}}</span>
 					</div>
 
 				</div>
