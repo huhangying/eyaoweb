@@ -80,15 +80,15 @@
 				<thead class="bold-text bg-info">
 				<!--<td style="width:5%">#</td>-->
 				<td style="width:30%">药名</td>
-				<td style="width:15%">总量</td>
-				<td style="width:40%">服用方法</td>
+				<td style="width:30%">服用方法</td>
+				<td style="width:25%">备注</td>
 				<td style="width:15%"></td>
 				</thead>
 				<tbody>
 				<tr ng-repeat="medicine in diagnose.prescription track by $index">
-					<td>{{ medicine.name }}</td>
-					<td>{{ medicine.capacity }} {{ medicine.unit}}</td>
+					<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
 					<td>{{ medicine.usage }}: {{showDosageWay(medicine.dosage.way)}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
+					<td>{{ medicine.notes || '无' }}</td>
 					<td>
 						<button class="btn btn-primary-outline btn-sm" ng-click="editPrescription(medicine)">
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -105,6 +105,8 @@
 			使用说明内容。。。
 		</div>
 		{{diagnose}}
+		<hr/>
+		{{prescriptionNotices}}
 	</div>
 </div>
 

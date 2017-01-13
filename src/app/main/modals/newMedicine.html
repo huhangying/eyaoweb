@@ -88,22 +88,15 @@
 				</div>
 			</div>
 		</div>
-		<table class="table" ng-show="newMedicine.optionNumber > 0">
-			<thead class="bold-text bg-info">
-			<td style="width:4%">#</td>
-			<td style="width:76%">答案</td>
-			<td style="width:10%">用户填空</td>
-			<td style="width:10%" ng-if="newMedicine.weight>0">分值</td>
-			</thead>
-			<tbody>
-			<tr ng-repeat="option in newMedicine.options track by $index">
-				<td>{{$index+1}}</td>
-				<td><input type="text" class="form-control" ng-model="option.answer" placeholder="设置答案"></td>
-				<td><input type="checkbox" class="form-control" ng-model="option.input_required"></td>
-				<td><input type="number" class="form-control" ng-model="option.weight" ng-if="newMedicine.weight>0"></td>
-			</tr>
-			</tbody>
-		</table>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputNotes" class="control-label">备注</label>
+					<textarea class="form-control" id="inputNotes" placeholder="输入药师备注" ng-model="selectedMedicine.notes" />
+				</div>
+			</div>
+		</div>
 
 	</form>
 

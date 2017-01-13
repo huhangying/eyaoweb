@@ -202,7 +202,23 @@
 		};
 
 		$scope.removePrescription = function(index) {
+
+			// remove from diagnose.notices
+			if ($scope.diagnose.notices && $scope.diagnose.notices.length > 0) {
+				var removedNotices = $scope.diagnose.prescription[index].notices || [];
+				$scope.diagnose.notices = $scope.diagnose.notices.filter(function(notice) {
+					for (var i=0; i<removedNotices.length; i++) {
+						if (notice._id === removedNotices[i]._id) {
+							return false;
+						}
+					}
+					return true;
+				})
+			}
+
+
 			$scope.diagnose.prescription.splice(index, 1);
+
 			updatePrescriptionNotices();
 		};
 
