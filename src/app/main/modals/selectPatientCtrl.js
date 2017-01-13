@@ -62,7 +62,7 @@
 			};
 
 			var init = function () {
-
+				$scope.searchOption = '2'; // select 姓名 by default
 
 			};
 

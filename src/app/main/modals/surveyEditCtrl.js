@@ -136,7 +136,7 @@
 							$scope.surveys.map(function(survey) {
 								survey.surveyTemplate = survey._id;
 								survey.doctor = $rootScope.login._id;
-								survey.user = $scope.diagnose.patient._id;
+								survey.user = $scope.diagnose.user;
 
 								survey._id = undefined;
 							});
@@ -153,7 +153,7 @@
 				$scope.surveyTitle = CONFIG.surveyTypes[$scope.selectedSurveyType];
 
 				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login._id
-					+ '/' + $scope.diagnose.patient._id + '/' + $scope.selectedSurveyType)
+					+ '/' + $scope.diagnose.user + '/' + $scope.selectedSurveyType)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){

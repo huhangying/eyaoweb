@@ -30,7 +30,7 @@
 						<li class="dropdown-item"><a href="#" ng-click="vm.createPatient()">新建患者</a></li>
 					</ul>
 				</div>
-				<div class="btn-group" ng-if="patient">
+				<div class="btn-group" ng-if="diagnose.user">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.openSurvey(1)">初诊问卷</span>

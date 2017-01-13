@@ -7,7 +7,7 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController($scope, $rootScope, $http, $state, $location, $window, toastr, CONFIG) {
+    function LoginController($scope, $http, $state, $location, $window, toastr, CONFIG) {
 
         var vm = this;
 
@@ -46,16 +46,16 @@
 				if (debug !== undefined) {
 
 					if (debug === '0') {
-						$rootScope.debug = 'D0';
+						$window.sessionStorage.debug = 'D0';
 						CONFIG.baseApiUrl = 'http://127.0.0.1:3000/';
 					}
 					else if (debug === '1') {
-						$rootScope.debug = 'D1';
+						$window.sessionStorage.debug = 'D1';
 						CONFIG.baseApiUrl = 'http://116.62.29.222:3000/';
 					}
 				}
 				else {
-					$rootScope.debug = undefined;
+					$window.sessionStorage.debug = undefined;
 					CONFIG.baseApiUrl = 'http://139.224.68.92:3000/';
 				}
 
