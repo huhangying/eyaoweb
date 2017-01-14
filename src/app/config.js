@@ -34,7 +34,8 @@
 				{text: "隔天", value: "9"}
 			],
 			Error: {
-				Internal: '数据库访问内部错误'
+				Internal: '数据库访问内部错误',
+				NoData: '没有数据'
 			}
 		});
 

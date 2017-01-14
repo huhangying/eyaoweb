@@ -7,30 +7,121 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG, $window) {
+    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG) {
         var vm = this;
 
-		var updateDiagnose = function() {
+		var updateDiagnose = function(loadDiagnose, fromBooking) {
+
 			if ($scope.diagnose._id) {
-				// update
+
+				if (loadDiagnose) {
+					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $rootScope.login._id + '/' + $scope.diagnose.user)
+						.then(function (response) {
+								// check if return null
+								if (response.return && response.return == 'null'){
+									if (!fromBooking) {
+										$scope.diagnose.booking = undefined;
+									}
+									$scope.diagnose.surveys = [];
+									$scope.diagnose.assessment = undefined;
+									$scope.diagnose.prescription = [];
+									$scope.diagnose.notices = [];
+									$scope.diagnose.status = 1; // doctor operating
+
+									//toastr.error(CONFIG.Error.NoData);
+								}
+								else {
+									$scope.diagnose = response.data;
+								}
+
+								updatePrescriptionNotices();
+
+								// replace/update
+								vm.saveDiagnose();
+
+							},
+							function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
+				}
+				else {
+					// update
+					vm.saveDiagnose();
+				}
 
 			}
-			else { // create
-				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'diagnose', $scope.diagnose)
-					.then(function (response) {
-							// check if return null
-							if (response.return && response.return == 'null'){
-								//$scope.diagnose = [];
-								return;
-							}
-							$scope.diagnose = response.data;
+			else { // no id
+				if (loadDiagnose) {
+					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $rootScope.login._id + '/' + $scope.diagnose.user)
+						.then(function (response) {
+								// check if return null
+								if (response.return && response.return == 'null'){
+									if (!fromBooking) {
+										$scope.diagnose.booking = undefined;
+									}
+									$scope.diagnose.surveys = [];
+									$scope.diagnose.assessment = undefined;
+									$scope.diagnose.prescription = [];
+									$scope.diagnose.notices = [];
+									$scope.diagnose.status = 1; // doctor operating
 
-						},
-						function(){
-							toastr.error(CONFIG.Error.Internal);
-						});
+									updatePrescriptionNotices();
+									// create
+									vm.createDiagnose();
+									return;
+								}
+								$scope.diagnose = response.data;
+								updatePrescriptionNotices();
+
+								// update
+								vm.saveDiagnose();
+
+							},
+							function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
+				}
+				else {
+					toastr.warning('should not enter here ever');
+				}
+
 			}
 
+		};
+
+		vm.createDiagnose = function() {
+
+			$scope.diagnose
+			// create
+			$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'diagnose', $scope.diagnose)
+				.then(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							//$scope.diagnose = [];
+							return;
+						}
+						$scope.diagnose = response.data;
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+		};
+
+		vm.saveDiagnose = function() {
+			$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'diagnose/' + $scope.diagnose._id, $scope.diagnose)
+				.then(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							//$scope.diagnose = [];
+							return;
+						}
+						$scope.diagnose = response.data;
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
 		};
 
 		vm.selectBooking = function () {
@@ -52,7 +143,7 @@
 					$scope.patient = booking.user;
 					$scope.diagnose.user = booking.user._id;
 
-					updateDiagnose();
+					updateDiagnose(true, true);
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -75,7 +166,7 @@
 					$scope.patient = patient;
 					$scope.diagnose.user = patient._id;
 
-					updateDiagnose();
+					updateDiagnose(true);
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -114,11 +205,15 @@
 				size: 'lg'
 			})
 				.result.then(
-				function (survey) {
-					switch(type) {
-						case 1:
-							$scope.surveyFirst = survey;
-					}
+				function (surveys) {
+					// add survey ids into diagnose
+					var surveyIds = [];
+
+					surveys.map(function(survey) {
+						surveyIds.push(survey._id);
+					});
+
+					$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -223,14 +318,12 @@
 		};
 
 		var updatePrescriptionNotices = function() {
-			$scope.prescriptionNotices = [];
+			$scope.diagnose.notices = [];
 			if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
 				for (var i=0; i<$scope.diagnose.prescription.length; i++) {
 					if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length) {
 						for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
-							if ($scope.diagnose.prescription[i].notices[j].apply) {
-								$scope.prescriptionNotices.push($scope.diagnose.prescription[i].notices[j]);
-							}
+							$scope.diagnose.notices.push($scope.diagnose.prescription[i].notices[j]);
 						}
 					}
 				}

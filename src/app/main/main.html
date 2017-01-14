@@ -17,7 +17,7 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-primary-outline" ng-click="vm.selectBooking()" ng-if="patient">选择预约</button>
+				<button class="btn btn-primary-outline" ng-click="vm.selectBooking()">选择预约</button>
 
 				<div class="btn-group">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -43,8 +43,8 @@
 				</div>
 
 
-				<button class="btn btn-primary-outline" ng-click="vm.openSurvey(3)" ng-if="patient">随访问卷</button>
-				<div class="btn-group" ng-if="patient">
+				<button class="btn btn-primary-outline" ng-click="vm.openSurvey(3)" ng-if="diagnose.user">随访问卷</button>
+				<div class="btn-group" ng-if="diagnose.user">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="">化验结果</span>
@@ -57,10 +57,10 @@
 						<li class="dropdown-item"><a href="#">录入 C 化验结果</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-primary-outline" ng-click="vm.drawConclusion()" ng-if="patient">门诊结论</button>
+				<button class="btn btn-primary-outline" ng-click="vm.drawConclusion()" ng-if="diagnose.user">门诊结论</button>
 
 				<button class="btn btn-primary{{article._id?'':'-outline'}} pull-right m-r-md"
-								ng-click="vm.saveArticle()" ng-if="patient">
+								ng-click="vm.saveDiagnose()" ng-if="diagnose.user">
 					<i class="fa fa-floppy-o" aria-hidden="true"></i>
 					保存
 				</button>
@@ -68,21 +68,21 @@
 			</div>
 
 		</div>
-		<div style="padding-top: 10px;" ng-if="patient">
+		<div style="padding-top: 10px;" ng-if="diagnose.user">
 			<h5>用药计划（处方）</h5>
-			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="patient">新开处方</button>
-			<button class="btn btn-primary-outline" ng-click="vm.selectNotices()" ng-if="patient && prescriptionNotices.length>0">监测计划</button>
+			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="diagnose.user">新开处方</button>
+			<button class="btn btn-primary-outline" ng-click="vm.selectNotices()" ng-if="diagnose.user && diagnose.prescription.length>0">监测计划</button>
 
 			<div>
 
 			</div>
 			<table class="table">
 				<thead class="bold-text bg-info">
-				<!--<td style="width:5%">#</td>-->
-				<td style="width:30%">药名</td>
-				<td style="width:30%">服用方法</td>
-				<td style="width:25%">备注</td>
-				<td style="width:15%"></td>
+					<!--<td style="width:5%">#</td>-->
+					<td style="width:30%">药名</td>
+					<td style="width:30%">服用方法</td>
+					<td style="width:25%">备注</td>
+					<td style="width:15%"></td>
 				</thead>
 				<tbody>
 				<tr ng-repeat="medicine in diagnose.prescription track by $index">
@@ -101,12 +101,11 @@
 			</table>
 
 		</div>
-		<div style="padding-top: 14px;" ng-if="!diagnose.patient">
+		<div style="padding-top: 14px;" ng-if="!diagnose.user">
 			使用说明内容。。。
 		</div>
-		{{diagnose}}
 		<hr/>
-		{{prescriptionNotices}}
+		{{diagnose}}
 	</div>
 </div>
 

@@ -21,6 +21,13 @@
 					return med._id === id;
 				});
 
+				// filter out non-applied notices
+				if ($scope.selectedMedicine.notices && $scope.selectedMedicine.notices.length > 0) {
+					$scope.selectedMedicine.notices = $scope.selectedMedicine.notices.filter(function(notice) {
+						return notice.apply;
+					});
+				}
+
 			}
 
 

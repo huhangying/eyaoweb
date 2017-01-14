@@ -25,27 +25,26 @@
 			var init = function () {
 				$scope.notices = [];
 
-				if ($scope.prescriptionNotices) {
-					$scope.noticeList = $scope.prescriptionNotices;
+				$scope.noticeList = [];
+				if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
+					for (var i=0; i<$scope.diagnose.prescription.length; i++) {
+						if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length > 0) {
+							for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
+								$scope.noticeList.push($scope.diagnose.prescription[i].notices[j]);
+							}
+						}
+					}
 				}
 
 				if ($scope.diagnose.notices && $scope.diagnose.notices.length>0) {
-					$scope.notices = $scope.diagnose.notices;
+					// 在 notices 里面的都是已经选择了的。
+					$scope.notices = $scope.diagnose.notices.map(function(notice) {
+						notice.selected = true;
+						return notice;
+					});
+					// override模式加入到药品都带的所有的notice list.
+					$scope.noticeList = _.unionBy($scope.notices, $scope.noticeList, '_id');
 				}
-
-				// $scope.myPromise = $http.get(CONFIG.baseApiUrl + 'bookings/today/doctor/' + $rootScope.login._id)
-				// 	.then(function (response) {
-				// 			// check if return null
-				// 			if (response.return && response.return == 'null'){
-				// 				$scope.bookings = [];
-				// 				return;
-				// 			}
-				// 			$scope.bookings = response.data;
-                //
-				// 		},
-				// 		function(){
-				// 			toastr.error(CONFIG.Error.Internal);
-				// 		});
 
 			};
 

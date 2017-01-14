@@ -5,7 +5,7 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<em class="text-muted">从预设的检测计划列表中选择</em>
+	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
 </div>
 <div cg-busy="myPromise"></div>
 	<div class="modal-body" id="modal-body">
@@ -73,9 +73,13 @@
 		<div ng-if="!noticeList || noticeList.length<1"> 
 			无预设的检测计划。
 		</div>
+		<hr/>
+		{{noticeList}}
+		<hr/>
+		{{notices}}
 
 	</div>
 	<div class="modal-footer clearfix">
-		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !notices || notices.length < 1" ng-click="selectOk()">确认</button>
+		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !notices " ng-click="selectOk()">确认</button>
 		<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 	</div>
