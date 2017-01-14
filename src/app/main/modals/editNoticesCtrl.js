@@ -22,6 +22,16 @@
 					});
 			};
 
+			$scope.addNotice = function() {
+				$scope.inserted = {
+					notice: '',
+					days_to_start: -1,
+					during: 1,
+					require_confirm: true
+				};
+				$scope.noticeList.unshift($scope.inserted);
+			};
+
 			var init = function () {
 				$scope.notices = [];
 

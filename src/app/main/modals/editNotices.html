@@ -6,6 +6,11 @@
 		</button>
 	</div>
 	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
+	<button class="btn btn-primary-outline pull-right m-r-md"
+					ng-click="addNotice()" ng-if="diagnose.user">
+		<i class="fa fa-plus" aria-hidden="true"></i>
+		新增
+	</button>
 </div>
 <div cg-busy="myPromise"></div>
 	<div class="modal-body" id="modal-body">
@@ -20,7 +25,7 @@
 				<td style="width:10%"></td>
 			</thead>
 			<tbody>
-			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'bg-success':''" class="editable-row">
+			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row">
 				<td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
