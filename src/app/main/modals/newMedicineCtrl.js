@@ -50,6 +50,34 @@
 					$scope.selectedMedicine = $scope.editedMedicine;
 				}
 
+				$http.get(CONFIG.baseApiUrl + 'const/medicine_usages')
+					.success(function (response) {
+						//console.log(JSON.stringify(response))
+						if (!response ){
+							toastr.error('无数据!')
+						}
+						else if (response.return == 'error') {
+							toastr.error(response.message);
+						}
+						else{
+							$scope.usages = response.value.split('|');
+						}
+					});
+
+				$http.get(CONFIG.baseApiUrl + 'const/medicine_ways')
+					.success(function (response) {
+						//console.log(JSON.stringify(response))
+						if (!response ){
+							toastr.error('无数据!')
+						}
+						else if (response.return == 'error') {
+							toastr.error(response.message);
+						}
+						else{
+							$scope.ways = response.value.split('|');
+						}
+					});
+
 			};
 
 			init();
