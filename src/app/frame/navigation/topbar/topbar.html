@@ -25,7 +25,7 @@
 	<form class="form-inline pull-right">
 		<div class="btn-group">
 			<a data-toggle="dropdown">
-				<span class="badge bg-danger" ng-if="debug">{{debug}}</span>
+				<span class="badge bg-danger" ng-if="debug&&debug!='undefined'">{{debug}}</span>
 				{{login.name}}
 				<img class="avatar menu-img" src="https://pbs.twimg.com/profile_images/726100805/4394612844_0b36f6a9db_o.jpg">
 			</a>
