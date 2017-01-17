@@ -18,7 +18,7 @@
 					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $rootScope.login._id + '/' + $scope.diagnose.user)
 						.then(function (response) {
 								// check if return null
-								if (response.return && response.return == 'null'){
+								if (response.data && response.data.return && response.data.return == 'null'){
 									if (!fromBooking) {
 										$scope.diagnose.booking = undefined;
 									}
@@ -33,8 +33,6 @@
 								else {
 									$scope.diagnose = response.data;
 								}
-
-								updatePrescriptionNotices();
 
 								// replace/update
 								vm.saveDiagnose();
@@ -55,7 +53,7 @@
 					$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $rootScope.login._id + '/' + $scope.diagnose.user)
 						.then(function (response) {
 								// check if return null
-								if (response.return && response.return == 'null'){
+								if (response.data && response.data.return && response.data.return == 'null'){
 									if (!fromBooking) {
 										$scope.diagnose.booking = undefined;
 									}
@@ -65,13 +63,11 @@
 									$scope.diagnose.notices = [];
 									$scope.diagnose.status = 1; // doctor operating
 
-									updatePrescriptionNotices();
 									// create
 									vm.createDiagnose();
 									return;
 								}
 								$scope.diagnose = response.data;
-								updatePrescriptionNotices();
 
 								// update
 								vm.saveDiagnose();
@@ -254,7 +250,6 @@
 				.result.then(
 				function (medicine) {
 					$scope.diagnose.prescription.push(medicine);
-					updatePrescriptionNotices();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -289,7 +284,6 @@
 							break;
 						}
 					}
-					updatePrescriptionNotices();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -313,23 +307,9 @@
 
 
 			$scope.diagnose.prescription.splice(index, 1);
-
-			updatePrescriptionNotices();
+			
 		};
 
-		var updatePrescriptionNotices = function() {
-			$scope.diagnose.notices = [];
-			if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
-				for (var i=0; i<$scope.diagnose.prescription.length; i++) {
-					if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length) {
-						for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
-							$scope.diagnose.notices.push($scope.diagnose.prescription[i].notices[j]);
-						}
-					}
-				}
-			}
-
-		};
 
 		vm.selectNotices = function () {
 			$uibModal.open({
@@ -353,8 +333,7 @@
 
 		var init = function () {
 			$scope.patient = {
-				_id: '57981d36ccc395a90ec28020',
-				name: '张三'
+
 			};
 			$scope.diagnose = {
 				doctor: $rootScope.login._id,

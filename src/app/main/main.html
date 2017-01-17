@@ -3,7 +3,7 @@
 	<div class="box-header">
 		<div class="h3 pull-left">药师门诊 </div>
 
-		<div class="btn-group pull-right" style="padding-right:20px;">
+		<div class="btn-group pull-right" style="padding-right:20px;" ng-if="diagnose.user">
 			<span class="btn bg-success " style="padding: 3px 11px;">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
@@ -78,7 +78,6 @@
 			</div>
 			<table class="table">
 				<thead class="bold-text bg-info">
-					<!--<td style="width:5%">#</td>-->
 					<td style="width:30%">药名</td>
 					<td style="width:30%">服用方法</td>
 					<td style="width:25%">备注</td>
@@ -95,7 +94,6 @@
 						<button class="btn btn-danger-outline btn-sm" ng-click="removePrescription($index)">
 							<i class="fa fa-trash" aria-hidden="true"></i></button>
 					</td>
-
 				</tr>
 				</tbody>
 			</table>
