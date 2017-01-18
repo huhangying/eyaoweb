@@ -307,7 +307,7 @@
 
 
 			$scope.diagnose.prescription.splice(index, 1);
-			
+
 		};
 
 
@@ -324,6 +324,25 @@
 				.result.then(
 				function (notices) {
 					$scope.diagnose.notices = notices;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+		vm.viewPatientHistory = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/history/history.html',
+				controller: 'HistoryController',
+				size: 'lg'
+			})
+				.result.then(
+				function (ret) {
+					// tbd:
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
