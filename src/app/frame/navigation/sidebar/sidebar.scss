@@ -11,10 +11,11 @@
 	    background-color: $sidebar-bg;
 	    color: $sidebar-color;
 	    box-shadow: $sidebar-shadow;
+	  overflow-x: hidden;
 	    height: 100%;
 	}
 	.sidebar-link {
-		padding: .55rem .2rem;
+		padding: .1rem .1rem;
 		margin-top: .25rem;
 
 		i {
@@ -28,7 +29,7 @@
 	}
 	.active {
 		background-color: lighten($sidebar-bg, 10%);
-		
+
 		i {
 			color: $white;
 		}
