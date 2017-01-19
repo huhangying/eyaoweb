@@ -10,6 +10,18 @@
     function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG) {
         var vm = this;
 
+		var checkFirstVisit = function () {
+			$scope.isFirstVisit = true;
+			if ($scope.patient.visitedDepartments && $scope.patient.visitedDepartments.length > 0) {
+				for (var i=0; i<$scope.patient.visitedDepartments.length; i++) {
+					if ($scope.patient.visitedDepartments[i] == $rootScope.login.department) {
+						$scope.isFirstVisit = false;
+						break;
+					}
+				}
+			}
+		};
+
 		var updateDiagnose = function(loadDiagnose, fromBooking) {
 
 			if ($scope.diagnose._id) {
@@ -137,6 +149,7 @@
 					// $scope.patient = booking.user;
 					$scope.diagnose.booking = booking;
 					$scope.patient = booking.user;
+					checkFirstVisit();
 					$scope.diagnose.user = booking.user._id;
 
 					updateDiagnose(true, true);
@@ -160,6 +173,7 @@
 				.result.then(
 				function (patient) {
 					$scope.patient = patient;
+					checkFirstVisit();
 					$scope.diagnose.user = patient._id;
 
 					updateDiagnose(true);
@@ -191,6 +205,9 @@
 
 		vm.openSurvey = function (type) {
 			$scope.selectedSurveyType = type;
+			if (type == 1) {
+				$scope.selectedSurveyType = $scope.isFirstVisit ? 1 : 2;
+			}
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -362,6 +379,8 @@
 			$scope.prescription = [];
 			$scope.prescriptionNotices = [];	// notices for doctor to select
 			$scope.notices = [];				// notices for users
+
+
 		};
 		init();
 	}

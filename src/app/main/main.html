@@ -33,12 +33,12 @@
 				<div class="btn-group" ng-if="diagnose.user">
 					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
-						<span ng-click="vm.openSurvey(1)">初诊问卷</span>
+						<span ng-click="vm.openSurvey(1)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
 						<span class="divider-vertical"></span>
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="dropdown-item"><a href="#">发送初诊问卷</a></li>
+						<li class="dropdown-item"><a href="#">发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
 						<li class="dropdown-item"><a href="#">发送用药知识自测问卷</a></li>
 						<li class="dropdown-item"><a href="#" ng-click="vm.openSurvey(2)">编辑查看用药知识自测问卷</a></li>
 						<li class="dropdown-item"><a href="#" ng-click="vm.openSurvey(3)">编辑查看随访问卷</a></li>
@@ -108,6 +108,8 @@
 		</div>
 		<hr/>
 		{{diagnose}}
+		<hr/>
+		{{patient.visitedDepartments}}
 	</div>
 </div>
 
