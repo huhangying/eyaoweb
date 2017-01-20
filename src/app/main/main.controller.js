@@ -233,6 +233,37 @@
 				});
 		};
 
+		vm.sendSurvey = function (type) {
+
+
+			// 发送消息给微信
+			var reqBody = {
+				openidList: [$scope.patient.link_id],
+				articles: [
+					{
+						title: CONFIG.surveyTypes[type],
+						description: '请填写' + CONFIG.surveyTypes[type] + ', 谢谢配合!',
+						url: 'http://www.google.com',
+						picurl: ''
+					}
+				]
+			};
+
+			$http.defaults.headers.post['Content-Type'] = 'text/plain';
+			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
+				.success(function(response) {
+					if (!response || response.result != 1) {
+						toastr.error('问卷发送失败.');
+						return;
+					}
+
+					toastr.success('问卷发送成功。');
+				})
+				.error(function(err){
+					toastr.error("问卷发送失败");
+				});
+		};
+
 		vm.drawConclusion = function () {
 
 			$uibModal.open({
