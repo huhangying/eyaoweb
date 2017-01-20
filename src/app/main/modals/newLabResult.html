@@ -1,0 +1,86 @@
+<div class="modal-header">
+	<div class="clearfix">
+		<h4 class="modal-title pull-left" id="modal-title">选择编辑检测计划</h4>
+		<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss('cancel')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
+	<button class="btn btn-primary-outline pull-right m-r-md"
+					ng-click="addNotice()" ng-if="diagnose.user">
+		<i class="fa fa-plus" aria-hidden="true"></i>
+		新增
+	</button>
+</div>
+<div cg-busy="myPromise"></div>
+	<div class="modal-body" id="modal-body">
+
+		<table class="table">
+			<thead class="bold-text bg-info">
+				<td style="width:4%"></td>
+				<td style="width:46%">名称</td>
+				<td style="width:13%">提醒开始</td>
+				<td style="width:13%">持续天数</td>
+				<td style="width:14%">确认取消?</td>
+				<td style="width:10%"></td>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row">
+				<td ng-show="false">
+                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+                    {{item._id}}
+                </span>
+                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+                  {{ item.apply || false }}
+                </span>
+				</td>
+				<td><input type="checkbox" ng-model="item.selected" ng-change="updateNotices()"></td>
+				<td>
+				<span editable-text="item.notice" e-name="notice" e-form="rowform" e-style="width:320px;" >
+          {{ item.notice || 'empty' }}
+        </span>
+					<!--<input type="text" class="form-control" ng-model="item.notice" placeholder="设置提醒名称">-->
+				</td>
+				<td>
+					<span editable-number="item.days_to_start" e-name="days_to_start" e-form="rowform" e-required e-style="width:80px;" >
+						{{ item.days_to_start || '' }}
+					</span>
+				</td>
+				<td>
+					<span editable-number="item.during" e-name="during" e-form="rowform" e-required e-style="width:80px;" >
+						{{ item.during || '' }}
+					</span>
+				</td>
+				<td>
+					<span editable-checkbox="item.require_confirm" e-name="require_confirm" e-form="rowform" e-required>
+						{{ item.require_confirm || false }}
+					</span>
+				</td>
+				<td style="white-space: nowrap">
+					<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
+						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary btn-sm">
+							保存
+						</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default btn-sm">
+							取消
+						</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<a class=" btn text-primary" ng-click="rowform.$show()">
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						</a>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div ng-if="!noticeList || noticeList.length<1"> 
+			无预设的检测计划。
+		</div>
+
+	</div>
+	<div class="modal-footer clearfix">
+		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !notices " ng-click="selectOk()">确认</button>
+		<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
+	</div>

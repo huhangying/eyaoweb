@@ -358,20 +358,40 @@
 
 		};
 
-
-		vm.selectNotices = function () {
+		//todo:
+		vm.createLabResult = function () {
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
 				ariaLabelledBy: 'modal-title-top',
 				ariaDescribedBy: 'modal-body-top',
-				templateUrl: 'app/main/modals/editNotices.html',
-				controller: 'EditNoticesController',
+				templateUrl: 'app/main/modals/newLabResult.html',
+				controller: 'NewLabResultController',
 				size: 'lg'
 			})
 				.result.then(
 				function (notices) {
 					$scope.diagnose.notices = notices;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
+		vm.createPatient = function () {
+
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/newPatient.html',
+				controller: 'NewPatientController',
+				size: 'lg'
+			})
+				.result.then(
+				function (patient) {
+					$scope.patient = patient;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

@@ -25,6 +25,7 @@
 			'app.main.conclusion',
 			'app.main.newMedicine',
 			'app.main.notices',
+			'app.main.newLabResult',
 			'app.main.history',
 			'app.chat',
 			'app.book',

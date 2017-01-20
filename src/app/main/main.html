@@ -46,18 +46,11 @@
 					</ul>
 				</div>
 
-				<div class="btn-group" ng-if="diagnose.user">
-					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
-						<span ng-click="">化验结果</span>
-						<span class="divider-vertical"></span>
-						<span class="caret"></span>
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary-outline" ng-if="diagnose.user" ng-click="vm.createLabResult()">
+						<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
+						<span>化验结果</span>
 					</button>
-					<ul class="dropdown-menu">
-						<li class="dropdown-item"><a href="#">录入 A 化验结果</a></li>
-						<li class="dropdown-item"><a href="#">录入 B 化验结果</a></li>
-						<li class="dropdown-item"><a href="#">录入 C 化验结果</a></li>
-					</ul>
 				</div>
 				<button class="btn btn-primary-outline" ng-click="vm.drawConclusion()" ng-if="diagnose.user">门诊结论</button>
 
@@ -110,6 +103,8 @@
 		{{diagnose}}
 		<hr/>
 		{{patient.visitedDepartments}}
+		<hr/>
+		{{diagnose.labResults}}
 	</div>
 </div>
 
