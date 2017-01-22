@@ -79,11 +79,59 @@
 							});
 				}
 			};
-
+			
+			$scope.getTypeById = function(id) {
+				switch (id) {
+					case 0:
+					case 1:
+						return 'radio';
+					case 2:
+						return 'checkbox';
+					case 3: //text
+						return 'hidden';
+				}
+			};
 
 			var init = function () {
 				$scope.activeTab = 0;
 
+				// load 门诊结论问卷
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $scope.diagnose.doctor
+					+ '/' + $scope.diagnose.user + '/5')
+					.success(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							// load from template
+							$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + $rootScope.login.department + '/type/5')
+								.success(function (response) {
+									// check if return null
+									if (response.return && response.return == 'null'){
+										$scope.conclusion.surveys = [];
+									}
+									else {
+										$scope.conclusion.surveys = response;
+										$scope.conclusion.surveys.map(function(survey) {
+											survey.surveyTemplate = survey._id;
+											survey.doctor = $scope.diagnose.doctor;
+											survey.user = $scope.diagnose.user;
+
+											survey._id = undefined;
+										});
+									}
+
+								})
+								.error(function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						}
+						else {
+							$scope.surveys = response;
+						}
+
+					})
+					.error(function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
 			};
 
 			init();

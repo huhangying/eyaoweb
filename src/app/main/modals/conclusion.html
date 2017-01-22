@@ -15,11 +15,45 @@
 				<i class="fa fa-address-card" aria-hidden="true"></i>
 				随访小结
 			</uib-tab-heading>
-			<ng-form name="nestedForm">
-				<div class="form-group">
-					随访小结内容 goes here
+			<div class="tab-content">
+				<div ng-repeat="survey in conclusion.surveys track by $index" style="padding: 0 0 10px;"
+						 ng-if="conclusion.surveys && conclusion.surveys.length>0">
+					<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
+					<div style="padding: 0 10px 16px;" ng-repeat="question in survey.questions track by $index">
+						<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
+						<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;" class="form-inline">
+							<div class="text-muted form-group">
+								<label ng-if="question.answer_type == 0 || question.answer_type == 1">
+									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
+												 ng-checked="option.selected"
+												 data-ng-model="option.selected"
+												 data-ng-value="option.selected || 'trick for radio'"
+												 ng-click="changeSelection(question, $index)">
+
+									<span>&nbsp;&nbsp;{{option.answer}}</span>
+								</label>
+								<label ng-if="question.answer_type == 2">
+									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
+												 ng-checked="option.selected"
+												 ng-click="changeSelection(question, $index)">
+
+									<span>&nbsp;&nbsp;{{option.answer}}</span>
+								</label>
+					<textarea ng-if="question.answer_type == 3" style="width:536px;"
+										ng-model="option.answer" class="form-control"></textarea>
+								<input type="text" ng-model="option.input" class="form-control"
+											 ng-if="option.input_required && option.selected">
+							</div>
+						</div>
+					</div>
+
 				</div>
-			</ng-form>
+				<div ng-if="!conclusion.surveys || conclusion.surveys.length<1" >
+					<p>无可用门诊结论问卷。请联系管理者到后台增加。</p>
+				</div>
+			</div>
 		</uib-tab>
 		<uib-tab index="1" ng-click="activeTab = 1">
 			<uib-tab-heading class="tab-header {{activeTab == 1?'text-warning':''}} ">
