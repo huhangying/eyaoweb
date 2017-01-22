@@ -72,13 +72,47 @@
 			</div>
 
 		</uib-tab>
-		<uib-tab index="2" ng-click="activeTab = 2" class="">
+		<uib-tab index="2" ng-click="loadTab(2)" class="">
 			<uib-tab-heading class="tab-header {{activeTab == 2?'text-warning':''}}">
 				<i class="fa fa-flask" aria-hidden="true"></i>
 				化验结果
 			</uib-tab-heading>
 			<div class="tab-content">
-				按照时间排序,最新的在上面。
+				<table class="table table-hover table-condensed">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:50%">化验单名</td>
+						<td style="width:30%">化验日期</td>
+						<td style="width:10%">化验项</td>
+						<td style="width:10%"></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="result in history.labResults track by $index" class="editable-row">
+						<td>
+							{{ result.name || '空' }}
+						</td>
+						<td>
+							{{ result.testDate | amDateFormat: 'YYYY年MM月DD日' }}
+						</td>
+						<td>
+							{{ result.list.length }}
+						</td>
+						<td style="white-space: nowrap" class="pull-right">
+						<span class="btn btn-primary-outline btn-sm" ng-click="toggleLabResultDetails($index)">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+						</span>
+
+						</td>
+						<div ng-show="result.expanded">ddd</div>
+					</tr>
+
+					</tbody>
+				</table>
+
+				<div ng-if="history.labResults.length<1"> 
+					无预设的检测计划。
+				</div>
 			</div>
 		</uib-tab>
 

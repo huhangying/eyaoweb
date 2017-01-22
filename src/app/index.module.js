@@ -27,6 +27,7 @@
 			'app.main.notices',
 			'app.main.newLabResult',
 			'app.main.history',
+			'app.main.history.labResultDetails',
 			'app.chat',
 			'app.book',
 			'app.articlePush',

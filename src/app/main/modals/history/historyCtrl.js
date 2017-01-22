@@ -8,7 +8,7 @@
 	angular
 		.module('app.main.history', [])
 
-		.controller('HistoryController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('HistoryController', function ($scope, $rootScope, $http, toastr, CONFIG, $uibModal) {
 			var ctrl = this;
 			$scope.history = {};
 
@@ -16,6 +16,44 @@
 				this.$close($scope.conclusion);
 			};
 
+			// load data for each tab
+			$scope.loadTab = function(tabIndex) {
+				$scope.activeTab = tabIndex;
+
+				switch(tabIndex) {
+					case 2:
+						$scope.history.labResults = [];
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'labresult/user/' + $scope.diagnose.user)
+							.then(function (response) {
+									// check if return null
+									if (response.data && response.data.return && response.data.return == 'null'){
+										//toastr.error(CONFIG.Error.NoData);
+									}
+									else {
+										$scope.history.labResults = response.data;
+									}
+
+								},
+								function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						break;
+				}
+			};
+
+			$scope.toggleLabResultDetails = function (index) {
+				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
+				$scope.history.labResultIndex = index;
+				$uibModal.open({
+					scope: $scope,
+					animation: true,
+					ariaLabelledBy: 'modal-title-top',
+					ariaDescribedBy: 'modal-body-top',
+					templateUrl: 'app/main/modals/history/labResultDetails.html',
+					controller: 'LabResultDetailsController',
+					size: 'lg'
+				});
+			};
 
 
 			var init = function () {

@@ -1,0 +1,53 @@
+<div class="modal-header">
+	<h4 class="modal-title pull-left" id="modal-title">化验单详情</h4>
+
+	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div cg-busy="myPromise"></div>
+<div class="modal-body clearfix" id="modal-body">
+
+	<div class="row">
+		<div class="col-sm-6">
+
+			<span class="text-muted">化验单名:</span>
+			{{history.labResultDetails.name}}
+		</div>
+		<div class="col-sm-6">
+			<span class="text-muted">化验日期:</span>
+			{{history.labResultDetails.testDate | amDateFormat: 'YYYY年MM月DD日'}}
+		</div>
+
+	</div>
+	</form>
+	<table class="table table-hover table-condensed">
+		<thead class="bold-text bg-primary">
+		<tr>
+			<td style="width:50%">化验项</td>
+			<td style="width:50%">化验结果</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in history.labResultDetails.list" class="editable-row">
+			<td>
+				{{ item.item || '空' }}
+			</td>
+			<td>
+				{{ item.result || '空' }}
+			</td>
+
+		</tr>
+		</tbody>
+	</table>
+	<div class="pull-right">
+		<span class="text-muted">录入日期:</span>
+		{{history.labResultDetails.updatedAt | amDateFormat: 'YYYY年MM月DD日'}}
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="selectOk()">关闭</button>
+</div>
+
