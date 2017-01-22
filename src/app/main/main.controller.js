@@ -389,7 +389,42 @@
 			})
 				.result.then(
 				function (labResults) {
-					$scope.diagnose.labResults = labResults;
+					$scope.diagnose.labResults = [];
+					labResults.map(function(result) {
+						if (result._id) {
+							// update
+							$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'labresult/' + result._id, result)
+								.then(function (response) {
+										// check if return null
+										if (response.return && response.return == 'null'){
+											toastr.error('没能更新数据到数据库');
+											return;
+										}
+										$scope.diagnose.labResults.push(response.data._id);
+
+									},
+									function(error){
+										toastr.error(error.messageFormatted);
+									});
+						}
+						else {
+							// create
+							$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'labresult', result)
+								.then(function (response) {
+										// check if return null
+										if (response.return && response.return == 'null'){
+											toastr.error('没能创建到数据库');
+											return;
+										}
+										$scope.diagnose.labResults.push(response.data._id);
+
+									},
+									function(error){
+										toastr.error(error.messageFormatted);
+									});
+						}
+
+					});
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

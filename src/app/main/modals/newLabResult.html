@@ -32,7 +32,7 @@
 					</div>
 					<div class="col-sm-6">
 						<span class="text-muted">化验日期</span> <span class="text-danger">*</span>&nbsp;
-							<input class="" type="date" placeholder="化验日期" ng-model="editResult.testDate" required>
+							<input type="date" placeholder="化验日期" ng-model="editResult.testDate" required>
 					</div>
 					<input type="hidden" ng-model="editResult._id">
 
@@ -130,6 +130,9 @@
 						<span class="btn btn-primary-outline btn-sm" ng-click="editLabResult(result)">
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						</span>
+						<span class="btn btn-danger-outline btn-sm" ng-click="removeLabResult($index)">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
+						</span>
 					</td>
 				</tr>
 				</tbody>
@@ -142,7 +145,6 @@
 
 	</div>
 	<div class="modal-footer clearfix">
-		{{labResults}}
 		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !labResults " ng-click="selectOk()">确认</button>
 		<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 	</div>

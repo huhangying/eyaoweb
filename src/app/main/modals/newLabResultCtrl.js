@@ -48,6 +48,7 @@
 			};
 
 			$scope.editLabResult = function (result) {
+				result.testDate = new Date(result.testDate);
 				$scope.editResult = angular.copy(result);
 			}
 
@@ -59,6 +60,10 @@
 					list: [],
 					testDate: ''
 				};
+			};
+
+			$scope.removeLabResult = function(index) {
+				$scope.labResults.splice(index, 1);
 			};
 
 			$scope.addLabTestItem = function() {
@@ -83,7 +88,22 @@
 			var init = function () {
 				$scope.labResults = $scope.labResults || [];
 				if ($scope.diagnose.labResults.length > 0) {
-					$scope.labResults = angular.copy($scope.diagnose.labResults);
+					$scope.diagnose.labResults.map(function(id) {
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'labresult/' + id)
+							.then(function (response) {
+									// check if return null
+									if (response.return && response.return == 'null'){
+										toastr.error('没能获取化验单数据');
+										return;
+									}
+									$scope.labResults.push(response.data);
+
+								},
+								function(error){
+									toastr.error(error.messageFormatted);
+								});
+					});
+
 				}
 				else {
 					$scope.addLabResult();
