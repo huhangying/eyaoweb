@@ -37,3 +37,7 @@ gulp builds           // Builds project to 'dist' folder
 ```
 
 Enjoy!
+
+NOTE:
+- /Users/harry/work/eyaoweb/src/app/core/scss/rin/_variables.scss: 
+ change =>	$table-cell-padding:            .25rem .75rem;

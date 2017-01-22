@@ -355,7 +355,25 @@
 
 
 			$scope.diagnose.prescription.splice(index, 1);
+		};
 
+		vm.selectNotices = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/editNotices.html',
+				controller: 'EditNoticesController',
+				size: 'lg'
+			})
+				.result.then(
+				function (notices) {
+					$scope.diagnose.notices = notices;
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
 		};
 
 		//todo:
@@ -370,8 +388,8 @@
 				size: 'lg'
 			})
 				.result.then(
-				function (notices) {
-					$scope.diagnose.notices = notices;
+				function (labResults) {
+					$scope.diagnose.labResults = labResults;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

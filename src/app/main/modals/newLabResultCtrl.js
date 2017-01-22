@@ -8,52 +8,85 @@
 
 	angular
 		.module('app.main.newLabResult', [])
-		.controller('NewLabResultController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('NewLabResultController', function ($scope, $rootScope, $http, toastr, CONFIG, $q) {
 			var vm = this;
 
 			$scope.selectOk = function() {
-				this.$close($scope.notices);
+				this.$close($scope.labResults);
 			};
 
-			$scope.updateNotices = function() {
-				$scope.notices = $scope.noticeList
-					.filter(function(notice) {
-						return notice.selected === true;
-					});
+			$scope.updateContent = function() {
+				if (!$scope.editResult._id && !$scope.editResult.saved) {
+					// create
+					$scope.editResult.saved = true;
+					$scope.labResults.push(angular.copy($scope.editResult));
+				}
+				else {
+					// update
+					for (var i=0; i<$scope.labResults.length; i++) {
+						if (!$scope.editResult.saved) {
+							if ($scope.labResults[i]._id === $scope.editResult._id) {
+								$scope.labResults[i] = angular.copy($scope.editResult);
+								break;
+							}
+						}
+						else {
+							if ($scope.labResults[i].name === $scope.editResult.name) {
+								$scope.labResults[i] = angular.copy($scope.editResult);
+								break;
+							}
+						}
+
+					}
+				}
+				$scope.editResult = undefined;
 			};
 
-			$scope.addNotice = function() {
-				$scope.inserted = {
-					notice: '',
-					days_to_start: -1,
-					during: 1,
-					require_confirm: true
+			$scope.cancelUpdateContent = function ()
+			{
+				$scope.editResult = undefined;
+			};
+
+			$scope.editLabResult = function (result) {
+				$scope.editResult = angular.copy(result);
+			}
+
+			$scope.addLabResult = function() {
+				$scope.editResult = {
+					doctor: $scope.diagnose.doctor,
+					user: $scope.diagnose.user,
+					name: '',
+					list: [],
+					testDate: ''
 				};
-				$scope.noticeList.unshift($scope.inserted);
+			};
+
+			$scope.addLabTestItem = function() {
+				$scope.inserted = {
+					item: '',
+					result: ''
+				};
+
+				$scope.editResult.list.push($scope.inserted);
+			};
+
+			$scope.deleteItem = function(index) {
+				$scope.editResult.list.splice(index, 1);
+			};
+
+			$scope.checkItem = function (data) {
+				if (!data) {
+					return '必填项';
+				}
 			};
 
 			var init = function () {
-				$scope.notices = [];
-
-				$scope.noticeList = [];
-				if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
-					for (var i=0; i<$scope.diagnose.prescription.length; i++) {
-						if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length > 0) {
-							for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
-								$scope.noticeList.push($scope.diagnose.prescription[i].notices[j]);
-							}
-						}
-					}
+				$scope.labResults = $scope.labResults || [];
+				if ($scope.diagnose.labResults.length > 0) {
+					$scope.labResults = angular.copy($scope.diagnose.labResults);
 				}
-
-				if ($scope.diagnose.notices && $scope.diagnose.notices.length>0) {
-					// 在 notices 里面的都是已经选择了的。
-					$scope.notices = $scope.diagnose.notices.map(function(notice) {
-						notice.selected = true;
-						return notice;
-					});
-					// override模式加入到药品都带的所有的notice list.
-					$scope.noticeList = _.unionBy($scope.notices, $scope.noticeList, '_id');
+				else {
+					$scope.addLabResult();
 				}
 
 			};
