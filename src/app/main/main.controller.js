@@ -233,8 +233,38 @@
 				});
 		};
 
-		vm.sendSurvey = function (type) {
+		vm.sendSurvey = function (type, selectSurveys) {
 
+			if (selectSurveys) {
+				$scope.selectedSurveyType = type;
+				$uibModal.open({
+					scope: $scope,
+					animation: true,
+					ariaLabelledBy: 'modal-title-top',
+					ariaDescribedBy: 'modal-body-top',
+					templateUrl: 'app/main/modals/surveySelect.html',
+					controller: 'SurveySelectController',
+					size: 'lg'
+				})
+					.result.then(
+					function (surveys) {
+						// add survey ids into diagnose
+						var surveyIds = [];
+
+						surveys.map(function(survey) {
+							surveyIds.push(survey._id);
+						});
+
+						$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
+
+						// todo: send to wechat
+					},
+					function (err) {
+						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+					});
+
+				return;
+			}
 
 			// 发送消息给微信
 			var reqBody = {

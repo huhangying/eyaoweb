@@ -22,6 +22,7 @@
 			'app.main.patient',
 			'app.main.newPatient',
 			'app.main.surveyEdit',
+			'app.main.surveySelect',
 			'app.main.conclusion',
 			'app.main.newMedicine',
 			'app.main.notices',
