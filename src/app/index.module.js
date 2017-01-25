@@ -21,6 +21,7 @@
 			'app.main.booking',
 			'app.main.patient',
 			'app.main.newPatient',
+			'app.surveyEdit',
 			'app.main.surveyEdit',
 			'app.main.surveySelect',
 			'app.main.conclusion',

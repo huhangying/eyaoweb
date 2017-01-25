@@ -1,5 +1,5 @@
 <div class="modal-header" id="first-survey">
-	<h3 class="modal-title pull-left" id="modal-title">{{surveyTitle}}</h3>
+	<h3 class="modal-title pull-left" id="modal-title">选择发送{{surveyTitle}}问卷</h3>
 
 	<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
 		<span aria-hidden="true">&times;</span>
@@ -9,36 +9,20 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-	<div ng-repeat="survey in surveys track by $index" style="padding: 0 0 10px;"	ng-if="surveys && surveys.length>0">
-		<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
-		<div style="padding: 0 10px 16px;" ng-repeat="question in survey.questions track by $index">
-			<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
-			<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;" class="form-inline">
-				<div class="text-muted form-group">
-					<label ng-if="question.answer_type == 0 || question.answer_type == 1">
-						<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-									 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
-									 ng-checked="option.selected"
-									 data-ng-model="option.selected"
-									 data-ng-value="option.selected || 'trick for radio'"
-									 ng-click="changeSelection(question, $index)">
+	<div ng-repeat="survey in surveys track by $index" class="p-l-md"	ng-if="surveys && surveys.length>0">
+		<div class="text-muted checkbox">
+			<label>
+				<input type="checkbox" class="form-control"
+							 name=""
+							 ng-checked="survey.selected"
+							 ng-click="changeSelection(survey, $index)">
 
-						<span>&nbsp;&nbsp;{{option.answer}}</span>
-					</label>
-					<label ng-if="question.answer_type == 2">
-						<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-									 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
-									 ng-checked="option.selected"
-									 ng-click="changeSelection(question, $index)">
-
-						<span>&nbsp;&nbsp;{{option.answer}}</span>
-					</label>
-					<textarea ng-if="question.answer_type == 3" style="width:536px;"
-										ng-model="option.answer" class="form-control"></textarea>
-					<input type="text" ng-model="option.input" class="form-control"
-								 ng-if="option.input_required && option.selected">
-				</div>
-			</div>
+				<span>&nbsp;&nbsp;{{survey.name}}</span>
+			</label>
+			&nbsp;&nbsp;
+			<span class="btn btn-link btn-primary" uib-tooltip="{{getQuestionList(survey)}}" tooltip-placement="bottom">
+				<i class="fa fa-list-ul" aria-hidden="true"></i>
+			</span>
 		</div>
 	</div>
 	<blockquote ng-if="!surveys || surveys.length<1" >

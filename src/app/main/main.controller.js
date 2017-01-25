@@ -233,47 +233,16 @@
 				});
 		};
 
-		vm.sendSurvey = function (type, selectSurveys) {
 
-			if (selectSurveys) {
-				$scope.selectedSurveyType = type;
-				$uibModal.open({
-					scope: $scope,
-					animation: true,
-					ariaLabelledBy: 'modal-title-top',
-					ariaDescribedBy: 'modal-body-top',
-					templateUrl: 'app/main/modals/surveySelect.html',
-					controller: 'SurveySelectController',
-					size: 'lg'
-				})
-					.result.then(
-					function (surveys) {
-						// add survey ids into diagnose
-						var surveyIds = [];
-
-						surveys.map(function(survey) {
-							surveyIds.push(survey._id);
-						});
-
-						$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
-
-						// todo: send to wechat
-					},
-					function (err) {
-						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
-					});
-
-				return;
-			}
-
+		var sendWechatMessage = function (targetUrl) {
 			// 发送消息给微信
 			var reqBody = {
 				openidList: [$scope.patient.link_id],
 				articles: [
 					{
 						title: CONFIG.surveyTypes[type],
-						description: '请填写' + CONFIG.surveyTypes[type] + ', 谢谢配合!',
-						url: 'http://www.google.com',
+						description: '请填写' + CONFIG.surveyTypes[type] + '问卷, 谢谢配合!',
+						url: targetUrl,
 						picurl: ''
 					}
 				]
@@ -292,6 +261,34 @@
 				.error(function(err){
 					toastr.error("问卷发送失败");
 				});
+		};
+		
+		vm.sendSurvey = function (type, selectSurveys) {
+
+			if (selectSurveys) {
+				$scope.selectedSurveyType = type;
+				$uibModal.open({
+					scope: $scope,
+					animation: true,
+					ariaLabelledBy: 'modal-title-top',
+					ariaDescribedBy: 'modal-body-top',
+					templateUrl: 'app/main/modals/surveySelect.html',
+					controller: 'SurveySelectController',
+					size: 'lg'
+				})
+					.result.then(
+					function (surveyIdList) {
+						// todo: send to wechat
+						sendWechatMessage('http://www.google.ca')
+					},
+					function (err) {
+						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+					});
+
+				return;
+			}
+
+			sendWechatMessage('http://www.google.ca')
 		};
 
 		vm.drawConclusion = function () {

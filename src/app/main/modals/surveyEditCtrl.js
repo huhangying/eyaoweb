@@ -8,8 +8,9 @@
 	angular
 		.module('app.main.surveyEdit', [])
 
-		.controller('SurveyEditController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('SurveyEditController', function ($scope, $rootScope, $http, toastr, CONFIG, $stateParams) {
 			var ctrl = this;
+			var type, department, doctor, user;
 			$scope.surveys = [];
 
 			var checkContent = function() {
@@ -124,8 +125,8 @@
 
 			};
 
-			var loadFromTemplate = function(department) {
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + $scope.selectedSurveyType)
+			var loadFromTemplate = function(department, doctor, user, type) {
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
@@ -135,8 +136,8 @@
 							$scope.surveys = response;
 							$scope.surveys.map(function(survey) {
 								survey.surveyTemplate = survey._id;
-								survey.doctor = $rootScope.login._id;
-								survey.user = $scope.diagnose.user;
+								survey.doctor = doctor;
+								survey.user = user;
 
 								survey._id = undefined;
 							});
@@ -149,15 +150,20 @@
 			};
 
 			var init = function () {
+				toastr.info($stateParams);
+				type = $stateParams.type || $scope.selectedSurveyType;
+				department = $stateParams.department || $rootScope.login.department;
+				doctor = $stateParams.doctor || $rootScope.login._id;
+				user = $stateParams.user || $scope.diagnose.user;
 
-				$scope.surveyTitle = CONFIG.surveyTypes[$scope.selectedSurveyType];
+				$scope.surveyTitle = CONFIG.surveyTypes[type];
 
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login._id
-					+ '/' + $scope.diagnose.user + '/' + $scope.selectedSurveyType)
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + doctor
+					+ '/' + user + '/' + type)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
-							loadFromTemplate($rootScope.login.department);
+							loadFromTemplate(department, doctor, user, type);
 						}
 						else {
 							$scope.surveys = response;
