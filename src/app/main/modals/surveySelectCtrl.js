@@ -45,13 +45,13 @@
 						}
 						else {
 							$scope.surveys = response;
-							$scope.surveys.map(function(survey) {
-								survey.surveyTemplate = survey._id;
-								survey.doctor = $rootScope.login._id;
-								survey.user = $scope.diagnose.user;
-
-								survey._id = undefined;
-							});
+							// $scope.surveys.map(function(survey) {
+							// 	survey.surveyTemplate = survey._id;
+							// 	survey.doctor = $rootScope.login._id;
+							// 	survey.user = $scope.diagnose.user;
+                            //
+							// 	survey._id = undefined;
+							// });
 						}
 
 					})

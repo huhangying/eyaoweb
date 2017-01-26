@@ -10,7 +10,7 @@
     function config($stateProvider) {
 
         $stateProvider.state('app.surveyEdit', {
-            url  : '/surveyEdit/:department/:doctor/:user/:type',
+            url  : '/surveyEdit/:department/:doctor/:user/:type/:list',
             views  : {
                 'content@app': {
                     templateUrl: 'app/main/modals/surveyEdit.html',

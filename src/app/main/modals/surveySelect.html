@@ -13,8 +13,8 @@
 		<div class="text-muted checkbox">
 			<label>
 				<input type="checkbox" class="form-control"
-							 name=""
 							 ng-checked="survey.selected"
+							 ng-model="survey.selected"
 							 ng-click="changeSelection(survey, $index)">
 
 				<span>&nbsp;&nbsp;{{survey.name}}</span>

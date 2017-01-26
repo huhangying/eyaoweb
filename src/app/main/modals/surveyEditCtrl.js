@@ -10,7 +10,7 @@
 
 		.controller('SurveyEditController', function ($scope, $rootScope, $http, toastr, CONFIG, $stateParams) {
 			var ctrl = this;
-			var type, department, doctor, user;
+			var type, department, doctor, user, list;
 			$scope.surveys = [];
 
 			var checkContent = function() {
@@ -125,8 +125,15 @@
 
 			};
 
-			var loadFromTemplate = function(department, doctor, user, type) {
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type)
+			var loadFromTemplate = function(department, doctor, user, type, list) {
+				var reqUrl ='';
+				if (list) {
+					reqUrl = CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type + '/' + list;
+				}
+				else {
+					reqUrl = CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type;
+				}
+				$scope.myPromise = $http.get(reqUrl)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
@@ -155,6 +162,8 @@
 				department = $stateParams.department || $rootScope.login.department;
 				doctor = $stateParams.doctor || $rootScope.login._id;
 				user = $stateParams.user || $scope.diagnose.user;
+				list = $stateParams.list;
+
 
 				$scope.surveyTitle = CONFIG.surveyTypes[type];
 
@@ -163,7 +172,7 @@
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
-							loadFromTemplate(department, doctor, user, type);
+							loadFromTemplate(department, doctor, user, type, list);
 						}
 						else {
 							$scope.surveys = response;

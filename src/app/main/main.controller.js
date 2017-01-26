@@ -234,7 +234,7 @@
 		};
 
 
-		var sendWechatMessage = function (targetUrl) {
+		var sendWechatMessage = function (type, targetUrl) {
 			// 发送消息给微信
 			var reqBody = {
 				openidList: [$scope.patient.link_id],
@@ -262,7 +262,7 @@
 					toastr.error("问卷发送失败");
 				});
 		};
-		
+
 		vm.sendSurvey = function (type, selectSurveys) {
 
 			if (selectSurveys) {
@@ -279,7 +279,11 @@
 					.result.then(
 					function (surveyIdList) {
 						// todo: send to wechat
-						sendWechatMessage('http://www.google.ca')
+						var url = 'http://localhost:3001/surveyEdit/' + $rootScope.login.department + '/' +
+							$scope.diagnose.doctor + '/' + $scope.diagnose.user + '/' +
+							$scope.selectedSurveyType + '/' + surveyIdList.join('|');
+						console.log(url);
+						sendWechatMessage(type, url)
 					},
 					function (err) {
 						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -288,7 +292,7 @@
 				return;
 			}
 
-			sendWechatMessage('http://www.google.ca')
+			sendWechatMessage(type, 'http://www.google.ca')
 		};
 
 		vm.drawConclusion = function () {
