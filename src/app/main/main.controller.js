@@ -282,7 +282,7 @@
 						var url = 'http://localhost:3001/surveyEdit/' + $rootScope.login.department + '/' +
 							$scope.diagnose.doctor + '/' + $scope.diagnose.user + '/' +
 							$scope.selectedSurveyType + '/' + surveyIdList.join('|');
-						console.log(url);
+						//console.log(url);
 						sendWechatMessage(type, url)
 					},
 					function (err) {

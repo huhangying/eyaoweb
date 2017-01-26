@@ -92,6 +92,18 @@
 				}
 			};
 
+			$scope.changeSelection = function (question, index) {
+				if (question.answer_type == 0 || question.answer_type == 1) {
+					for (var i=0; i<question.options.length; i++) {
+						question.options[i].selected = (i == index);
+					}
+				}
+				else if (question.answer_type == 2) {
+					question.options[index].selected = !question.options[index].selected;
+				}
+
+			};
+
 			var init = function () {
 				$scope.activeTab = 0;
 
