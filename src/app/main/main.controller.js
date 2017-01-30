@@ -307,8 +307,15 @@
 				size: 'lg'
 			})
 				.result.then(
-				function (conclusion) {
-					$scope.conclusion = conclusion;
+				function (conclusion) { // same as open/edit surveys
+					// add survey ids into diagnose
+					var surveyIds = [];
+
+					conclusion.surveys.map(function(survey) {
+						surveyIds.push(survey._id);
+					});
+
+					$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

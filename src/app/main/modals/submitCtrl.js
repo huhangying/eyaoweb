@@ -137,7 +137,7 @@
 								});
 						}
 						else {
-							$scope.surveys = response;
+							$scope.conclusion.surveys = response;
 						}
 
 					})
