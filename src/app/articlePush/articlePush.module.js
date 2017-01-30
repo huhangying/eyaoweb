@@ -9,7 +9,7 @@
 			$provide.decorator('taOptions', ['$delegate', function(taOptions){
 				// $delegate is the taOptions we are decorating
 				// here we override the default toolbars and classes specified in taOptions.
-				taOptions.forceTextAngularSanitize = true; // set false to allow the textAngular-sanitize provider to be replaced
+				taOptions.forceTextAngularSanitize = false; // set false to allow the textAngular-sanitize provider to be replaced
 				taOptions.keyMappings = []; // allow customizable keyMappings for specialized key boards or languages
 				taOptions.toolbar = [
 					['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],

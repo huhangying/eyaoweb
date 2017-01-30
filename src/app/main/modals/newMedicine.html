@@ -9,10 +9,19 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 	<div>
-		<label for="selectAMedicine" class="control-label">选择药品</label>
-		<select class="form-control" ng-model="selectedMedicine" id="selectAMedicine"
-						ng-options="option.name for option in medicines track by option._id">
-		</select>
+		<label for="select-a-medicine" class="control-label">选择药品</label>
+
+			<ui-select ng-model="selectedMedicine" id="select-a-medicine"
+								 on-select="setSelectedMedicine($item)">
+				<ui-select-match placeholder=" 选择或搜索药品名..." style="border: 1px solid lightgray;">
+					<span ng-bind="$select.selected.name"></span>
+				</ui-select-match>
+				<ui-select-choices repeat="item in (medicines | filter: $select.search)">
+					<div ng-bind-html="item.name | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>
+
+
 	</div>
 	<hr/>
 	<form name="medicineForm" >

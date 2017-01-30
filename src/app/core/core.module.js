@@ -11,7 +11,9 @@
                 'ui.router',
                 'toastr',
 				'cgBusy',
-				'xeditable'
+				'xeditable',
+				'ui.select',
+				'ngSanitize'
             ])
 		.value('cgBusyDefaults',{
 			message:'正在处理...',

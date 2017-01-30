@@ -6,12 +6,15 @@
         .config(config);
 
     /** @ngInject */
-    function config() {
+    function config(uiSelectConfig) {
 
         // toastr configuration
         toastr.options.timeOut = 4000;
         toastr.options.positionClass = 'toast-top-right';
         toastr.options.preventDuplicates = true;
+
+		uiSelectConfig.theme = 'bootstrap';
+		uiSelectConfig.resetSearchInput = true;
     }
 
 })();

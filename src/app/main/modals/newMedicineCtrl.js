@@ -15,11 +15,10 @@
 			$scope.selectOk = function() {
 				this.$close($scope.selectedMedicine);
 			};
+			
 
-			$scope.selectMedicine = function (id) {
-				$scope.selectedMedicine = $scope.medicines.filter(function(med) {
-					return med._id === id;
-				});
+			$scope.setSelectedMedicine = function(item, modal) {
+				$scope.selectedMedicine = item;
 
 				// filter out non-applied notices
 				if ($scope.selectedMedicine.notices && $scope.selectedMedicine.notices.length > 0) {
@@ -27,8 +26,7 @@
 						return notice.apply;
 					});
 				}
-
-			}
+			};
 
 
 			var init = function () {
