@@ -30,6 +30,7 @@
 			'app.main.newLabResult',
 			'app.main.history',
 			'app.main.history.labResultDetails',
+			'app.main.submit',
 			'app.chat',
 			'app.book',
 			'app.articlePush',

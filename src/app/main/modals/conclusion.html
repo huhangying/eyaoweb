@@ -9,73 +9,43 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="main-conclusion" ng-cloak="true">
 
-	<uib-tabset active="activeTab" justified="true">
-		<uib-tab index="0" ng-click="activeTab = 0">
-			<uib-tab-heading class="tab-header  {{activeTab == 0?'text-warning':''}}">
-				<i class="fa fa-address-card" aria-hidden="true"></i>
-				随访小结
-			</uib-tab-heading>
-			<div class="tab-content">
-				<div ng-repeat="survey in conclusion.surveys track by $index" style="padding: 0 0 10px;"
-						 ng-if="conclusion.surveys && conclusion.surveys.length>0">
-					<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
-					<div style="padding: 0 10px 16px;" ng-repeat="question in survey.questions track by $index">
-						<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
-						<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;" class="form-inline">
-							<div class="text-muted form-group">
-								<label ng-if="question.answer_type == 0 || question.answer_type == 1">
-									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
-												 ng-checked="option.selected"
-												 data-ng-model="option.selected"
-												 data-ng-value="option.selected || 'trick for radio'"
-												 ng-click="changeSelection(question, $index)">
+	<div ng-repeat="survey in conclusion.surveys track by $index" style="padding: 0 0 10px;"
+			 ng-if="conclusion.surveys && conclusion.surveys.length>0">
+		<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
+		<div style="padding: 0 10px 16px;" ng-repeat="question in survey.questions track by $index">
+			<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
+			<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;" class="form-inline">
+				<div class="text-muted form-group">
+					<label ng-if="question.answer_type == 0 || question.answer_type == 1">
+						<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+									 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
+									 ng-checked="option.selected"
+									 data-ng-model="option.selected"
+									 data-ng-value="option.selected || 'trick for radio'"
+									 ng-click="changeSelection(question, $index)">
 
-									<span>&nbsp;&nbsp;{{option.answer}}</span>
-								</label>
-								<label ng-if="question.answer_type == 2">
-									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
-												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
-												 ng-checked="option.selected"
-												 ng-click="changeSelection(question, $index)">
+						<span>&nbsp;&nbsp;{{option.answer}}</span>
+					</label>
+					<label ng-if="question.answer_type == 2">
+						<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+									 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
+									 ng-checked="option.selected"
+									 ng-click="changeSelection(question, $index)">
 
-									<span>&nbsp;&nbsp;{{option.answer}}</span>
-								</label>
-					<textarea ng-if="question.answer_type == 3" style="width:536px;"
-										ng-model="option.answer" class="form-control"></textarea>
-								<input type="text" ng-model="option.input" class="form-control"
-											 ng-if="option.input_required && option.selected">
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<div ng-if="!conclusion.surveys || conclusion.surveys.length<1" >
-					<p>无可用门诊结论问卷。请联系管理者到后台增加。</p>
+						<span>&nbsp;&nbsp;{{option.answer}}</span>
+					</label>
+		<textarea ng-if="question.answer_type == 3" style="width:536px;"
+							ng-model="option.answer" class="form-control"></textarea>
+					<input type="text" ng-model="option.input" class="form-control"
+								 ng-if="option.input_required && option.selected">
 				</div>
 			</div>
-		</uib-tab>
-		<uib-tab index="1" ng-click="activeTab = 1">
-			<uib-tab-heading class="tab-header {{activeTab == 1?'text-warning':''}} ">
-				<i class="fa fa-share" aria-hidden="true"></i>
-				建议转诊
-			</uib-tab-heading>
-			<div class="tab-content">
-				Some Tab Content
-			</div>
+		</div>
 
-		</uib-tab>
-		<uib-tab index="2" ng-click="activeTab = 2" class="">
-			<uib-tab-heading class="tab-header {{activeTab == 2?'text-warning':''}}">
-				<i class="fa fa-bell" aria-hidden="true"></i>
-				监测计划
-			</uib-tab-heading>
-			<div>
-				More Tab Content
-			</div>
-		</uib-tab>
-	</uib-tabset>
-
+	</div>
+	<div ng-if="!conclusion.surveys || conclusion.surveys.length<1" >
+		<p>无可用门诊结论问卷。请联系管理者到后台增加。</p>
+	</div>
 
 </div>
 <div class="modal-footer">

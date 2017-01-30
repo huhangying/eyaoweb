@@ -48,14 +48,9 @@
 				<button class="btn btn-primary-outline" ng-click="vm.drawConclusion()" ng-if="diagnose.user">门诊结论</button>
 
 
-				<button class="btn btn-primary pull-right" ng-click="" ng-if="diagnose.user">
+				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="diagnose.user">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					结束门诊&发送结论
-				</button>
-				<button class="btn btn-primary-outline pull-right"
-								ng-click="vm.saveDiagnose()" ng-if="diagnose.user">
-					<i class="fa fa-floppy-o" aria-hidden="true"></i>
-					保存
 				</button>
 
 				<hr/>
@@ -64,11 +59,20 @@
 		</div>
 		<div style="padding-top: 10px;" ng-if="diagnose.user">
 			<h5>用药计划（处方）</h5>
-			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="diagnose.user">新开处方</button>
+			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="diagnose.user">
+				<i class="fa fa-medkit" aria-hidden="true"></i>
+				新开处方
+			</button>
 			<button class="btn btn-primary-outline" ng-click="vm.selectNotices()" ng-if="diagnose.user && diagnose.prescription.length>0">监测计划</button>
 			<button type="button" class="btn btn-primary-outline" ng-if="diagnose.user" ng-click="vm.createLabResult()">
 				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
+			</button>
+
+			<button class="btn btn-primary-outline pull-right"
+							ng-click="vm.saveDiagnose()" ng-if="diagnose.user">
+				<i class="fa fa-floppy-o" aria-hidden="true"></i>
+				保存
 			</button>
 			<div>
 

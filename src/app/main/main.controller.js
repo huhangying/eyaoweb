@@ -501,6 +501,27 @@
 				});
 		};
 
+		vm.submitDiagnose = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/main/modals/submit.html',
+				controller: 'SubmitController',
+				size: 'lg'
+			})
+				.result.then(
+				function () {
+					// reset environment
+
+					//
+
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
 
 		var init = function () {
 			$scope.patient = {
