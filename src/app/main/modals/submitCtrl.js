@@ -108,8 +108,17 @@
 				$scope.activeTab = 0;
 
 				// load 门诊结论问卷
+				var list = '';
+				var selectedSurveys = $scope.diagnose.surveys.filter(function(_survey) {
+					return _survey.type == 5;
+				});
+				if (selectedSurveys && selectedSurveys.length > 0) {
+					if (selectedSurveys[0].list && selectedSurveys[0].list.length>0) {
+						list = selectedSurveys[0].list.join('|');
+					}
+				}
 				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $scope.diagnose.doctor
-					+ '/' + $scope.diagnose.user + '/5')
+					+ '/' + $scope.diagnose.user + '/5/' + list)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
@@ -144,6 +153,9 @@
 					.error(function(){
 						toastr.error(CONFIG.Error.Internal);
 					});
+
+				// load notices
+				
 			};
 
 			init();

@@ -62,7 +62,23 @@
 				门诊处方
 			</uib-tab-heading>
 			<div class="tab-content">
-				Some Tab Content
+				<table class="table">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:30%">药名</td>
+						<td style="width:40%">服用方法</td>
+						<td style="width:30%">备注</td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="medicine in diagnose.prescription">
+						<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
+						<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
+						<td>{{ medicine.notes || '无' }}</td>
+					</tr>
+					</tbody>
+				</table>
+
 			</div>
 		</uib-tab>
 
@@ -71,8 +87,35 @@
 				<i class="fa fa-bell" aria-hidden="true"></i>
 				监测计划
 			</uib-tab-heading>
-			<div>
-				More Tab Content
+			<div class="tab-content">
+				<table class="table">
+					<thead class="bold-text bg-info">
+					<td style="width:60%">名称</td>
+					<td style="width:17%">提醒开始</td>
+					<td style="width:11%">持续天数</td>
+					<td style="width:12%">确认取消?</td>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in diagnose.notices" ng-class="item.selected ? 'text-success':''" class="editable-row">
+						<td>
+          {{ item.notice || 'empty' }}
+						</td>
+						<td>
+						{{ (item.days_to_start >=0 ? '服药开始后' + item.days_to_start : '服药结束前' + -item.days_to_start) + '天'}}
+						</td>
+						<td>
+						{{ item.during + '天' }}
+						</td>
+						<td>
+						{{ item.require_confirm ? '需要' : '不需要' }}
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<div ng-if="!diagnose.notices || diagnose.notices.length<1"> 
+					无预设的检测计划。
+				</div>
 			</div>
 		</uib-tab>
 
@@ -95,7 +138,7 @@
 		<i class="fa fa-paper-plane" aria-hidden="true"></i>
 		发送门诊结论
 	</button>
-	<button class="btn btn-primary" type="button" ng-click="rollbackVisitedDepartments()">undo 发送</button>
+	<button class="btn btn-primary" type="button" ng-click="rollbackVisitedDepartments()">undo 发送(test)</button>
 	<button class="btn btn-warning" type="button" ng-click="$dismiss()">取消</button>
 </div>
 

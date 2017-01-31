@@ -4,10 +4,10 @@
 		<div class="h3 pull-left">药师门诊 </div>
 
 		<div class="btn-group pull-right m-t-sm" ng-if="diagnose.user">
-			<span class="btn bg-success " style="padding: 3px 11px;">
+			<span class="btn bg-success" style="padding: 3px 11px;" ng-click="vm.viewPatientHistory()">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
-				<i class="fa fa-history" aria-hidden="true" ng-click="vm.viewPatientHistory()"></i>
+				<i class="fa fa-history" aria-hidden="true"></i>
 			</span>
 
 		</div>
