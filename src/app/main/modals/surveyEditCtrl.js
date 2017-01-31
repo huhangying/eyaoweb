@@ -163,12 +163,27 @@
 				doctor = $stateParams.doctor || $rootScope.login._id;
 				user = $stateParams.user || $scope.diagnose.user;
 				list = $stateParams.list;
+				if (!list) {
+					var selectedSurveys = $scope.diagnose.surveys.filter(function(_survey) {
+						return _survey.type == type;
+					});
+					if (selectedSurveys && selectedSurveys.length > 0) {
+						if (selectedSurveys[0].list && selectedSurveys[0].list.length>0) {
+							list = selectedSurveys[0].list.join('|');
+						}
+					}
+				}
 
 
 				$scope.surveyTitle = CONFIG.surveyTypes[type];
-
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + doctor
-					+ '/' + user + '/' + type)
+				var reqUrl ='';
+				if (list) {
+					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type + '/' + list;
+				}
+				else {
+					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type;
+				}
+				$scope.myPromise = $http.get(reqUrl)
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){

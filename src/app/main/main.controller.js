@@ -226,7 +226,19 @@
 						surveyIds.push(survey._id);
 					});
 
-					$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
+					var existed = false;
+					$scope.diagnose.surveys.map(function(_survey) {
+						if (_survey.type === $scope.selectedSurveyType) {
+							// update if existed
+							existed = true;
+							_survey.list = surveyIds;
+						}
+					});
+
+					// create if not existed
+					if (!existed) {
+						$scope.diagnose.surveys.push({type: $scope.selectedSurveyType, list: surveyIds});
+					}
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
