@@ -15,7 +15,7 @@
 			$scope.selectOk = function() {
 				this.$close($scope.selectedMedicine);
 			};
-			
+
 
 			$scope.setSelectedMedicine = function(item, modal) {
 				$scope.selectedMedicine = item;
@@ -59,6 +59,20 @@
 						}
 						else{
 							$scope.usages = response.value.split('|');
+						}
+					});
+
+				$http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
+					.success(function (response) {
+						//console.log(JSON.stringify(response))
+						if (!response ){
+							toastr.error('无数据!')
+						}
+						else if (response.return == 'error') {
+							toastr.error(response.message);
+						}
+						else{
+							$scope.periods = response.value.split('|');
 						}
 					});
 
