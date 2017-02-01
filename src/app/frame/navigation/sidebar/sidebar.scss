@@ -15,8 +15,8 @@
 	    height: 100%;
 	}
 	.sidebar-link {
-		padding: .1rem .1rem;
-		margin-top: .25rem;
+		padding: .4rem .2rem .35rem .2rem;
+
 
 		i {
 			color: darken($white, 10%);
@@ -29,6 +29,7 @@
 	}
 	.active {
 		background-color: lighten($sidebar-bg, 10%);
+	  border-right: 2px solid $white;
 
 		i {
 			color: $white;
