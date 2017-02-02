@@ -28,7 +28,7 @@
                     }
                 }
             });
-		$locationProvider.html5Mode(true); // remove # in path
+		//$locationProvider.html5Mode(true); // remove # in path
     }
 
 })();

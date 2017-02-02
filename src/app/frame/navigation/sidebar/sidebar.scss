@@ -15,17 +15,21 @@
 	    height: 100%;
 	}
 	.sidebar-link {
-		padding: .4rem .2rem .35rem .2rem;
+	  font-size: 18px;
+		padding: 0px;
 
 
 		i {
 			color: darken($white, 10%);
-			margin-left: .75rem;
-			margin-right: .5rem;
+			margin-left: 0;
+			margin-right: 0;
 		}
 		a {
-			color: darken($white, 10%);
+			color: darken($white, 5%);
 		}
+	  a:hover {
+		background-color: lighten($sidebar-bg, 10%);;
+	  }
 	}
 	.active {
 		background-color: lighten($sidebar-bg, 10%);

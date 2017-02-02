@@ -1,27 +1,38 @@
-<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
-	<a class="navbar-brand p-r-md" href ui-sref="app.home"><img src="/assets/images/logo.png" height="33px"> </a>
+<nav class="navbar navbar-dark navbar-fixed-top bg-inverse" role="navigation">
 
-	<ul class="nav navbar-nav pull-left">
-		<li class="nav-item">
-			<a class="nav-link" href ui-sref="app.main">门诊</a>
+	<div class="navbar-header">
+
+		<a class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</a>
+		<a class="navbar-brand" href ui-sref="app.home"><img src="/assets/images/logo.png" height="33px"> </a>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse form-inline" uib-collapse="isNavCollapsed">
+	<ul class="nav navbar-nav">
+		<li class="nav-item" href ui-sref="app.main" ui-sref-active="active">
+		<a class="nav-link" >门诊</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ui-sref="app.chat">在线咨询</a>
+		<li>
+			<a class="nav-link" href ui-sref="app.chat" ui-sref-active="active">在线咨询</a>
 		</li>
-		<li class="nav-item">
+		<li>
 			<a class="nav-link" href ui-sref="app.book">门诊预约</a>
 		</li>
-		<li class="nav-item">
+		<li>
 			<a class="nav-link" href ui-sref="app.articlePush" ui-sref-active="active">宣教材料推送</a>
 		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">病患管理</a>
-			<div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-				<a class="dropdown-item" href ui-sref="app.home">用户管理</a>
-				<a class="dropdown-item" href ui-sref="app.home">用户组管理</a>
-			</div>
+			<ul class="dropdown-menu" aria-labelledby="supportedContentDropdown">
+				<li><a class="dropdown-item" href ui-sref="app.home">用户管理</a></li>
+				<li><a class="dropdown-item" href ui-sref="app.home">用户组管理</a></li>
+			</ul>
 		</li>
 	</ul>
+
+
 	<form class="form-inline pull-right">
 		<div class="btn-group">
 			<a data-toggle="dropdown">
@@ -29,12 +40,18 @@
 				{{login.name}}
 				<img class="avatar menu-img" src="https://pbs.twimg.com/profile_images/726100805/4394612844_0b36f6a9db_o.jpg">
 			</a>
-			<div class="dropdown-menu right">
-				<a class="dropdown-item" ng-click="" href>个人信息</a>
-				<a class="dropdown-item" ng-click="logout()" href>退出</a>
-			</div>
+			<ul class="dropdown-menu right">
+				<li>
+					<a class="dropdown-item" ng-click="" href>个人信息</a>
+				</li>
+				<li>
+					<a class="dropdown-item" ng-click="logout()" href>退出</a>
+				</li>
+			</ul>
 		</div>
 	</form>
+
+		</div>
 
 
 </nav>

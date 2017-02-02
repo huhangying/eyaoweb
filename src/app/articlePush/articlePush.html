@@ -7,13 +7,16 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-primary-outline" ng-click="vm.selectSendees()">选择患者</button>
+				<button class="btn btn-default" ng-click="vm.selectSendees()">选择患者</button>
 
-				<button class="btn btn-primary-outline" ng-click="vm.selectTemplate()">选择模版</button>
-				<button class="btn btn-primary-outline" ng-click="vm.selectFromOld()">选择已发送文章</button>
+				<button class="btn btn-default" ng-click="vm.selectTemplate()">选择模版</button>
+				<button class="btn btn-default" ng-click="vm.selectFromOld()">选择已发送文章</button>
 
-				<button class="btn btn-primary-outline pull-right" ng-click="vm.sendMessage()">发送</button>
-				<button class="btn btn-primary{{article._id?'':'-outline'}} pull-right m-r-md" ng-click="vm.saveArticle()">保存</button>
+				<button class="btn btn-default pull-right" ng-click="vm.sendMessage()">
+					发送</button>
+				<button class="btn btn-{{article._id?'primary':'default'}} pull-right m-r-md" ng-click="vm.saveArticle()">
+					<i class="fa fa-floppy-o" aria-hidden="true"></i>保存
+				</button>
 				<hr/>
 			</div>
 		</div>

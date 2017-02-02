@@ -17,10 +17,10 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-primary-outline" ng-click="vm.selectBooking()">选择预约</button>
+				<button class="btn btn-default" ng-click="vm.selectBooking()">选择预约</button>
 
 				<div class="btn-group">
-					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{diagnose.user? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.selectPatient()">选择患者</span>
 						<span class="divider-vertical"></span>
@@ -31,7 +31,7 @@
 					</ul>
 				</div>
 				<div class="btn-group" ng-if="diagnose.user">
-					<button type="button" class="btn btn-primary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.openSurvey(isFirstVisit?1:2)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
 						<span class="divider-vertical"></span>
@@ -45,7 +45,7 @@
 						<li class="dropdown-item"><a href="#" ng-click="vm.sendSurvey(4, true)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-primary-outline" ng-click="vm.openSurvey(5)" ng-if="diagnose.user">门诊结论</button>
+				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="diagnose.user">门诊结论</button>
 
 
 				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="diagnose.user">
@@ -59,17 +59,17 @@
 		</div>
 		<div style="padding-top: 10px;" ng-if="diagnose.user">
 			<h5>用药计划（处方）</h5>
-			<button class="btn btn-primary-outline" ng-click="vm.addMedicine()" ng-if="diagnose.user">
+			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="diagnose.user">
 				<i class="fa fa-medkit" aria-hidden="true"></i>
 				新开处方
 			</button>
-			<button class="btn btn-primary-outline" ng-click="vm.selectNotices()" ng-if="diagnose.user && diagnose.prescription.length>0">监测计划</button>
-			<button type="button" class="btn btn-primary-outline" ng-if="diagnose.user" ng-click="vm.createLabResult()">
+			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="diagnose.user && diagnose.prescription.length>0">监测计划</button>
+			<button type="button" class="btn btn-default" ng-if="diagnose.user" ng-click="vm.createLabResult()">
 				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
 
-			<button class="btn btn-primary-outline pull-right"
+			<button class="btn btn-default pull-right"
 							ng-click="vm.saveDiagnose()" ng-if="diagnose.user">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
@@ -92,7 +92,7 @@
 					<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>
 					<td class="pull-right">
-						<button class="btn btn-primary-outline btn-sm" ng-click="editPrescription(medicine)">
+						<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 						<button class="btn btn-danger-outline btn-sm" ng-click="removePrescription($index)">
 							<i class="fa fa-trash" aria-hidden="true"></i></button>

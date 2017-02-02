@@ -6,7 +6,7 @@
 		</button>
 	</div>
 	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
-	<button class="btn btn-primary-outline pull-right m-r-md"
+	<button class="btn btn-default pull-right m-r-md"
 					ng-click="addLabResult()" ng-if="diagnose.user">
 		<i class="fa fa-plus" aria-hidden="true"></i>
 		新增化验单
@@ -76,7 +76,7 @@
 									取消
 								</button>
 							</form>
-								<span class="btn btn-primary-outline btn-sm" ng-click="rowform.$show()" ng-show="!rowform.$visible">
+								<span class="btn btn-default btn-sm" ng-click="rowform.$show()" ng-show="!rowform.$visible">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</span>
 								<span class="btn btn-danger-outline btn-sm" ng-click="deleteItem($index)" ng-show="!rowform.$visible">
@@ -87,7 +87,7 @@
 					</tbody>
 				</table>
 				<div class="pull-right">
-					<button class="btn btn-primary-outline btn-sm" ng-click="updateContent()" ng-disabled="mainForm.$invalid">
+					<button class="btn btn-default btn-sm" ng-click="updateContent()" ng-disabled="mainForm.$invalid">
 						保存
 					</button>
 					<button class="btn btn-default-outline btn-sm" ng-click="cancelUpdateContent()">
@@ -127,7 +127,7 @@
 						{{ result.list.length }}
 					</td>
 					<td style="white-space: nowrap" class="pull-right">
-						<span class="btn btn-primary-outline btn-sm" ng-click="editLabResult(result)">
+						<span class="btn btn-default btn-sm" ng-click="editLabResult(result)">
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						</span>
 						<span class="btn btn-danger-outline btn-sm" ng-click="removeLabResult($index)">

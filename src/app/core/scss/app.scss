@@ -1,6 +1,9 @@
-@import "rin/variables.scss";
 
-@import "bootstrap/bootstrap.scss";
+
+@import "_bootstrap-sprockets";
+@import "_bootstrap.scss";
+
+@import "rin/variables.scss";
 
 @import "rin/base.scss";
 @import "rin/components.scss";
