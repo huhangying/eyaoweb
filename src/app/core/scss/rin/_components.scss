@@ -16,8 +16,8 @@
 
 	.box-header {
 		position: relative;
-		padding: 1rem;
-		padding-bottom: 0rem;
+		padding: 0 16px;
+		padding-bottom: 0;
 	}
 	.box-body {
 		padding: 1rem;
@@ -32,20 +32,12 @@
 	}
 }
 
-.linear-primary {
+.linear-info {
 	background-image: linear-gradient(to bottom right, $primary 0%, $accent 100%);
 }
 
-.linear-primary {
+.linear-success {
 	background-image: linear-gradient(to bottom right, $accent 0%, $success 100%);
-}
-
-.linear-primary {
-	background-image: linear-gradient(to bottom right, #36ABA2 0%, #EFD23E 100%);
-}
-
-.linear-primary {
-	background-image: linear-gradient(to bottom right, #36ABA2 0%, #EFD23E 100%);
 }
 
 .linear-primary {

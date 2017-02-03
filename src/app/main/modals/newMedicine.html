@@ -13,7 +13,7 @@
 
 			<ui-select ng-model="selectedMedicine" id="select-a-medicine"
 								 on-select="setSelectedMedicine($item)">
-				<ui-select-match placeholder=" 选择或搜索药品名..." style="border: 1px solid lightgray;">
+				<ui-select-match placeholder=" 选择或搜索药品名...">
 					<span ng-bind="$select.selected.name"></span>
 				</ui-select-match>
 				<ui-select-choices repeat="item in (medicines | filter: $select.search)">

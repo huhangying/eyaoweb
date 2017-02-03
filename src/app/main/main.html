@@ -3,8 +3,8 @@
 	<div class="box-header">
 		<div class="h3 pull-left">药师门诊 </div>
 
-		<div class="btn-group pull-right m-t-sm" ng-if="diagnose.user">
-			<span class="btn bg-success" style="padding: 3px 11px;" ng-click="vm.viewPatientHistory()">
+		<div class="pull-right" ng-if="diagnose.user">
+			<span class="btn btn-warning" style="padding: 4px 11px;margin-top:15px" ng-click="vm.viewPatientHistory()">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
 				<i class="fa fa-history" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="dropdown-item"><a href="#" ng-click="vm.createPatient()">新建患者</a></li>
+						<li class="dropdown-item"><a ng-click="vm.createPatient()">新建患者</a></li>
 					</ul>
 				</div>
 				<div class="btn-group" ng-if="diagnose.user">
@@ -38,11 +38,11 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="dropdown-item"><a href="#" ng-click="vm.sendSurvey(isFirstVisit?1:2)">发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
-						<li class="dropdown-item"><a href="#" ng-click="vm.openSurvey(3)">编辑查看随访问卷</a></li>
-						<li class="dropdown-item"><a href="#" ng-click="vm.sendSurvey(3)">发送随访问卷</a></li>
-						<li class="dropdown-item"><a href="#" ng-click="vm.openSurvey(4)">编辑查看用药知识自测问卷</a></li>
-						<li class="dropdown-item"><a href="#" ng-click="vm.sendSurvey(4, true)">发送用药知识自测问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(isFirstVisit?1:2)">发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.openSurvey(3)">编辑查看随访问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(3)">发送随访问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.openSurvey(4)">编辑查看用药知识自测问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
 				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="diagnose.user">门诊结论</button>

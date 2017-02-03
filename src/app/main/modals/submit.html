@@ -21,10 +21,10 @@
 					<div class="alert alert-success text-center" style="padding-bottom: 20px;">{{survey.name}}</div>
 					<div style="padding: 0 10px 16px;" ng-repeat="question in survey.questions track by $index">
 						<h5 class="text-primary">{{$index + 1}}. {{question.question}}</h5>
-						<div ng-repeat="option in question.options track by $index" style="padding: 0 0 0 20px;" class="form-inline">
+						<div ng-repeat="option in question.options track by $index" style="padding: 0 0 1px 16px;" class="form-inline">
 							<div class="text-muted form-group">
 								<label ng-if="question.answer_type == 0 || question.answer_type == 1">
-									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+									<input type="{{getTypeById(question.answer_type)}}"
 												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
 												 ng-checked="option.selected"
 												 data-ng-model="option.selected"
@@ -34,7 +34,7 @@
 									<span>&nbsp;&nbsp;{{option.answer}}</span>
 								</label>
 								<label ng-if="question.answer_type == 2">
-									<input type="{{getTypeById(question.answer_type)}}" class="form-control"
+									<input type="{{getTypeById(question.answer_type)}}"
 												 name="answer{{$parent.$parent.$parent.$index}}{{$parent.$parent.$index}}{{$parent.$index}}"
 												 ng-checked="option.selected"
 												 ng-click="changeSelection(question, $index)">

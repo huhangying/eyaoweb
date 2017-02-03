@@ -17,6 +17,7 @@
 		if (!$rootScope.login || !$rootScope.login.name) {
 			$state.go('app.login');
 		}
+		$scope.doctorIcon = $rootScope.login.icon;
 
 		$scope.debug = $window.sessionStorage.debug;
 		if ($scope.debug !== undefined) {
