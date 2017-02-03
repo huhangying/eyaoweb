@@ -12,7 +12,7 @@
 	<div ng-repeat="survey in surveys track by $index" class="p-l-md"	ng-if="surveys && surveys.length>0">
 		<div class="text-muted checkbox">
 			<label>
-				<input type="checkbox" class="form-control"
+				<input type="checkbox"
 							 ng-checked="survey.selected"
 							 ng-model="survey.selected"
 							 ng-click="changeSelection(survey, $index)">

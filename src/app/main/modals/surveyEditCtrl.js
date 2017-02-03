@@ -157,7 +157,6 @@
 			};
 
 			var init = function () {
-				toastr.info($stateParams);
 				type = $stateParams.type || $scope.selectedSurveyType;
 				department = $stateParams.department || $rootScope.login.department;
 				doctor = $stateParams.doctor || $rootScope.login._id;

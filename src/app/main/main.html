@@ -91,11 +91,13 @@
 					<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
 					<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>
-					<td class="pull-right">
-						<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
-							<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-						<button class="btn btn-danger-outline btn-sm" ng-click="removePrescription($index)">
-							<i class="fa fa-trash" aria-hidden="true"></i></button>
+					<td>
+						<div class="pull-right">
+							<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+							<button class="btn btn-danger btn-sm" ng-click="removePrescription($index)">
+								<i class="fa fa-trash" aria-hidden="true"></i></button>
+						</div>
 					</td>
 				</tr>
 				</tbody>
