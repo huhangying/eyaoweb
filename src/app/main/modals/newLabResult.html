@@ -5,12 +5,15 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
-	<button class="btn btn-default pull-right m-r-md"
-					ng-click="addLabResult()" ng-if="diagnose.user">
-		<i class="fa fa-plus" aria-hidden="true"></i>
-		新增化验单
-	</button>
+	<div class="text-muted ptms">
+		<span>从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</span>
+		<button class="btn btn-default pull-right m-r-md"
+						ng-click="addLabResult()" ng-if="diagnose.user">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			新增化验单
+		</button>
+	</div>
+
 </div>
 <div cg-busy="myPromise"></div>
 	<div class="modal-body" id="modal-body">
