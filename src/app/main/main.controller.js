@@ -531,10 +531,12 @@
 				size: 'lg'
 			})
 				.result.then(
-				function () {
+				function (status) {
 					// reset environment
 
-					//
+					// save status
+					$scope.diagnose.status = status;
+					vm.saveDiagnose();
 
 				},
 				function (err) {

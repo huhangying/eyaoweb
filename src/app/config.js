@@ -23,6 +23,12 @@
 				"药师评估",		//6
 				"化验结果"		//7
 			],
+			diagnoseStatus: {
+				Initialized: 0,
+				Submitted: 1, // user submitted
+				Saved: 2, // doctor saved
+				Archived: 3 // doctor finished
+			},
 			medicineDosageWays: [
 				{text: "饭后", value: "1"},
 				{text: "饭前", value: "2"},

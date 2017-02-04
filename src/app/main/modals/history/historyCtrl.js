@@ -21,6 +21,23 @@
 				$scope.activeTab = tabIndex;
 
 				switch(tabIndex) {
+					case 1:
+						$scope.history.diagnoses = [];
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnoses/history/' + $scope.diagnose.user)
+							.then(function (response) {
+									// check if return null
+									if (response.data && response.data.return && response.data.return == 'null'){
+										//toastr.error(CONFIG.Error.NoData);
+									}
+									else {
+										$scope.history.diagnoses = response.data;
+									}
+
+								},
+								function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						break;
 					case 2:
 						$scope.history.labResults = [];
 						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'labresult/user/' + $scope.diagnose.user)
@@ -55,6 +72,19 @@
 				});
 			};
 
+			$scope.viewDiagnoseDetails = function (index) {
+				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
+				$scope.history.labResultIndex = index;
+				$uibModal.open({
+					scope: $scope,
+					animation: true,
+					ariaLabelledBy: 'modal-title-top',
+					ariaDescribedBy: 'modal-body-top',
+					templateUrl: 'app/main/modals/history/labResultDetails.html',
+					controller: 'LabResultDetailsController',
+					size: 'lg'
+				});
+			};
 
 			var init = function () {
 				$scope.activeTab = 0;

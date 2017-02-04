@@ -43,7 +43,7 @@
 							});
 				}
 
-				this.$close($scope.conclusion);
+				this.$close(CONFIG.diagnoseStatus.Archived);
 			};
 
 			$scope.rollbackVisitedDepartments = function () {
@@ -78,6 +78,8 @@
 								toastr.error(CONFIG.Error.Internal);
 							});
 				}
+
+				this.$close(CONFIG.diagnoseStatus.Saved);
 			};
 
 			$scope.getTypeById = function(id) {
@@ -155,7 +157,7 @@
 					});
 
 				// load notices
-				
+
 			};
 
 			init();

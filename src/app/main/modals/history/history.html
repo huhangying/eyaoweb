@@ -62,13 +62,50 @@
 			</div>
 		</uib-tab>
 
-		<uib-tab index="1" ng-click="activeTab = 1">
+		<uib-tab index="1" ng-click="loadTab(1)">
 			<uib-tab-heading class="tab-header {{activeTab == 1?'text-warning':''}} ">
 				<i class="fa fa-archive" aria-hidden="true"></i>
 				门诊记录
 			</uib-tab-heading>
 			<div class="tab-content">
 				包含该患者的所有门诊记录(过去的,已经发布的)
+				<table class="table table-hover table-condensed">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:30%">专科</td>
+						<td style="width:30%">药师</td>
+						<td style="width:30%">门诊时间</td>
+						<td style="width:10%"></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="result in history.diagnoses track by $index" class="editable-row">
+						<td>
+							{{ result.doctor.department || '空' }}
+						</td>
+						<td>
+							{{ result.doctor.name }}{{ result.doctor.title }}
+						</td>
+						<td>
+							{{ result.updatedAt | amDateFormat: 'YYYY年MM月DD日' }}
+						</td>
+
+						<td style="white-space: nowrap">
+						<span class="btn btn-primary-outline btn-sm" ng-click="viewDiagnoseDetails($index)">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+						</span>
+
+						</td>
+						<div ng-show="result.expanded">ddd</div>
+					</tr>
+
+					</tbody>
+				</table>
+
+				<div ng-if="history.diagnoses.length<1"> 
+					暂无门诊记录。
+				</div>
+
 			</div>
 
 		</uib-tab>
