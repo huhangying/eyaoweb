@@ -11,6 +11,9 @@
 			</span>
 
 		</div>
+		<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()"  ng-if="switchMode(false, false, true)">
+			<span aria-hidden="true">&times;</span>
+		</button>
 	</div>
 
 	<div cg-busy="myPromise"></div>
@@ -107,12 +110,16 @@
 		<div style="padding-top: 14px;" ng-if="switchMode(false, false, true, true)">
 			使用说明内容。。。
 		</div>
-		<hr/>
-		{{diagnose}}
-		<hr/>
-		{{patient.visitedDepartments}}
-		<hr/>
-		{{history}}
+
+		<div ng-if="true">
+			<hr/>
+			{{diagnose}}
+			<hr/>
+			{{patient.visitedDepartments}}
+			<hr/>
+			{{history}}
+		</div>
+
 	</div>
 </div>
 

@@ -36,8 +36,7 @@
 			'app.articlePush',
 			'app.articlePush.receivers',
 			'app.articlePush.template',
-			'app.articlePush.old',
-			'app.components'
+			'app.articlePush.old'
 
 		]);
 })();
