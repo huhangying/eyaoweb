@@ -10,6 +10,34 @@
     function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG) {
         var vm = this;
 
+		// Note: !switchMode(false, false, true) is always hide in view mode
+		$scope.switchMode = function(editModeOnly, showInEdit, hideInView, showConditionalInEdit) {
+
+			if (!editModeOnly) { // view mode
+
+				if ($scope.history && $scope.history.diagnoseId) {
+					// if (hideInView) {
+					// 	return false;
+					// }
+					return !hideInView ;
+				}
+			}
+			// edit mode
+				// if (showInEdit) {
+				// 	return true;
+				// }
+				// if ($scope.diagnose.user) {
+				// 	return true;
+				// }
+			if (showConditionalInEdit) {
+				return !$scope.diagnose.user;
+			}
+
+			return showInEdit || $scope.diagnose.user;
+
+
+		};
+
 		var checkFirstVisit = function () {
 			$scope.isFirstVisit = true;
 			if ($scope.patient.visitedDepartments && $scope.patient.visitedDepartments.length > 0) {
@@ -19,6 +47,25 @@
 						break;
 					}
 				}
+			}
+		};
+
+		var loadDiagnose = function (id) {
+			if ($scope.history && $scope.history.diagnoseId) {
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $scope.history.diagnoseId)
+					.then(function (response) {
+							// check if return null
+							if (response.data && response.data.return && response.data.return == 'null'){
+								toastr.error(CONFIG.Error.NoData);
+							}
+							else {
+								$scope.diagnose = response.data;
+							}
+
+						},
+						function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
 			}
 		};
 
@@ -545,6 +592,11 @@
 		};
 
 		var init = function () {
+			if ($scope.history && $scope.history.diagnoseId) {
+				loadDiagnose($scope.history.diagnoseId);
+				return;
+			}
+
 			$scope.patient = {
 
 			};

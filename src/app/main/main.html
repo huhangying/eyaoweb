@@ -3,7 +3,7 @@
 	<div class="box-header">
 		<div class="h3 pull-left">药师门诊 </div>
 
-		<div class="pull-right" ng-if="diagnose.user">
+		<div class="pull-right" ng-if="switchMode(false, false, true)">
 			<span class="btn btn-warning" style="padding: 4px 11px;margin-top:15px" ng-click="vm.viewPatientHistory()">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
@@ -17,9 +17,9 @@
 	<div class="box-body">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-default" ng-click="vm.selectBooking()">选择预约</button>
+				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchMode(false, true, false)">选择预约</button>
 
-				<div class="btn-group">
+				<div class="btn-group" ng-if="switchMode(false, true, false)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{diagnose.user? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.selectPatient()">选择患者</span>
@@ -30,7 +30,7 @@
 						<li class="dropdown-item"><a ng-click="vm.createPatient()">新建患者</a></li>
 					</ul>
 				</div>
-				<div class="btn-group" ng-if="diagnose.user">
+				<div class="btn-group" ng-if="switchMode()">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.openSurvey(isFirstVisit?1:2)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
@@ -45,10 +45,10 @@
 						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="diagnose.user">门诊结论</button>
+				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="switchMode()">门诊结论</button>
 
 
-				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="diagnose.user">
+				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="switchMode(false, false, true)">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					结束门诊&发送结论
 				</button>
@@ -57,20 +57,20 @@
 			</div>
 
 		</div>
-		<div style="padding-top: 10px;" ng-if="diagnose.user">
+		<div style="padding-top: 10px;" ng-if="switchMode(false, false)">
 			<h5>用药计划（处方）</h5>
-			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="diagnose.user">
+			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchMode()">
 				<i class="fa fa-medkit" aria-hidden="true"></i>
 				新开处方
 			</button>
-			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="diagnose.user && diagnose.prescription.length>0">监测计划</button>
-			<button type="button" class="btn btn-default" ng-if="diagnose.user" ng-click="vm.createLabResult()">
+			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="switchMode() && diagnose.prescription.length>0">监测计划</button>
+			<button type="button" class="btn btn-default" ng-if="switchMode(false, false, true)" ng-click="vm.createLabResult()">
 				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
 
 			<button class="btn btn-default pull-right"
-							ng-click="vm.saveDiagnose()" ng-if="diagnose.user">
+							ng-click="vm.saveDiagnose()" ng-if="switchMode(false, false, true)">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
 			</button>
@@ -92,7 +92,7 @@
 					<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>
 					<td>
-						<div class="pull-right">
+						<div class="pull-right" ng-if="switchMode(false, false, true)">
 							<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 							<button class="btn btn-danger btn-sm" ng-click="removePrescription($index)">
@@ -104,7 +104,7 @@
 			</table>
 
 		</div>
-		<div style="padding-top: 14px;" ng-if="!diagnose.user">
+		<div style="padding-top: 14px;" ng-if="switchMode(false, false, true, true)">
 			使用说明内容。。。
 		</div>
 		<hr/>
@@ -112,7 +112,7 @@
 		<hr/>
 		{{patient.visitedDepartments}}
 		<hr/>
-		{{diagnose.labResults}}
+		{{history}}
 	</div>
 </div>
 

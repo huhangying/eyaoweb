@@ -21,7 +21,7 @@
 				$scope.activeTab = tabIndex;
 
 				switch(tabIndex) {
-					case 1:
+					case 1: // 门诊记录
 						$scope.history.diagnoses = [];
 						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnoses/history/' + $scope.diagnose.user)
 							.then(function (response) {
@@ -38,7 +38,7 @@
 									toastr.error(CONFIG.Error.Internal);
 								});
 						break;
-					case 2:
+					case 2: // 化验结果
 						$scope.history.labResults = [];
 						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'labresult/user/' + $scope.diagnose.user)
 							.then(function (response) {
@@ -72,16 +72,16 @@
 				});
 			};
 
-			$scope.viewDiagnoseDetails = function (index) {
+			$scope.viewDiagnoseDetails = function (id) {
 				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
-				$scope.history.labResultIndex = index;
+				$scope.history.diagnoseId = id;
 				$uibModal.open({
 					scope: $scope,
 					animation: true,
 					ariaLabelledBy: 'modal-title-top',
 					ariaDescribedBy: 'modal-body-top',
-					templateUrl: 'app/main/modals/history/labResultDetails.html',
-					controller: 'LabResultDetailsController',
+					templateUrl: 'app/main/main.html',
+					controller: 'MainController',
 					size: 'lg'
 				});
 			};
