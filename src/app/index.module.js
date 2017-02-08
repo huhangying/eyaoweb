@@ -36,7 +36,9 @@
 			'app.articlePush',
 			'app.articlePush.receivers',
 			'app.articlePush.template',
-			'app.articlePush.old'
+			'app.articlePush.old',
+			'app.patientManage',
+			'app.test'
 
 		]);
 })();
