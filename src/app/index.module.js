@@ -38,6 +38,7 @@
 			'app.articlePush.template',
 			'app.articlePush.old',
 			'app.patientManage',
+			'app.patientGroupManage',
 			'app.test'
 
 		]);

@@ -7,10 +7,10 @@
         .controller('ChatController', ChatController);
 
     /** @ngInject */
-    function ChatController() {
+    function ChatController($scope) {
 
         var vm = this;
-
+		$scope.detailFrame = 'http://223.93.176.119:8880/rosten-medical/web/switchChats';
     }
 
 })();

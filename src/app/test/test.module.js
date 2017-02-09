@@ -13,7 +13,7 @@
             url  : '/test',
             views  : {
                 'content@app': {
-                    templateUrl: 'hhttp://223.93.176.119:8880/rosten-medical/doctor/pushMessage',
+                    templateUrl: 'http://223.93.176.119:8880/rosten-medical/doctor/pushMessage',
                     controller : 'TestController as vm'
                 }
             }

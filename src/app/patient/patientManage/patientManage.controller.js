@@ -7,11 +7,11 @@
         .controller('PatientManageController', PatientManageController);
 
     /** @ngInject */
-    function PatientManageController($scope) {
+    function PatientManageController($scope, $rootScope, CONFIG) {
 
         var vm = this;
 
-		$scope.detailFrame = 'http://223.93.176.119:8880/rosten-medical/doctor/patientManage';
+		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/doctor/patientManage' + '?doctor=' + $rootScope.login._id;
     }
 
 })();

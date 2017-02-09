@@ -13,7 +13,7 @@
             url  : '/chat',
             views  : {
                 'content@app': {
-                    templateUrl: 'http://223.93.176.119:8880/rosten-medical/web/switchChats',
+                    templateUrl: 'app/doctor/chat/chat.html',
                     controller : 'ChatController as vm'
                 }
             }
