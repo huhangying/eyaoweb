@@ -39,6 +39,7 @@
 			'app.articlePush.old',
 			'app.patientManage',
 			'app.patientGroupManage',
+			'app.pushMessage',
 			'app.test'
 
 		]);

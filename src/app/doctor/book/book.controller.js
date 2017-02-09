@@ -7,10 +7,10 @@
         .controller('BookController', BookController);
 
     /** @ngInject */
-    function BookController($scope) {
+    function BookController($scope, $rootScope, CONFIG) {
         var vm = this;
 
-		$scope.detailFrame = 'http://223.93.176.119:8880/rosten-medical/doctor/makeAppointmentView';
+		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/doctor/makeAppointmentView' + '?doctor=' + $rootScope.login._id;
 	}
 
 })();
