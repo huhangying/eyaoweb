@@ -3,7 +3,7 @@
 	<div class="box-header">
 		<div class="h3 pull-left">药师门诊 </div>
 
-		<div class="pull-right" ng-if="switchMode(false, false, true)">
+		<div class="pull-right" ng-if="switchInMode(1)">
 			<span class="btn btn-warning" style="padding: 4px 11px;margin-top:15px" ng-click="vm.viewPatientHistory()">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
@@ -11,18 +11,19 @@
 			</span>
 
 		</div>
-		<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()"  ng-if="switchMode(false, false, true)">
+		<button type="button" class="close pull-right pt-2" ng-if="switchInMode(2, true)"
+						aria-label="Close" ng-click="$dismiss()">
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
 
 	<div cg-busy="myPromise"></div>
-	<div class="box-body">
+	<div class="box-body clearfix">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchMode(false, true, false)">选择预约</button>
+				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchInMode(1, true)">选择预约</button>
 
-				<div class="btn-group" ng-if="switchMode(false, true, false)">
+				<div class="btn-group" ng-if="switchInMode(1, true)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{diagnose.user? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.selectPatient()">选择患者</span>
@@ -33,7 +34,7 @@
 						<li class="dropdown-item"><a ng-click="vm.createPatient()">新建患者</a></li>
 					</ul>
 				</div>
-				<div class="btn-group" ng-if="switchMode()">
+				<div class="btn-group" ng-if="switchInMode(0)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.openSurvey(isFirstVisit?1:2)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
@@ -41,17 +42,18 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li class="dropdown-item"><a ng-click="vm.sendSurvey(isFirstVisit?1:2)">发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(isFirstVisit?1:2)" ng-if="switchInMode(1)">
+							发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
 						<li class="dropdown-item"><a ng-click="vm.openSurvey(3)">编辑查看随访问卷</a></li>
-						<li class="dropdown-item"><a ng-click="vm.sendSurvey(3)">发送随访问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(3)" ng-if="switchInMode(1)">发送随访问卷</a></li>
 						<li class="dropdown-item"><a ng-click="vm.openSurvey(4)">编辑查看用药知识自测问卷</a></li>
-						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)">发送用药知识自测问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)" ng-if="switchInMode(1)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="switchMode()">门诊结论</button>
+				<button class="btn btn-default" ng-click="vm.openSurvey(5)" ng-if="switchInMode(0)">门诊结论</button>
 
 
-				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="switchMode(false, false, true)">
+				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="switchInMode(1)">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					结束门诊&发送结论
 				</button>
@@ -60,20 +62,20 @@
 			</div>
 
 		</div>
-		<div style="padding-top: 10px;" ng-if="switchMode(false, false)">
+		<div style="padding-top: 10px;" ng-if="switchInMode(0)">
 			<h5>用药计划（处方）</h5>
-			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchMode()">
+			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchInMode(1)">
 				<i class="fa fa-medkit" aria-hidden="true"></i>
 				新开处方
 			</button>
-			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="switchMode() && diagnose.prescription.length>0">监测计划</button>
-			<button type="button" class="btn btn-default" ng-if="switchMode(false, false, true)" ng-click="vm.createLabResult()">
+			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="switchInMode(0) && diagnose.prescription.length>0">监测计划</button>
+			<button type="button" class="btn btn-default" ng-if="switchInMode(1)" ng-click="vm.createLabResult()">
 				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
 
 			<button class="btn btn-default pull-right"
-							ng-click="vm.saveDiagnose()" ng-if="switchMode(false, false, true)">
+							ng-click="vm.saveDiagnose()" ng-if="switchInMode(1)">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
 			</button>
@@ -95,7 +97,7 @@
 					<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>
 					<td>
-						<div class="pull-right" ng-if="switchMode(false, false, true)">
+						<div class="pull-right" ng-if="switchInMode(1)">
 							<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 							<button class="btn btn-danger btn-sm" ng-click="removePrescription($index)">
@@ -107,7 +109,7 @@
 			</table>
 
 		</div>
-		<div style="padding-top: 14px;" ng-if="switchMode(false, false, true, true)">
+		<div style="padding-top: 14px;" ng-if="!switchInMode(1) && !history">
 			使用说明内容。。。
 		</div>
 

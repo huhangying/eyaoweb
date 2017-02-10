@@ -10,31 +10,42 @@
     function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG) {
         var vm = this;
 
-		// Note: !switchMode(false, false, true) is always hide in view mode
-		$scope.switchMode = function(editModeOnly, showInEdit, hideInView, showConditionalInEdit) {
+		//
+		// mode:
+		//		0: Edit 和 View 模式下都可能显示;
+		//		1: Edit 模式下显示;
+		//		2: View 模式下显示;
+		// display:
+		//		true: always show
+		//		控制0()模式中的edit
+		// display1: 控制0()模式中的view
+		$scope.switchInMode = function(mode, display, display1) {
 
-			if (!editModeOnly) { // view mode
+			switch(mode) {
+				case 0: // edit & view
+					if ($scope.history && $scope.history.diagnoseId) { // in view mode
+						return display1 || true;
+					}
+					else {	// in edit mode
+						return display || $scope.diagnose.user;
+					}
+					break;
 
-				if ($scope.history && $scope.history.diagnoseId) {
-					// if (hideInView) {
-					// 	return false;
-					// }
-					return !hideInView ;
-				}
+				case 1: // edit only
+					if (!($scope.history && $scope.history.diagnoseId)) {
+						return display || $scope.diagnose.user;
+					}
+					break;
+
+				case 2: // view only
+					if ($scope.history && $scope.history.diagnoseId) { // in view mode
+						return display || false;
+					}
+					break;
+				default:
+					return false; // 不显示
 			}
-			// edit mode
-				// if (showInEdit) {
-				// 	return true;
-				// }
-				// if ($scope.diagnose.user) {
-				// 	return true;
-				// }
-			if (showConditionalInEdit) {
-				return !$scope.diagnose.user;
-			}
-
-			return showInEdit || $scope.diagnose.user;
-
+			return false;
 
 		};
 
