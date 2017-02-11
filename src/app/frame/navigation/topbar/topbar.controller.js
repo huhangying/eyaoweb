@@ -10,6 +10,18 @@
     function TopbarController($scope, $rootScope, $state, $window, CONFIG) {
 
         var vm = this;
+		$scope.statusList = [
+			{icon: 'fa-check-circle text-success', name: '在线'},
+			{icon: 'fa-minus-circle text-danger', name: '忙碌'},
+			{icon: 'fa-clock-o', name: '离开'}
+		];
+		$scope.currentStatus = $scope.statusList[0];
+
+		$scope.updateStatus = function(status) {
+			$scope.currentStatus = status;
+		}
+
+
 		if ($window.sessionStorage.user) {
 			$rootScope.login = JSON.parse($window.sessionStorage.user);
 		}

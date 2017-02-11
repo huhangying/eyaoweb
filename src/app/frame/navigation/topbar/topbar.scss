@@ -17,9 +17,9 @@
 
 	}
 	.menu-img {
-	  width: 46px;
-	  height: 46px;
-		margin: 2px 10px;
+	  width: 20px;
+	  height: 20px;
+	  margin: 0 6px;
 	}
 	a {
 		color: $topbar-color;
@@ -42,6 +42,10 @@
 	line-height: 1.42857;
 	color: #333333;
 	white-space: nowrap;
+  }
+
+  .inline-block {
+	display: inline-block
   }
 
 }

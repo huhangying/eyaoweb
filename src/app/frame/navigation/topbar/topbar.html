@@ -52,25 +52,52 @@
 		</ul>
 
 
-		<div class="nav navbar-nav pull-right">
+		<ul class="nav navbar-nav pull-right">
 
-			<a class="nav-link dropdown-toggle" id="myAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<span class="badge bg-danger" ng-if="debug&&debug!='undefined'">{{debug}}</span>
-				{{login.name}}
-				<img ng-if="true" class="avatar menu-img" ng-src="{{doctorIcon}}">
-			</a>
-			<ul class="dropdown-menu pull-right" aria-labelledby="myAccount">
-				<li><a class="dropdown-item my-item" ng-click="">
-					<i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;个人资料</a></li>
-				<li><a class="my-item" ng-click="">
-					<i class="fa fa-server" aria-hidden="true"></i>&nbsp;&nbsp;密码修改</a></li>
-				<div class="divider"></div>
-				<li><a class="my-item" ng-click="">
-					<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;锁屏</a></li>
-				<li><a class="my-item" ng-click="logout()">
-					<i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;退出</a></li>
-			</ul>
-		</div>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" id="myStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa {{currentStatus.icon}}" aria-hidden="true"></i>
+					{{currentStatus.name}}
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu pull-right mr-4" style="right: auto;" aria-labelledby="myStatus">
+					<li ng-repeat="status in statusList">
+						<a class="dropdown-item my-item" ng-click="updateStatus(status)">
+							<i class="fa {{status.icon}}" aria-hidden="true"></i>
+							{{status.name}}
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="nav-item dropdown">
+
+				<a class="nav-link dropdown-toggle pull-right" id="myAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="badge bg-danger" ng-if="debug&&debug!='undefined'">{{debug}}</span>
+					{{login.name}}
+					<img ng-if="true" class="avatar menu-img" ng-src="{{doctorIcon}}">
+				</a>
+				<ul class="dropdown-menu  mr-2" aria-labelledby="myAccount">
+					<li><a class="dropdown-item my-item" ng-click="">
+						<i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;个人资料</a></li>
+					<li><a class="my-item" ng-click="">
+						<i class="fa fa-server" aria-hidden="true"></i>&nbsp;&nbsp;密码修改</a></li>
+					<div class="divider"></div>
+					<li><a class="my-item" ng-click="">
+						<i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;锁屏</a></li>
+					<li><a class="my-item" ng-click="logout()">
+						<i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;退出</a></li>
+				</ul>
+			</li>
+
+
+
+
+
+
+
+
+		</ul>
 
 	</div>
 
