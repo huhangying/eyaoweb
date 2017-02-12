@@ -5,9 +5,13 @@
 		.controller('MsgCenterCtrl', MsgCenterCtrl);
 
 	/** @ngInject */
-	function MsgCenterCtrl($scope, $rootScope, $http, toastr, CONFIG) {
+	function MsgCenterCtrl($scope, $rootScope, $http, $uibModal, toastr, CONFIG) {
 
 		$scope.getMessages = function() {
+			if ($scope.object.messages && $scope.object.messages.length === $scope.object.count) {
+				return;
+			}
+
 			$http.get(CONFIG.baseApiUrl + 'feedbacks/unread/' + $scope.object.type +'/' + $rootScope.login._id)
 				.then(function (response) {
 						// check if return null
@@ -25,6 +29,28 @@
 					function(){
 						toastr.error(CONFIG.Error.Internal);
 					});
+		};
+
+		$scope.replyMessage = function(msg) {
+
+			$scope.replyMsg = msg;
+			$scope.replyTitle = $scope.object.title;
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/components/msgCenter/msgReply.html',
+				controller: 'MsgReplyCtrl',
+				size: 'lg'
+			})
+				.result.then(
+				function () {
+
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
 		};
 
 	}

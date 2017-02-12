@@ -23,9 +23,14 @@
 			<div class="col-sm-12">
 				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchInMode(1, true)">选择预约</button>
 
-				<div class="btn-group" ng-if="switchInMode(1, true)">
+				<button class="btn btn-default" ng-click="vm.selectPatient()" ng-if="switchInMode(1, true)">
+					<i class="fa {{diagnose.user? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
+					选择患者
+				</button>
+
+				<div class="btn-group" ng-if="false && switchInMode(1, true)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<i class="fa {{diagnose.user? 'fa-check-circle':''}}" aria-hidden="true"></i>
+						<i class="fa {{diagnose.user? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.selectPatient()">选择患者</span>
 						<span class="divider-vertical"></span>
 						<span class="caret"></span>
@@ -36,7 +41,7 @@
 				</div>
 				<div class="btn-group" ng-if="switchInMode(0)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<i class="fa {{surveyFirst? 'fa-check-circle':''}}" aria-hidden="true"></i>
+						<i class="fa {{surveyFirst? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
 						<span ng-click="vm.openSurvey(isFirstVisit?1:2)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
 						<span class="divider-vertical"></span>
 						<span class="caret"></span>
@@ -70,7 +75,7 @@
 			</button>
 			<button class="btn btn-default" ng-click="vm.selectNotices()" ng-if="switchInMode(0) && diagnose.prescription.length>0">监测计划</button>
 			<button type="button" class="btn btn-default" ng-if="switchInMode(1)" ng-click="vm.createLabResult()">
-				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle':''}}" aria-hidden="true"></i>
+				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
 
@@ -113,7 +118,7 @@
 			使用说明内容。。。
 		</div>
 
-		<div ng-if="true">
+		<div ng-if="false">
 			<hr/>
 			{{diagnose}}
 			<hr/>

@@ -43,6 +43,8 @@
 			],
 			Error: {
 				Internal: '数据库访问内部错误',
+				FailedOnCreate: '创建失败',
+				FailedOnUpdate: '更新失败',
 				NoData: '没有数据'
 			}
 		});

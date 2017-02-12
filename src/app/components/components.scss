@@ -25,10 +25,13 @@
 	max-height: 296px;
 	overflow-x: hidden;
 
-	.msg-item {
+	.row{
+		margin-left: 0;
+	}
+
+	div.msg-item {
 	  display: inline-block;
 	  border-top: 1px solid lightgray;
-	  padding: 4px 0;
 
 	  :hover {
 		background-color: lightcyan;
@@ -38,6 +41,7 @@
 	  .img-area {
 		float: left;
 		width: 36px;
+		padding: 4px 0;
 
 		img {
 		  width: 36px;
@@ -47,9 +51,9 @@
 	  }
 
 	  .msg-area {
-		padding-left:14px;
 		float: right;
-		width: 248px;
+		width: 242px;
+		padding: 4px 0 4px 14px;
 	  }
 	}
 
