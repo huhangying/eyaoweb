@@ -17,6 +17,7 @@
             'app.login',
             'app.register',
             'app.home',
+            'app.components',
 			'app.main',
 			'app.main.booking',
 			'app.main.patient',

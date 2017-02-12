@@ -1,0 +1,26 @@
+
+
+<ul class="nav navbar-nav pull-right" ng-if="object.count > 0">
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle pl-2 pr-0" id="myMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+			 title="{{object.title}}" ng-click="getMessages()">
+			<i class="fa {{object.icon}}" aria-hidden="true"></i>
+			<span class="badge badge-notify">{{object.count}}</span>
+		</a>
+		<div class="top-dropdown-menu dropdown-menu mr-4 p-3" aria-labelledby="myMessage">
+			<i class="dropdown-arr"></i>
+			<div class="header clearfix">
+				<strong>{{object.title}}</strong>
+			</div>
+			<div class="msg-list">
+				<div class="msg-item" ng-repeat="msg in object.messages">
+					<div class="img-area"><img ng-src="{{::( msg.user.icon ||  '' )}}"></div>
+					<div class="msg-area">
+						<div>{{msg.name}}</div>
+						<div class="pull-right text-muted">{{ msg.time }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</li>
+</ul>

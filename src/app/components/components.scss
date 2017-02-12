@@ -1,0 +1,61 @@
+.top-dropdown-menu {
+  width: 316px;
+  left: auto;
+  right: -47px;
+  top: 40px;
+
+  i.dropdown-arr {
+	position: absolute;
+	top: -22px;
+	right: 42px;
+	display: block;
+	width: 0;
+	height: 0;
+	border: 11px solid transparent;
+	border-bottom-color: rgba(256,256,256,1);
+  }
+
+  .header {
+	padding: 0 2px 12px;
+	border-bottom: 1px solid #fff;
+	font-size: 14px;
+  }
+
+  .msg-list {
+	max-height: 296px;
+	overflow-x: hidden;
+
+	.msg-item {
+	  display: inline-block;
+	  border-top: 1px solid lightgray;
+	  padding: 4px 0;
+
+	  :hover {
+		background-color: lightcyan;
+		display: block;
+	  }
+
+	  .img-area {
+		float: left;
+		width: 36px;
+
+		img {
+		  width: 36px;
+		  height: 36px;
+		  border-radius: 18px;
+		}
+	  }
+
+	  .msg-area {
+		padding-left:14px;
+		float: right;
+		width: 248px;
+	  }
+	}
+
+
+  }
+
+}
+
+

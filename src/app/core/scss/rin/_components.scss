@@ -43,3 +43,11 @@
 .linear-primary {
 	background-image: linear-gradient(to bottom right, #36ABA2 0%, #EFD23E 100%);
 }
+
+/* CSS used here will be applied after bootstrap.css */
+.badge-notify{
+  background:rgba(255, 0, 0, 0.55);
+  position:relative;
+  top: -10px;
+  left: -6px;
+}

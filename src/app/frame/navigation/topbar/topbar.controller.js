@@ -7,7 +7,7 @@
         .controller('TopbarController', TopbarController);
 
     /** @ngInject */
-    function TopbarController($scope, $rootScope, $state, $window, CONFIG) {
+    function TopbarController($scope, $rootScope, $state, $window, $interval, $http, CONFIG) {
 
         var vm = this;
 		$scope.statusList = [
@@ -15,7 +15,6 @@
 			{icon: 'fa-minus-circle text-danger', name: '忙碌'},
 			{icon: 'fa-clock-o', name: '离开'}
 		];
-		$scope.currentStatus = $scope.statusList[0];
 
 		$scope.updateStatus = function(status) {
 			$scope.currentStatus = status;
@@ -49,6 +48,71 @@
 			$window.sessionStorage.clear();
 			$state.go('app.login');
 		};
+
+		var checkAlerts = function () {
+
+
+
+			// feedback1
+			$http.get(CONFIG.baseApiUrl + 'feedback/unreadcount/1/'+ $rootScope.login._id)
+				.then(function (response) {
+						// check if return null
+						if (response.data && response.data.return && response.data.return == 'null'){
+							$scope.alert.feedback1.count = 0;
+						}
+						else {
+							$scope.alert.feedback1.count = response.data.count;
+						}
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+
+			// feedback1
+			$http.get(CONFIG.baseApiUrl + 'feedback/unreadcount/2/'+ $rootScope.login._id)
+				.then(function (response) {
+						// check if return null
+						if (response.data && response.data.return && response.data.return == 'null'){
+							$scope.alert.feedback2.count = 0;
+						}
+						else {
+							$scope.alert.feedback2.count = response.data.count;
+						}
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+
+		};
+
+		var init = function() {
+			$scope.currentStatus = $scope.statusList[0];
+			$scope.alert = {
+				feedback1: {
+					type: 1,
+					title: '病患不良反应反馈',
+					icon: 'fa-heartbeat text-danger'
+				},
+				feedback2: {
+					type: 2,
+					title: '病患联合用药反馈',
+					icon: 'fa-coffee text-info'
+				},
+				chat: {
+					type: 0,
+					title: '在线咨询消息',
+					icon: 'fa-envelope text-warning',
+					count: 1
+				}
+			};
+
+
+			$interval(checkAlerts, 5000);
+		};
+
+		init();
 
     }
 
