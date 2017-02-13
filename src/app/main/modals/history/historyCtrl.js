@@ -55,6 +55,40 @@
 									toastr.error(CONFIG.Error.Internal);
 								});
 						break;
+					case 3: // 不良反应反馈
+						$scope.history.feedback1 = [];
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/unread/1/user/' + $scope.diagnose.user)
+							.then(function (response) {
+									// check if return null
+									if (response.data && response.data.return && response.data.return == 'null'){
+										//toastr.error(CONFIG.Error.NoData);
+									}
+									else {
+										$scope.history.feedback1 = response.data;
+									}
+
+								},
+								function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						break;
+					case 4: // 联合用药
+						$scope.history.feedback1 = [];
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/unread/2/user/' + $scope.diagnose.user)
+							.then(function (response) {
+									// check if return null
+									if (response.data && response.data.return && response.data.return == 'null'){
+										//toastr.error(CONFIG.Error.NoData);
+									}
+									else {
+										$scope.history.feedback2 = response.data;
+									}
+
+								},
+								function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						break;
 				}
 			};
 

@@ -141,7 +141,6 @@
 						</span>
 
 						</td>
-						<div ng-show="result.expanded">ddd</div>
 					</tr>
 
 					</tbody>
@@ -153,27 +152,89 @@
 			</div>
 		</uib-tab>
 
-		<uib-tab index="3" ng-click="activeTab = 3" class="">
+		<uib-tab index="3" ng-click="loadTab(3)" class="">
 			<uib-tab-heading class="tab-header {{activeTab == 3?'text-warning':''}}">
 				<i class="fa fa-fire" aria-hidden="true"></i>
-				联合用药
-				<span class="label label-info label-pill">2</span>
+				不良反应
 			</uib-tab-heading>
 			<div class="tab-content">
-				按照时间排序,最新的在上面。
+				<table class="table table-hover table-condensed">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:15%">药师</td>
+						<td style="width:30%">标题</td>
+						<td style="width:40%">描述</td>
+						<td style="width:15%">时间</td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="result in history.feedback1 track by $index" class="editable-row">
+						<td>
+							{{ result.doctor || '空' }}
+						</td>
+						<td>
+							{{ result.name }}
+						</td>
+						<td>
+							{{ result.notes }}
+						</td>
+						<td>
+							{{ result.updatedAt | amDateFormat: 'YYYY年MM月DD日' }}
+						</td>
+
+					</tr>
+
+					</tbody>
+				</table>
+
+				<div ng-if="history.feedback1.length<1"> 
+					无不良反应记录。
+				</div>
 			</div>
 		</uib-tab>
 
-		<uib-tab index="4" ng-click="activeTab = 4" class="">
+		<uib-tab index="4" ng-click="loadTab(4)" class="">
 			<uib-tab-heading class="tab-header {{activeTab == 4?'text-warning':''}}">
 				<i class="fa fa-fire" aria-hidden="true"></i>
-				不良反应
-				<span class="label label-info label-pill">1</span>
+				联合用药
 			</uib-tab-heading>
 			<div class="tab-content">
-				按照时间排序,最新的在上面。
+				<table class="table table-hover table-condensed">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:15%">药师</td>
+						<td style="width:30%">标题</td>
+						<td style="width:40%">描述</td>
+						<td style="width:15%">时间</td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="result in history.feedback2 track by $index" class="editable-row">
+						<td>
+							{{ result.doctor || '空' }}
+						</td>
+						<td>
+							{{ result.name }}
+						</td>
+						<td>
+							{{ result.notes }}
+						</td>
+						<td>
+							{{ result.updatedAt | amDateFormat: 'YYYY年MM月DD日' }}
+						</td>
+
+					</tr>
+
+					</tbody>
+				</table>
+
+				<div ng-if="history.feedback2.length<1"> 
+					无联合用药记录。
+				</div>
 			</div>
 		</uib-tab>
+
+
 
 	</uib-tabset>
 
