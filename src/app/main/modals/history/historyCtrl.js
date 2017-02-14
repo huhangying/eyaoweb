@@ -89,6 +89,26 @@
 									toastr.error(CONFIG.Error.Internal);
 								});
 						break;
+					case 5: // 今日用药
+						$scope.history.prescriptionToday = [];
+						// get latest diagnose
+
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/history/latest/' + $scope.diagnose.user)
+							.then(function (response) {
+									// check if return null
+									if (response.data && response.data.return && response.data.return == 'null'){
+										//toastr.error(CONFIG.Error.NoData);
+									}
+									else {
+										$scope.history.prescriptionToday = response.data.prescription;
+										//todo: filter out non-today's
+									}
+
+								},
+								function(){
+									toastr.error(CONFIG.Error.Internal);
+								});
+						break;
 				}
 			};
 

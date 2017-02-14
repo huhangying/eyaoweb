@@ -107,8 +107,8 @@
 				</div>
 
 			</div>
-
 		</uib-tab>
+
 		<uib-tab index="2" ng-click="loadTab(2)" class="">
 			<uib-tab-heading class="tab-header {{activeTab == 2?'text-warning':''}}">
 				<i class="fa fa-flask" aria-hidden="true"></i>
@@ -234,7 +234,34 @@
 			</div>
 		</uib-tab>
 
+		<uib-tab index="5" ng-click="loadTab(5)" class="">
+			<uib-tab-heading class="tab-header {{activeTab == 5?'text-warning':''}}">
+				<i class="fa fa-calculator" aria-hidden="true"></i>
+				今日用药
+			</uib-tab-heading>
+			<div class="tab-content">
+				<table class="table">
+					<thead class="bold-text bg-info">
+					<tr>
+						<td style="width:30%">药名</td>
+						<td style="width:40%">服用方法</td>
+						<td style="width:23%">备注</td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="medicine in history.prescriptionToday track by $index">
+						<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
+						<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
+						<td>{{ medicine.notes || '无' }}</td>
+					</tr>
+					</tbody>
+				</table>
 
+				<div ng-if="history.prescriptionToday.length<1"> 
+					无今日用药。
+				</div>
+			</div>
+		</uib-tab>
 
 	</uib-tabset>
 
