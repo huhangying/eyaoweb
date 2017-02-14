@@ -52,7 +52,7 @@
 
 	  .msg-area {
 		float: right;
-		width: 242px;
+		width: 250px;
 		padding: 4px 0 4px 14px;
 	  }
 	}
@@ -60,6 +60,11 @@
 
   }
 
+}
+
+.left-info {
+  padding-left: 10px;
+  border-left: 2px solid $accent;
 }
 
 
