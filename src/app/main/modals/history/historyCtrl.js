@@ -100,8 +100,16 @@
 										//toastr.error(CONFIG.Error.NoData);
 									}
 									else {
-										$scope.history.prescriptionToday = response.data.prescription;
+										var prescription = response.data.prescription;
 										//todo: filter out non-today's
+										if (prescription && prescription.length > 0) {
+											// get today's date
+
+											prescription.map(function (pres) {
+
+												$scope.history.prescriptionToday.push(pres);
+											});
+										}
 									}
 
 								},
