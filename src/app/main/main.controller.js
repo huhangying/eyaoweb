@@ -261,11 +261,12 @@
 				});
 		};
 
-		vm.openSurvey = function (type) {
+		vm.openSurvey = function (type, readonly) {
 			$scope.selectedSurveyType = type;
 			if (type == 1) {
 				$scope.selectedSurveyType = $scope.isFirstVisit ? 1 : 2;
 			}
+			$scope.readonly = readonly;
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -465,7 +466,8 @@
 			$scope.diagnose.prescription.splice(index, 1);
 		};
 
-		vm.selectNotices = function () {
+		vm.selectNotices = function (readonly) {
+			$scope.readonly = readonly;
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -477,9 +479,11 @@
 			})
 				.result.then(
 				function (notices) {
+					$scope.readonly = undefined;
 					$scope.diagnose.notices = notices;
 				},
 				function (err) {
+					$scope.readonly = undefined;
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
 				});
 		};
@@ -572,8 +576,10 @@
 				.result.then(
 				function (ret) {
 					// tbd:
+					$scope.readonly = undefined;
 				},
 				function (err) {
+					$scope.readonly = undefined;
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
 				});
 		};

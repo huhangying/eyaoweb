@@ -61,13 +61,15 @@
 			};
 
 			$scope.selectOk = function() {
-				// validation first.
-				if (!checkContent()) {
-					return;
-				}
+				if (!$scope.readonly) {
+					// validation first.
+					if (!checkContent()) {
+						return;
+					}
 
-				// convert and save
-				convertAndSave();
+					// convert and save
+					convertAndSave();
+				}
 
 				// return to main process
 				this.$close($scope.surveys);
@@ -185,7 +187,7 @@
 				$scope.myPromise = $http.get(reqUrl)
 					.success(function (response) {
 						// check if return null
-						if (response.return && response.return == 'null'){
+						if (response.return && response.return == 'null' && !$scope.readonly ){
 							loadFromTemplate(department, doctor, user, type, list);
 						}
 						else {

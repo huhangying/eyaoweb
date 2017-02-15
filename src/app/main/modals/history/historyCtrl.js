@@ -13,6 +13,7 @@
 			$scope.history = {};
 
 			$scope.selectOk = function() {
+				$scope.readonly = undefined; // clear up
 				this.$close($scope.conclusion);
 			};
 
@@ -136,7 +137,9 @@
 
 			$scope.viewDiagnoseDetails = function (id) {
 				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
+				$scope.history = $scope.history || {};
 				$scope.history.diagnoseId = id;
+				$scope.readonly = true;
 				$uibModal.open({
 					scope: $scope,
 					animation: true,
@@ -150,6 +153,7 @@
 
 			var init = function () {
 				$scope.activeTab = 0;
+				$scope.readonly = true;
 
 				// get person info
 				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'user/' + $scope.diagnose.user)

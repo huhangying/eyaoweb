@@ -7,7 +7,7 @@
 	</div>
 	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
 	<button class="btn btn-default pull-right m-r-md"
-					ng-click="addNotice()" ng-if="diagnose.user">
+					ng-click="addNotice()" ng-if="diagnose.user && !readonly">
 		<i class="fa fa-plus" aria-hidden="true"></i>
 		新增
 	</button>
@@ -57,7 +57,8 @@
 					</span>
 				</td>
 				<td style="white-space: nowrap">
-					<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item">
+					<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == item"
+								ng-if="!readonly">
 						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary btn-sm">
 							保存
 						</button>
