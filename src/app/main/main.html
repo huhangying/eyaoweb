@@ -99,7 +99,8 @@
 				<tbody>
 				<tr ng-repeat="medicine in diagnose.prescription track by $index">
 					<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
-					<td>{{ medicine.usage }}: {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
+					<td>
+						{{ medicine.usage }}: {{showInterval(medicine.dosage.intervalDay)}} {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>
 					<td>
 						<div class="pull-right" ng-if="switchInMode(1)">

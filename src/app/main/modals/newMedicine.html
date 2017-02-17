@@ -28,11 +28,11 @@
 	<hr/>
 	<form name="medicineForm" >
 
-
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="inputName" class="control-label">药名</label>
+					<input type="hidden" ng-model="selectedMedicine._id">
 					<input type="text" class="form-control" id="inputName" placeholder="" ng-model="selectedMedicine.name" required />
 				</div>
 			</div>
@@ -63,8 +63,8 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<label class="control-label">服药时间</label>
-				<select class="form-control" ng-model="selectedMedicine.dosage.period" required
-					ng-options="period for period in periods">
+				<select class="form-control" ng-model="selectedMedicine.dosage.intervalDay" ng-required
+					ng-options="intervalDay.value as intervalDay.name for intervalDay in intervalDays">
 				</select>
 			</div>
 			<div class="col-sm-3">
@@ -85,10 +85,8 @@
 					<label for="inputCount" class="control-label">每次</label>
 					<div class="input-group">
 						<input type="number" class="form-control" id="inputCount" min="0"
+									 ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
 									 ng-model="selectedMedicine.dosage.count" required />
-						<span class="input-group-addon" id="basic-addon1">.</span>
-						<input type="number" class="form-control" id="inputCountFractions" min="0"
-									 ng-model="selectedMedicine.dosage.countFractions" required />
 						<span class="input-group-addon" id="basic-addon2">{{selectedMedicine.unit}}</span>
 					</div>
 

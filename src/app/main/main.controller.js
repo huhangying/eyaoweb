@@ -157,7 +157,6 @@
 
 		vm.createDiagnose = function() {
 
-			$scope.diagnose
 			// create
 			$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'diagnose', $scope.diagnose)
 				.then(function (response) {
@@ -608,6 +607,15 @@
 				});
 		};
 
+		$scope.showInterval = function(intervalDayValue) {
+			var selected = [];
+			if(intervalDayValue > -1) {
+				selected = $filter('filter')($scope.intervalDays, {value: intervalDayValue});
+			}
+			return selected.length ? selected[0].name : '';
+		};
+
+
 		var init = function () {
 			if ($scope.history && $scope.history.diagnoseId) {
 				loadDiagnose($scope.history.diagnoseId);
@@ -626,6 +634,25 @@
 			$scope.prescriptionNotices = [];	// notices for doctor to select
 			$scope.notices = [];				// notices for users
 
+			$http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
+				.success(function (response) {
+					//console.log(JSON.stringify(response))
+					if (!response ){
+						toastr.error('无数据!')
+					}
+					else if (response.return == 'error') {
+						toastr.error(response.message);
+					}
+					else{
+						$scope.intervalDays = [];
+						response.value.split('|').map(function(item) {
+							$scope.intervalDays.push({
+								name: item.split(':')[0],
+								value: parseInt(item.split(':')[1])
+							});
+						});
+					}
+				});
 
 		};
 		init();

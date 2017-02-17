@@ -74,7 +74,7 @@
 								});
 						break;
 					case 4: // 联合用药
-						$scope.history.feedback1 = [];
+						$scope.history.feedback2 = [];
 						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/unread/2/user/' + $scope.diagnose.user)
 							.then(function (response) {
 									// check if return null

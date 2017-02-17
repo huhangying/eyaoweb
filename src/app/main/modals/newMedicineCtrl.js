@@ -13,6 +13,11 @@
 			$scope.selectedMedicine = {};
 
 			$scope.selectOk = function() {
+				if ($scope.medicineForm.$invalid) {
+					toastr.warning('保存前请确认所有的输入项和格式。');
+					return;
+				}
+
 				this.$close($scope.selectedMedicine);
 			};
 
@@ -62,19 +67,26 @@
 						}
 					});
 
-				$http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
-					.success(function (response) {
-						//console.log(JSON.stringify(response))
-						if (!response ){
-							toastr.error('无数据!')
-						}
-						else if (response.return == 'error') {
-							toastr.error(response.message);
-						}
-						else{
-							$scope.periods = response.value.split('|');
-						}
-					});
+				// move it to main process
+				// $http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
+				// 	.success(function (response) {
+				// 		//console.log(JSON.stringify(response))
+				// 		if (!response ){
+				// 			toastr.error('无数据!')
+				// 		}
+				// 		else if (response.return == 'error') {
+				// 			toastr.error(response.message);
+				// 		}
+				// 		else{
+				// 			$scope.periods = [];
+				// 			response.value.split('|').map(function(item) {
+				// 				$scope.periods.push({
+				// 					name: item.split(':')[0],
+				// 					value: item.split(':')[1]
+				// 				});
+				// 			});
+				// 		}
+				// 	});
 
 				$http.get(CONFIG.baseApiUrl + 'const/medicine_ways')
 					.success(function (response) {

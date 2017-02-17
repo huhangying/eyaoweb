@@ -49,3 +49,8 @@
 #select-a-medicine input[type="search"] {
   box-sizing: border-box;;
 }
+
+input .ng-invalid, input .ng-invalid-required {
+  border-color: red;
+  outline-color: red;
+}
