@@ -1,5 +1,5 @@
 (function() {
-    
+
     'use strict';
 
     angular
@@ -8,6 +8,5 @@
 
     /** @ngInject */
     function runBlock() {
-
     }
 })();

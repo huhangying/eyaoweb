@@ -108,8 +108,17 @@
 
 											prescription.map(function (pres) {
 
-												$scope.history.prescriptionToday.push(pres);
+												if (pres.dosage.intervalDay < 2) {
+													$scope.history.prescriptionToday.push(pres);
+												}
+												else {
+
+													if (moment().diff(moment(pres.startDate), 'days') % pres.dosage.intervalDay === 0) {
+														$scope.history.prescriptionToday.push(pres);
+													}
+												}
 											});
+
 										}
 									}
 

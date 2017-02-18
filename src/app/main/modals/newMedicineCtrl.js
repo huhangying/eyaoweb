@@ -23,6 +23,7 @@
 
 
 			$scope.setSelectedMedicine = function(item, modal) {
+				item.startDate = item.startDate || new Date();
 				$scope.selectedMedicine = item;
 
 				// filter out non-applied notices
@@ -101,6 +102,8 @@
 							$scope.ways = response.value.split('|');
 						}
 					});
+
+				$scope.selectedMedicine.startDate = $scope.selectedMedicine.startDate || new Date();
 
 			};
 

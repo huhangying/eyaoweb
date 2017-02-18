@@ -21,7 +21,10 @@
 		})
 		// 使用 lodash: allow DI for use in controllers
 		.constant('_', window._)
-		.run(function ($rootScope) {
+		.run(function ($rootScope, amMoment) {
 			$rootScope._ = window._;
+			moment.defineLocale('zh-cn', {abbr:'zh-cn'});
+			//amMoment.changeLocale('zh-cn');
+			moment.pinLocales = true;
 		});
 })();
