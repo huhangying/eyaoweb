@@ -104,10 +104,9 @@
 					<td>{{ medicine.notes || '无' }}</td>
 					<td>
 						<div class="pull-right" ng-if="switchInMode(1)">
-							<button class="btn btn-default btn-sm" ng-click="editPrescription(medicine)">
+							<button class="btn btn-primary btn-xs" ng-click="editPrescription(medicine)">
 								<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							<button class="btn btn-danger btn-sm" ng-click="removePrescription($index)">
-								<i class="fa fa-trash" aria-hidden="true"></i></button>
+							<delete-btn item-id="medicine._id" yes-delete="removePrescription"></delete-btn>
 						</div>
 					</td>
 				</tr>

@@ -15,6 +15,7 @@
 
 		uiSelectConfig.theme = 'bootstrap';
 		uiSelectConfig.resetSearchInput = true;
+
     }
 
 })();

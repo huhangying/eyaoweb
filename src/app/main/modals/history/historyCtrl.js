@@ -102,7 +102,7 @@
 									}
 									else {
 										var prescription = response.data.prescription;
-										//todo: filter out non-today's
+										// filter out non-today's
 										if (prescription && prescription.length > 0) {
 											// get today's date
 
@@ -118,7 +118,6 @@
 													}
 												}
 											});
-
 										}
 									}
 
