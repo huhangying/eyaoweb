@@ -34,6 +34,8 @@
 			'app.main.submit',
 			'app.chat',
 			'app.book',
+			'app.profile',
+			'app.shortcut',
 			'app.articlePush',
 			'app.articlePush.receivers',
 			'app.articlePush.template',
