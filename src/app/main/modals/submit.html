@@ -90,10 +90,12 @@
 			<div class="tab-content">
 				<table class="table">
 					<thead class="bold-text bg-info">
-					<td style="width:60%">名称</td>
-					<td style="width:17%">提醒开始</td>
-					<td style="width:11%">持续天数</td>
-					<td style="width:12%">确认取消?</td>
+					<tr>
+						<td style="width:60%">名称</td>
+						<td style="width:17%">提醒开始</td>
+						<td style="width:11%">持续天数</td>
+						<td style="width:12%">确认取消?</td>
+					</tr>
 					</thead>
 					<tbody>
 					<tr ng-repeat="item in diagnose.notices" ng-class="item.selected ? 'text-success':''" class="editable-row">

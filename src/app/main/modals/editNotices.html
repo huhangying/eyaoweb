@@ -5,24 +5,28 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
-	<button class="btn btn-default pull-right m-r-md"
-					ng-click="addNotice()" ng-if="diagnose.user && !readonly">
-		<i class="fa fa-plus" aria-hidden="true"></i>
-		新增
-	</button>
 </div>
 <div cg-busy="myPromise"></div>
 	<div class="modal-body" id="modal-body">
+		<div>
+			<em class="text-muted">从预设的检测计划列表中选择 (提醒开始负数为服药结束日往前溯)</em>
+			<button class="btn btn-default pull-right m-r-md"
+							ng-click="addNotice()" ng-if="diagnose.user && !readonly">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+				新增
+			</button>
+		</div>
 
 		<table class="table">
 			<thead class="bold-text bg-info">
+			<tr>
 				<td style="width:4%"></td>
 				<td style="width:46%">名称</td>
 				<td style="width:13%">提醒开始</td>
 				<td style="width:13%">持续天数</td>
 				<td style="width:14%">确认取消?</td>
 				<td style="width:10%"></td>
+			</tr>
 			</thead>
 			<tbody>
 			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row">
