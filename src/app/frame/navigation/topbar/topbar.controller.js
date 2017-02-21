@@ -11,13 +11,29 @@
 
         var vm = this;
 		$scope.statusList = [
-			{icon: 'fa-check-circle text-success', name: '在线'},
-			{icon: 'fa-minus-circle text-danger', name: '忙碌'},
-			{icon: 'fa-clock-o', name: '离开'}
+			{icon: 'fa-check-circle text-success', name: '在线', value: 0},
+			{icon: 'fa-minus-circle text-danger', name: '忙碌', value: 1},
+			{icon: 'fa-clock-o', name: '离开', value: 2},
+			{icon: 'fa-clock-o', name: '离线', value: 3}
 		];
 
 		$scope.updateStatus = function(status) {
-			$scope.currentStatus = status;
+
+			$http.patch(CONFIG.baseApiUrl + 'doctor/' + $rootScope.login.user_id, {status: status.value}) // mark as read
+				.then(function (response) {
+						// check if return null
+						if (response.data && response.data.return && response.data.return == 'null'){
+							toastr.error(CONFIG.Error.FailedOnUpdate);
+						}
+						else {
+							// done
+							$scope.currentStatus = status;
+						}
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
 		}
 
 
@@ -47,6 +63,7 @@
 
 		$scope.logout = function () {
 			$window.sessionStorage.clear();
+			$scope.updateStatus($scope.statusList[3]);
 			$state.go('app.login');
 		};
 
@@ -125,7 +142,7 @@
 				}
 			};
 
-
+			$scope.updateStatus($scope.statusList[0]);
 			$interval(checkAlerts, 5000);
 		};
 
