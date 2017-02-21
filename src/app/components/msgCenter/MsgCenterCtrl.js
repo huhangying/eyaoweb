@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function MsgCenterCtrl($scope, $rootScope, $http, $uibModal, toastr, CONFIG) {
-		moment.defineLocale('zh-cn', {abbr:'zh-cn'});
+
 		$scope.getMessages = function() {
 			if ($scope.object.messages && $scope.object.messages.length === $scope.object.count) {
 				return;
