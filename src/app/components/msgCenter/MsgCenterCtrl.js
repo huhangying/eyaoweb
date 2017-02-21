@@ -21,7 +21,7 @@
 						else {
 							$scope.object.messages = response.data;
 							$scope.object.messages.map( function(msg) {
-								msg.time = moment(msg.updatedAt).startOf('hour').fromNow();
+								msg.time = moment(msg.updatedAt).startOf('minute').fromNow();
 							});
 						}
 
