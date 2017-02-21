@@ -7,7 +7,7 @@
         .controller('TopbarController', TopbarController);
 
     /** @ngInject */
-    function TopbarController($scope, $rootScope, $state, $window, $interval, $http, CONFIG) {
+    function TopbarController($scope, $rootScope, $state, $window, $interval, $http, CONFIG, $uibModal) {
 
         var vm = this;
 		$scope.statusList = [
@@ -29,6 +29,7 @@
 			$state.go('app.login');
 		}
 		$scope.doctorIcon = $rootScope.login.icon;
+		// $scope.doctorIcon = CONFIG.peerPageUrl + $rootScope.login.icon;
 
 		$scope.debug = $window.sessionStorage.debug;
 		if ($scope.debug !== undefined) {
@@ -49,9 +50,25 @@
 			$state.go('app.login');
 		};
 
+		$scope.changePassword = function () {
+			$uibModal.open({
+				scope: $scope,
+				animation: true,
+				ariaLabelledBy: 'modal-title-top',
+				ariaDescribedBy: 'modal-body-top',
+				templateUrl: 'app/components/changePassword/changePassword.html',
+				controller: 'ChangePasswordCtrl',
+				size: 'sm'
+			})
+				.result.then(
+				function () {
+				},
+				function (err) {
+					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+				});
+		};
+
 		var checkAlerts = function () {
-
-
 
 			// feedback1
 			$http.get(CONFIG.baseApiUrl + 'feedback/unreadcount/1/'+ $rootScope.login._id)

@@ -7,7 +7,8 @@
 		.value('CONFIG', {
 		// .constant('CONFIG', {
 
-			peerPageUrl: 'http://223.93.176.119:8880',
+			// peerPageUrl: 'http://223.93.176.119:8880',
+			peerPageUrl: 'http://116.62.29.222/zhaoys/',
 			//baseApiUrl: 'http://127.0.0.1:3000/',
 			baseApiUrl: 'http://139.224.68.92:3000/',
 			baseImageServer:'http://139.224.68.92:81/',

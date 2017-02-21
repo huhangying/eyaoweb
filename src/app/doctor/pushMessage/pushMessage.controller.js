@@ -10,7 +10,7 @@
     function PushMessageController($scope, $rootScope, CONFIG) {
 
         var vm = this;
-		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/doctor/pushMessage' + '?doctor=' + $rootScope.login._id;
+		$scope.detailFrame = CONFIG.peerPageUrl + 'doctor/pushMessage?doctor=' + $rootScope.login._id;
     }
 
 })();

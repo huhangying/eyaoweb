@@ -10,7 +10,7 @@
     function ShortcutController($scope, $rootScope, CONFIG) {
 
         var vm = this;
-		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/doctor/personalInformation' + '?doctor=' + $rootScope.login._id;
+		$scope.detailFrame = CONFIG.peerPageUrl + 'doctor/quickReplyManage?doctor=' + $rootScope.login._id;
     }
 
 })();

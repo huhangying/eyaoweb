@@ -11,7 +11,7 @@
 
         var vm = this;
 
-		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/doctor/patientManage' + '?doctor=' + $rootScope.login._id;
+		$scope.detailFrame = CONFIG.peerPageUrl + 'doctor/patientManage?doctor=' + $rootScope.login._id;
     }
 
 })();

@@ -14,7 +14,7 @@
 			'http://*/**',
 			'https://*/**',
 			// Allow loading from our assets domain.  Notice the difference between * and **.
-			'http://223.93.176.119:8880/**']);
+			'http://116.62.29.222/**']);
 
 	}
 

@@ -10,7 +10,7 @@
     function ChatController($scope, $rootScope, CONFIG) {
 
         var vm = this;
-		$scope.detailFrame = CONFIG.peerPageUrl + '/rosten-medical/web/switchChats' + '?doctor=' + $rootScope.login._id;
+		$scope.detailFrame = CONFIG.peerPageUrl + 'web/switchChats?doctor=' + $rootScope.login._id;
     }
 
 })();
