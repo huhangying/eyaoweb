@@ -1,16 +1,16 @@
 (function() {
 
-    'use strict';
+	'use strict';
 
-    angular
-        .module('app.home')
-        .controller('HomeController', HomeController);
+	angular
+		.module('app.home')
+		.controller('HomeController', HomeController);
 
-    /** @ngInject */
-    function HomeController($scope, $rootScope, CONFIG) {
+	/** @ngInject */
+	function HomeController($scope, $rootScope, CONFIG) {
+		var vm = this;
 
-        var vm = this;
-
-    }
+		$scope.detailFrame = CONFIG.peerPageUrl + 'wx/start?doctor=' + $rootScope.login._id;
+	}
 
 })();

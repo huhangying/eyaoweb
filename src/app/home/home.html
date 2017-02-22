@@ -1,14 +1,12 @@
 <div class="box">
 	<div class="box-header">
-		<h2>主页</h2>
+		<div class="h3 pull-left">首页 </div>
 	</div>
+	<div cg-busy="myPromise"></div>
 	<div class="box-body">
-		<div class="row">
-			<div class="col-sm-12">
-				<h4></h4>
-				<p>等待加入.</p>
-			</div>
-		</div>
+		<iframe width="100%" height="{{$root.frameHeight}}" frameBorder="0" class="width-100"
+						ng-src="{{detailFrame}}"></iframe>
+
 	</div>
 </div>
 
