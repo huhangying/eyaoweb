@@ -12,26 +12,62 @@
 				return;
 			}
 
-			$http.get(CONFIG.baseApiUrl + 'feedbacks/unread/' + $scope.object.type +'/' + $rootScope.login._id)
-				.then(function (response) {
-						// check if return null
-						if (response.data && response.data.return && response.data.return == 'null'){
-							//toastr.error(CONFIG.Error.NoData);
-						}
-						else {
-							$scope.object.messages = response.data;
-							$scope.object.messages.map( function(msg) {
-								msg.time = moment(msg.updatedAt).startOf('minute').fromNow();
-							});
-						}
+			if ($scope.object.type === 0) {
 
-					},
-					function(){
-						toastr.error(CONFIG.Error.Internal);
-					});
+				$scope.object.checkResultList.map(function(chatroom) {
+					$scope.object.messages = [];
+
+					$http.get(CONFIG.baseApiUrl + 'user/' + chatroom.user)
+						.then(function (response) {
+								// check if return null
+								if (response.data && response.data.return && response.data.return == 'null'){
+									//toastr.error(CONFIG.Error.NoData);
+								}
+								else {
+									var usr = response.data;
+									$scope.object.messages.push( {
+										user: usr,
+										name: chatroom.user_unread + '条新消息',
+										time: moment(chatroom.updated).startOf('second').fromNow()
+									});
+								}
+
+							},
+							function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
+				});
+
+
+			}
+			else if ($scope.object.type > 0) {
+				$http.get(CONFIG.baseApiUrl + 'feedbacks/unread/' + $scope.object.type +'/' + $rootScope.login._id)
+					.then(function (response) {
+							// check if return null
+							if (response.data && response.data.return && response.data.return == 'null'){
+								//toastr.error(CONFIG.Error.NoData);
+							}
+							else {
+								$scope.object.messages = response.data;
+								$scope.object.messages.map( function(msg) {
+									msg.time = moment(msg.updatedAt).startOf('second').fromNow();
+								});
+							}
+
+						},
+						function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
+			}
+
 		};
 
-		$scope.replyMessage = function(msg) {
+		$scope.replyMessage = function(msg, type) {
+
+			if (type === 0) { // chat
+				
+				return;
+			}
 
 			$scope.replyMsg = msg;
 			$scope.replyTitle = $scope.object.title;

@@ -119,6 +119,30 @@
 						toastr.error(CONFIG.Error.Internal);
 					});
 
+			// chat
+			$http.get(CONFIG.baseApiUrl + 'chatrooms/check/doctor/'+ $rootScope.login._id)
+				.then(function (response) {
+						$scope.alert.chat.count = 0;
+						// check if return null
+						if (response.data && response.data.return && response.data.return == 'null'){
+
+						}
+						else {
+							$scope.alert.checkResultList = [];
+							if (response.data && response.data.length > 0) {
+								response.data.map(function (cr) {
+									$scope.alert.chat.count += cr.user_unread;
+								});
+								$scope.alert.chat.checkResultList = response.data;
+							}
+
+						}
+
+					},
+					function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+
 		};
 
 		var init = function() {
@@ -143,7 +167,7 @@
 			};
 
 			$scope.updateStatus($scope.statusList[0]);
-			$interval(checkAlerts, 5000);
+			$interval(checkAlerts, 15000); // default is 15 sec
 		};
 
 		init();

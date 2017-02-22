@@ -14,11 +14,11 @@
 			</div>
 			<div class="msg-list">
 				<div ng-repeat="msg in object.messages">
-					<div class="msg-item row" ng-click="replyMessage(msg)">
+					<div class="msg-item row" ng-click="replyMessage(msg, object.type)">
 						<div class="img-area"><img ng-src="{{::( msg.user.icon ||  '' )}}"></div>
 						<div class="msg-area">
 							<div>{{msg.name}}</div>
-							<div class="pull-right text-muted">{{ msg.time }}</div>
+							<div class="pull-right text-muted">{{msg.user.name}}发送于{{ msg.time }}</div>
 						</div>
 					</div>
 				</div>
