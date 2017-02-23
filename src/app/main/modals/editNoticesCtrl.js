@@ -34,13 +34,20 @@
 
 			var init = function () {
 				$scope.notices = [];
+				var notice = {};
 
 				$scope.noticeList = [];
 				if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
 					for (var i=0; i<$scope.diagnose.prescription.length; i++) {
 						if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length > 0) {
 							for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
-								$scope.noticeList.push($scope.diagnose.prescription[i].notices[j]);
+								notice = $scope.diagnose.prescription[i].notices[j];
+								notice.startDate = new Date($scope.diagnose.prescription[i].startDate);
+								if ($scope.diagnose.prescription[i].endDate) {
+									notice.endDate = new Date($scope.diagnose.prescription[i].endDate);
+								}
+
+								$scope.noticeList.push(notice);
 							}
 						}
 					}

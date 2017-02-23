@@ -21,11 +21,12 @@
 			<thead class="bold-text bg-info">
 			<tr>
 				<td style="width:4%"></td>
-				<td style="width:46%">名称</td>
-				<td style="width:13%">提醒开始</td>
-				<td style="width:13%">持续天数</td>
-				<td style="width:14%">确认取消?</td>
-				<td style="width:10%"></td>
+				<td style="width:30%">名称</td>
+				<td style="width:30%">起止时间</td>
+				<td style="width:10%">提醒开始</td>
+				<td style="width:10%">持续天数</td>
+				<td style="width:10%">需确认?</td>
+				<td style="width:6%"></td>
 			</tr>
 			</thead>
 			<tbody>
@@ -40,10 +41,19 @@
 				</td>
 				<td><input type="checkbox" ng-model="item.selected" ng-change="updateNotices()"></td>
 				<td>
-				<span editable-text="item.notice" e-name="notice" e-form="rowform" e-style="width:320px;" >
-          {{ item.notice || 'empty' }}
-        </span>
+					<span editable-text="item.notice" e-name="notice" e-form="rowform" e-style="width:320px;" >
+						{{ item.notice || 'empty' }}
+					</span>
 					<!--<input type="text" class="form-control" ng-model="item.notice" placeholder="设置提醒名称">-->
+				</td>
+				<td>
+					<span editable-date="item.startDate" e-name="startDate" e-form="rowform" e-required >
+						{{ item.startDate | amDateFormat: 'YYYY年MM月DD日' }}
+					</span>
+					-
+					<span editable-date="item.endDate" e-name="endDate" e-form="rowform" >
+						{{ item.endDate | amDateFormat: 'YYYY年MM月DD日' }}
+					</span>
 				</td>
 				<td>
 					<span editable-number="item.days_to_start" e-name="days_to_start" e-form="rowform" e-required e-style="width:80px;" >
@@ -71,7 +81,7 @@
 						</button>
 					</form>
 					<div class="buttons" ng-show="!rowform.$visible">
-						<a class=" btn text-primary" ng-click="rowform.$show()">
+						<a class=" btn text-primary" ng-click="rowform.$show()" ng-if="false">
 							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 						</a>
 					</div>
