@@ -60,7 +60,7 @@
 
 				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="switchInMode(1)">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
-					结束门诊&发送结论
+					结束门诊
 				</button>
 
 				<hr/>
@@ -98,7 +98,7 @@
 				</thead>
 				<tbody>
 				<tr ng-repeat="medicine in diagnose.prescription track by $index">
-					<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}})</td>
+					<td>{{ medicine.name }} (共{{ medicine.capacity }} {{ medicine.unit}} X {{medicine.quantity}})</td>
 					<td>
 						{{ medicine.usage }}: {{showInterval(medicine.dosage.intervalDay)}} {{medicine.dosage.way}} {{medicine.dosage.frequency}} 次, 每次 {{medicine.dosage.count}} {{medicine.unit}}</td>
 					<td>{{ medicine.notes || '无' }}</td>

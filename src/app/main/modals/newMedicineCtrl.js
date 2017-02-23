@@ -8,7 +8,7 @@
 	angular
 		.module('app.main.newMedicine', [])
 
-		.controller('NewMedicineController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('NewMedicineController', function ($scope, $rootScope, $http, toastr, CONFIG, $filter) {
 			var ctrl = this;
 			$scope.selectedMedicine = {};
 
@@ -24,6 +24,8 @@
 
 			$scope.setSelectedMedicine = function(item, modal) {
 				item.startDate = item.startDate || new Date();
+				item.quantity = item.quantity || 1;
+
 				$scope.selectedMedicine = item;
 
 				// filter out non-applied notices
@@ -52,6 +54,10 @@
 
 				if ($scope.editedMedicine) {
 					$scope.selectedMedicine = $scope.editedMedicine;
+					$scope.selectedMedicine.startDate = new Date($scope.selectedMedicine.startDate);
+					if ($scope.selectedMedicine.endDate) {
+						$scope.selectedMedicine.endDate = new Date($scope.selectedMedicine.endDate);
+					}
 				}
 
 				$http.get(CONFIG.baseApiUrl + 'const/medicine_usages')
@@ -108,6 +114,10 @@
 			};
 
 			init();
+
+			// $scope.$watch('editedMedicine.startDate', function (newValue) {
+			// 	$scope.editedMedicine.startDate = $filter('date')(newValue, 'yyyy/MM/dd');
+			// });
 
 		});
 

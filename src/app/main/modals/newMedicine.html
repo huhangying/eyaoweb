@@ -31,58 +31,93 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="inputName" class="control-label">药名</label>
+					<label for="inputName" class="control-label text-muted">药名</label>
 					<input type="hidden" ng-model="selectedMedicine._id">
 					<input type="text" class="form-control" id="inputName" placeholder="" ng-model="selectedMedicine.name" required />
 				</div>
 			</div>
 			<div class="col-sm-2">
 				<div class="form-group">
-					<label for="inputUsage" class="control-label">使用方法</label>
-					<select class="form-control" ng-model="selectedMedicine.usage" id="inputUsage" required
-						ng-options="usage for usage in usages">
-					</select>
-				</div>
-			</div>
-			<div class="col-sm-2">
-				<div class="form-group">
-					<label for="inputCapacity" class="control-label">药品总量</label>
+					<label for="inputCapacity" class="control-label text-muted">药品单位总量</label>
 					<input type="number" class="form-control" id="inputCapacity" ng-model="selectedMedicine.capacity" min="0" max="10000" required />
 				</div>
 			</div>
 			<div class="col-sm-2">
 				<div class="form-group">
-					<label for="inputCapacity" class="control-label">单位</label>
+					<label for="inputCapacity" class="control-label text-muted">单位</label>
 					<select class="form-control" ng-model="selectedMedicine.unit" required>
 						<option value="粒" selected>粒</option>
 						<option value="毫升">毫升</option>
 					</select>
 				</div>
 			</div>
+
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label for="inputCount" class="control-label text-muted">数量</label>
+					<div class="input-group">
+						<span class="input-group-addon">X</span>
+						<input type="number" class="form-control" id="quantity" min="0"
+									 ng-model="selectedMedicine.quantity" required />
+					</div>
+
+				</div>
+			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="inputStartDate" class="control-label text-muted">开始服用日期</label>
+					<div class="input-group">
+						<input type="date" class="form-control" id="inputStartDate" placeholder="yyyy-MM-dd"
+									 ng-model="selectedMedicine.startDate" required />
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="inputEndDate" class="control-label text-muted">结束日期</label>
+					<div class="input-group">
+						<input type="date" class="form-control" id="inputEndDate"
+									 ng-model="selectedMedicine.endDate" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="inputUsage" class="control-label text-muted">使用方法</label>
+					<select class="form-control" ng-model="selectedMedicine.usage" id="inputUsage" required
+									ng-options="usage for usage in usages">
+					</select>
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-sm-2">
-				<label class="control-label">服药时间</label>
+				<label class="control-label text-muted">服药时间</label>
 				<select class="form-control" ng-model="selectedMedicine.dosage.intervalDay" ng-required
 					ng-options="intervalDay.value as intervalDay.name for intervalDay in intervalDays">
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<label class="control-label">时间备注</label>
+				<label class="control-label text-muted">时间备注</label>
 				<select class="form-control" ng-model="selectedMedicine.dosage.way"
 								ng-options="way for way in ways">
 				</select>
 			</div>
 			<div class="col-sm-2">
 				<div class="form-group">
-					<label for="inputFrequency" class="control-label">服用频率</label>
+					<label for="inputFrequency" class="control-label text-muted">服用频率</label>
 					<input type="number" class="form-control" id="inputFrequency" min="0" max="100"
 								 ng-model="selectedMedicine.dosage.frequency" required />
 				</div>
 			</div>
 			<div class="col-sm-2">
 				<div class="form-group">
-					<label for="inputCount" class="control-label">每次</label>
+					<label for="inputCount" class="control-label text-muted">每次</label>
 					<div class="input-group">
 						<input type="number" class="form-control" id="inputCount" min="0"
 									 ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
@@ -92,22 +127,13 @@
 
 				</div>
 			</div>
-			<div class="col-sm-4">
-				<div class="form-group">
-					<label for="inputStartDate" class="control-label">开始服用日期</label>
-					<div class="input-group">
-						<input type="date" class="form-control" id="inputStartDate"
-									 ng-model="selectedMedicine.startDate" required />
-					</div>
 
-				</div>
-			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="inputNotes" class="control-label">备注</label>
+					<label for="inputNotes" class="control-label text-muted">备注</label>
 					<textarea class="form-control" id="inputNotes" placeholder="输入药师备注" ng-model="selectedMedicine.notes" />
 				</div>
 			</div>
