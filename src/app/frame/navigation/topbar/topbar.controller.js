@@ -161,8 +161,7 @@
 				chat: {
 					type: 0,
 					title: '在线咨询消息',
-					icon: 'fa-envelope text-warning',
-					count: 1
+					icon: 'fa-envelope text-warning'
 				}
 			};
 

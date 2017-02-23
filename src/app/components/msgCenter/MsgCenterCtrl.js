@@ -5,7 +5,7 @@
 		.controller('MsgCenterCtrl', MsgCenterCtrl);
 
 	/** @ngInject */
-	function MsgCenterCtrl($scope, $rootScope, $http, $uibModal, toastr, CONFIG) {
+	function MsgCenterCtrl($scope, $rootScope, $http, $uibModal, $state, toastr, CONFIG) {
 
 		$scope.getMessages = function() {
 			if ($scope.object.messages && $scope.object.messages.length === $scope.object.count) {
@@ -26,6 +26,7 @@
 								else {
 									var usr = response.data;
 									$scope.object.messages.push( {
+										chatroom: chatroom._id,
 										user: usr,
 										name: chatroom.user_unread + '条新消息',
 										time: moment(chatroom.updated).startOf('second').fromNow()
@@ -65,7 +66,7 @@
 		$scope.replyMessage = function(msg, type) {
 
 			if (type === 0) { // chat
-				
+				$state.go('app.chat', { chatroom: msg.chatroom });
 				return;
 			}
 

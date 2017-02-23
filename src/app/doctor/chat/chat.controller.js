@@ -7,10 +7,14 @@
         .controller('ChatController', ChatController);
 
     /** @ngInject */
-    function ChatController($scope, $rootScope, CONFIG) {
+    function ChatController($scope, $rootScope, CONFIG, $state) {
 
         var vm = this;
-		$scope.detailFrame = CONFIG.peerPageUrl + 'web/switchChats?doctor=' + $rootScope.login._id;
+		var chatroomidParam = '';
+		if ($state.params.chatroom) {
+			chatroomidParam = '&roomid=' + $state.params.chatroom;
+		}
+		$scope.detailFrame = CONFIG.peerPageUrl + 'web/switchChats?doctor=' + $rootScope.login._id + chatroomidParam;
     }
 
 })();

@@ -10,7 +10,7 @@
     function config($stateProvider) {
 
         $stateProvider.state('app.chat', {
-            url  : '/chat',
+            url  : '/chat/:chatroom',
             views  : {
                 'content@app': {
                     templateUrl: 'app/doctor/chat/chat.html',
