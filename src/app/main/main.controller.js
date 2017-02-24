@@ -277,21 +277,24 @@
 			})
 				.result.then(
 				function (surveys) {
+					if (!surveys || surveys.length < 1) {
+						return;
+					}
+
 					// add survey ids into diagnose
 					var surveyIds = [];
-
-					surveys.map(function(survey) {
-						surveyIds.push(survey._id);
-					});
+					for (var i=0; i<surveys.length; i++) {
+						surveyIds.push(surveys[i]._id);
+					}
 
 					var existed = false;
-					$scope.diagnose.surveys.map(function(_survey) {
-						if (_survey.type === $scope.selectedSurveyType) {
+					for (var i=0; i<$scope.diagnose.surveys.length; i++) {
+						if ($scope.diagnose.surveys[i].type === $scope.selectedSurveyType) {
 							// update if existed
 							existed = true;
-							_survey.list = surveyIds;
+							$scope.diagnose.surveys[i].list = surveyIds;
 						}
-					});
+					}
 
 					// create if not existed
 					if (!existed) {
@@ -487,7 +490,6 @@
 				});
 		};
 
-		//todo:
 		vm.createLabResult = function () {
 			$uibModal.open({
 				scope: $scope,
@@ -597,9 +599,34 @@
 				function (status) {
 					// reset environment
 
+					// set status of surveys inside to 'finished'
+					$scope.diagnose.surveys.map(function(survey) {
+						if (!survey.finished) {
+							// update
+							$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'survey/' + survey._id,
+								{ finished: true })
+								.then(function (response) {
+										// check if return null
+										if (response.data.return && response.data.return == 'null'){
+											//toastr.warning('后台无此问卷' + survey.name);
+											//return;
+										}
+										//$scope.patient = response.data;
+										//toastr.success('更新成功')
+
+									},
+									function(){
+										toastr.error(CONFIG.Error.Internal);
+									});
+						}
+					});
+
 					// save status
 					$scope.diagnose.status = status;
 					vm.saveDiagnose();
+
+					//todo: send out 随访问卷和药师门诊评估
+
 
 				},
 				function (err) {

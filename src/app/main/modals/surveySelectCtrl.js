@@ -14,12 +14,11 @@
 
 			$scope.selectOk = function() {
 				var selectedSurveyIdList = [];
-				$scope.surveys.map(function(survey) {
-					if (survey.selected) {
-						selectedSurveyIdList.push(survey._id);
+				for (var i=0; i<$scope.surveys.length; i++) {
+					if ($scope.surveys[i].selected) {
+						selectedSurveyIdList.push($scope.surveys[i]._id);
 					}
-
-				});
+				}
 
 				// return to main process
 				this.$close(selectedSurveyIdList);

@@ -8,8 +8,8 @@
 	angular
 		.module('app.main.surveyEdit', [])
 
-		.controller('SurveyEditController', function ($scope, $rootScope, $http, toastr, CONFIG, $stateParams) {
-			var ctrl = this;
+		.controller('SurveyEditController', function ($scope, $rootScope, $http, toastr, CONFIG, $stateParams, $q, $uibModalInstance) {
+			var vm = this;
 			var type, department, doctor, user, list;
 			$scope.surveys = [];
 
@@ -68,11 +68,21 @@
 					}
 
 					// convert and save
-					convertAndSave();
+					convertAndSave().then(
+						function(values) {
+							$scope.surveys = [];
+							// return to main process
+							for (var i=0; i<values.length; i++) {
+								$scope.surveys.push(values[i].data);
+							}
+							$uibModalInstance.close($scope.surveys);
+						},
+						function(err) {
+
+						});
 				}
 
-				// return to main process
-				this.$close($scope.surveys);
+
 			};
 
 			$scope.getTypeById = function(id) {
@@ -101,12 +111,15 @@
 
 			var convertAndSave = function () {
 
+				var promises = [];
+
 				$scope.surveys.map(function(survey) {
 					// save
 					if (survey._id) { // update
 						$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'survey/' + survey._id, survey)
 							.success(function (response) {
 								toastr.info('更新问卷' + survey.name + '成功');
+								// return response;
 							})
 							.error(function(){
 								toastr.error(CONFIG.Error.Internal);
@@ -117,13 +130,18 @@
 							.success(function (response) {
 								survey = response;
 								toastr.info('创建问卷' + survey.name + '成功');
+								// return response;
 							})
 							.error(function(){
 								toastr.error(CONFIG.Error.Internal);
 							});
 					}
 
+					promises.push($scope.myPromise);
+
 				});
+
+				return $q.all(promises);
 
 			};
 
@@ -167,39 +185,41 @@
 				user = $stateParams.user || $scope.diagnose.user;
 				list = $stateParams.list;
 				if (!list) {
-					var selectedSurveys = $scope.diagnose.surveys.filter(function(_survey) {
-						return _survey.type == type;
-					});
-					if (selectedSurveys && selectedSurveys.length > 0) {
-						if (selectedSurveys[0].list && selectedSurveys[0].list.length>0) {
-							list = selectedSurveys[0].list.join('|');
+					if ($scope.diagnose.surveys && $scope.diagnose.surveys.length > 0) {
+						var tempList = [];
+						for (var i=0; i<$scope.diagnose.surveys.length;i++) {
+							if ($scope.diagnose.surveys[i].type == type) {
+								tempList.push($scope.diagnose.surveys[i].list);
+							}
 						}
+						list = tempList.join('|');
 					}
 				}
 
-
+				// 如果list没有survey，就到surveyTemplate去取；如果有survey list，直接加载
 				$scope.surveyTitle = CONFIG.surveyTypes[type];
 				var reqUrl ='';
 				if (list) {
 					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type + '/' + list;
+					$scope.myPromise = $http.get(reqUrl)
+						.success(function (response) {
+							// check if return null
+							if (response.return && response.return == 'null' && !$scope.readonly ){
+								loadFromTemplate(department, doctor, user, type, list);
+							}
+							else {
+								$scope.surveys = response;
+							}
+
+						})
+						.error(function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
 				}
 				else {
-					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type;
+					loadFromTemplate(department, doctor, user, type, list);
 				}
-				$scope.myPromise = $http.get(reqUrl)
-					.success(function (response) {
-						// check if return null
-						if (response.return && response.return == 'null' && !$scope.readonly ){
-							loadFromTemplate(department, doctor, user, type, list);
-						}
-						else {
-							$scope.surveys = response;
-						}
 
-					})
-					.error(function(){
-						toastr.error(CONFIG.Error.Internal);
-					});
 
 			};
 
