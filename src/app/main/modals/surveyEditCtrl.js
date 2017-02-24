@@ -200,7 +200,11 @@
 				$scope.surveyTitle = CONFIG.surveyTypes[type];
 				var reqUrl ='';
 				if (list) {
-					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type + '/' + list;
+					var readonly = 0;
+					if ($scope.readonly) {
+						readonly = 1;
+					}
+					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type + '/' + list + '/' + readonly;
 					$scope.myPromise = $http.get(reqUrl)
 						.success(function (response) {
 							// check if return null

@@ -106,6 +106,39 @@
 
 			};
 
+			var loadFromTemplate = function(department, doctor, user, type, list) {
+				var reqUrl ='';
+				if (list) {
+					reqUrl = CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type + '/' + list;
+				}
+				else {
+					reqUrl = CONFIG.baseApiUrl + 'surveyTemplates/' + department + '/type/' + type;
+				}
+				$scope.myPromise = $http.get(reqUrl)
+					.success(function (response) {
+						// check if return null
+						if (response.return && response.return == 'null'){
+							$scope.conclusion.surveys = [];
+						}
+						else {
+							$scope.conclusion.surveys = response;
+							$scope.conclusion.surveys.map(function(survey) {
+								survey.surveyTemplate = survey._id;
+								survey.doctor = doctor;
+								survey.user = user;
+								survey._id = undefined;
+
+								// convert availableDays to availableBy
+								survey.availableBy = moment().add(survey.availableDays || 30, 'days');
+							});
+						}
+
+					})
+					.error(function(){
+						toastr.error(CONFIG.Error.Internal);
+					});
+			};
+
 			var init = function () {
 				$scope.activeTab = 0;
 
@@ -119,42 +152,31 @@
 						list = selectedSurveys[0].list.join('|');
 					}
 				}
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $scope.diagnose.doctor
-					+ '/' + $scope.diagnose.user + '/5/' + list)
-					.success(function (response) {
-						// check if return null
-						if (response.return && response.return == 'null'){
-							// load from template
-							$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveyTemplates/' + $rootScope.login.department + '/type/5')
-								.success(function (response) {
-									// check if return null
-									if (response.return && response.return == 'null'){
-										$scope.conclusion.surveys = [];
-									}
-									else {
-										$scope.conclusion.surveys = response;
-										$scope.conclusion.surveys.map(function(survey) {
-											survey.surveyTemplate = survey._id;
-											survey.doctor = $scope.diagnose.doctor;
-											survey.user = $scope.diagnose.user;
+				var reqUrl ='';
+				if (list) {
+					var readonly = 0;
+					if ($scope.readonly) {
+						readonly = 1;
+					}
+					reqUrl = CONFIG.baseApiUrl + 'surveys/' + $scope.diagnose.doctor + '/' + $scope.diagnose.user + '/5/' + list + '/' + readonly;
+					$scope.myPromise = $http.get(reqUrl)
+						.success(function (response) {
+							// check if return null
+							if (response.return && response.return == 'null' && !$scope.readonly ){
+								loadFromTemplate($rootScope.login.department, $scope.diagnose.doctor, $scope.diagnose.user , 5, list);
+							}
+							else {
+								$scope.conclusion.surveys = response;
+							}
 
-											survey._id = undefined;
-										});
-									}
-
-								})
-								.error(function(){
-									toastr.error(CONFIG.Error.Internal);
-								});
-						}
-						else {
-							$scope.conclusion.surveys = response;
-						}
-
-					})
-					.error(function(){
-						toastr.error(CONFIG.Error.Internal);
-					});
+						})
+						.error(function(){
+							toastr.error(CONFIG.Error.Internal);
+						});
+				}
+				else {
+					loadFromTemplate($rootScope.login.department, $scope.diagnose.doctor, $scope.diagnose.user , 5, list);
+				}
 
 				// load notices
 
