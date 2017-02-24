@@ -112,7 +112,7 @@
 								toastr.error(CONFIG.Error.Internal);
 							});
 					}
-					else {
+					else { // create
 						$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'survey', survey)
 							.success(function (response) {
 								survey = response;
@@ -147,8 +147,10 @@
 								survey.surveyTemplate = survey._id;
 								survey.doctor = doctor;
 								survey.user = user;
-
 								survey._id = undefined;
+
+								// convert availableDays to availableBy
+								survey.availableBy = moment().add(survey.availableDays || 30, 'days');
 							});
 						}
 
