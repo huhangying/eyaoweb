@@ -144,9 +144,12 @@
 
 				// load 门诊结论问卷
 				var list = '';
-				var selectedSurveys = $scope.diagnose.surveys.filter(function(_survey) {
-					return _survey.type == 5;
-				});
+				var selectedSurveys = [];
+				for (var i=0; i<$scope.diagnose.surveys.length; i++) {
+					if ($scope.diagnose.surveys[i].type == 5) {
+						selectedSurveys.push($scope.diagnose.surveys[i]);
+					}
+				}
 				if (selectedSurveys && selectedSurveys.length > 0) {
 					if (selectedSurveys[0].list && selectedSurveys[0].list.length>0) {
 						list = selectedSurveys[0].list.join('|');

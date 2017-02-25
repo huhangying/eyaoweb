@@ -300,6 +300,25 @@
 					if (!existed) {
 						$scope.diagnose.surveys.push({type: $scope.selectedSurveyType, list: surveyIds});
 					}
+
+					// only update the surveys section to diagnose
+					$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'diagnose/' + $scope.diagnose._id,
+						{
+							surveys: $scope.diagnose.surveys,
+							prescription: undefined // don't update prescription
+						})
+						.then(function (response) {
+								// check if return null
+								if (response.return && response.return == 'null'){
+									//$scope.diagnose = [];
+									return;
+								}
+								$scope.diagnose = response.data;
+
+							},
+							function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());

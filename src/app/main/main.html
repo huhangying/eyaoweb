@@ -55,10 +55,12 @@
 						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)" ng-if="switchInMode(1)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-default" ng-click="vm.openSurvey(5, readonly)" ng-if="switchInMode(0)">门诊结论</button>
+				<button class="btn btn-default" ng-click="vm.openSurvey(5, readonly)"
+								ng-if="switchInMode(0)">
+					门诊结论</button>
 
-
-				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-if="switchInMode(1)">
+				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()"
+								ng-if="(diagnose.surveys.length>0)&&switchInMode(1)">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					结束门诊
 				</button>
@@ -67,7 +69,7 @@
 			</div>
 
 		</div>
-		<div style="padding-top: 10px;" ng-if="switchInMode(0)">
+		<div class="pt-2 text-info" ng-if="switchInMode(0)">
 			<h5>用药计划（处方）</h5>
 			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchInMode(1)">
 				<i class="fa fa-medkit" aria-hidden="true"></i>
@@ -79,14 +81,11 @@
 				<span>化验结果</span>
 			</button>
 
-			<button class="btn btn-default pull-right"
-							ng-click="vm.saveDiagnose()" ng-if="switchInMode(1)">
+			<button class="btn btn-default pull-right" ng-click="vm.saveDiagnose()" ng-if="switchInMode(1)">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
 			</button>
-			<div>
 
-			</div>
 			<table class="table">
 				<thead class="bold-text bg-info">
 				<tr>
@@ -119,7 +118,7 @@
 			使用说明内容。。。
 		</div>
 
-		<div ng-if="false">
+		<div ng-if="true">
 			<hr/>
 			{{diagnose}}
 			<hr/>
