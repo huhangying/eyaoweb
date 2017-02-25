@@ -81,7 +81,7 @@
 					<tbody>
 					<tr ng-repeat="result in history.diagnoses track by $index" class="editable-row">
 						<td>
-							{{ result.doctor.department || '空' }}
+							{{ result.doctor.department.name || '空' }}
 						</td>
 						<td>
 							{{ result.doctor.name }}{{ result.doctor.title }}
