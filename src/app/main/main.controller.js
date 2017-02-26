@@ -23,7 +23,8 @@
 
 			switch(mode) {
 				case 0: // edit & view
-					if ($scope.history && $scope.history.diagnose) { // in view mode
+					if ($scope.readonly) { // in view mode
+					// if ($scope.history && $scope.history.diagnose) { // in view mode
 						return display1 || true;
 					}
 					else {	// in edit mode
@@ -32,13 +33,15 @@
 					break;
 
 				case 1: // edit only
-					if (!($scope.history && $scope.history.diagnose)) {
+					if (!($scope.readonly)) {
+					// if (!($scope.history && $scope.history.diagnose)) {
 						return display || $scope.diagnose.user;
 					}
 					break;
 
 				case 2: // view only
-					if ($scope.history && $scope.history.diagnose) { // in view mode
+					if ($scope.readonly) { // in view mode
+					// if ($scope.history && $scope.history.diagnose) { // in view mode
 						return display || false;
 					}
 					break;
@@ -455,8 +458,13 @@
 			vm.saveDiagnose();
 		};
 
-		vm.selectNotices = function (readonly) {
+		vm.editNotices = function (readonly, diagnose) {
 			$scope.readonly = readonly;
+			if (readonly) {
+				// 如果是查看门诊历史记录, 那么viewNoticeList 可以从门诊里直接得到
+				$scope.history = { diagnose: angular.copy(diagnose) };
+			}
+
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -548,9 +556,11 @@
 				function (ret) {
 					// tbd:
 					$scope.readonly = undefined;
+					$scope.history = undefined;
 				},
 				function (err) {
 					$scope.readonly = undefined;
+					$scope.history = undefined;
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
 				});
 		};

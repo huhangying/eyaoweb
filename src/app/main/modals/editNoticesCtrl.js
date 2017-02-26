@@ -12,6 +12,10 @@
 			var vm = this;
 
 			$scope.selectOk = function() {
+				if ($scope.readonly) {
+					this.$dismiss();
+					return;
+				}
 				this.$close($scope.notices);
 			};
 
@@ -34,17 +38,28 @@
 
 			var init = function () {
 				$scope.notices = [];
-				var notice = {};
-
 				$scope.noticeList = [];
-				if ($scope.diagnose.prescription && $scope.diagnose.prescription.length>0) {
-					for (var i=0; i<$scope.diagnose.prescription.length; i++) {
-						if ($scope.diagnose.prescription[i].notices && $scope.diagnose.prescription[i].notices.length > 0) {
-							for (var j=0; j<$scope.diagnose.prescription[i].notices.length; j++) {
-								notice = $scope.diagnose.prescription[i].notices[j];
-								notice.startDate = new Date($scope.diagnose.prescription[i].startDate);
-								if ($scope.diagnose.prescription[i].endDate) {
-									notice.endDate = new Date($scope.diagnose.prescription[i].endDate);
+				var prescription;
+				var notices;
+
+				if ($scope.readonly) {
+					prescription = $scope.history.diagnose.prescription;
+					notices = $scope.history.diagnose.notices;
+				}
+				else {
+					prescription = $scope.diagnose.prescription;
+					notices = $scope.diagnose.notices;
+				}
+
+				var notice = {};
+				if (prescription && prescription.length>0) {
+					for (var i=0; i<prescription.length; i++) {
+						if (prescription[i].notices && prescription[i].notices.length > 0) {
+							for (var j=0; j<prescription[i].notices.length; j++) {
+								notice =prescription[i].notices[j];
+								notice.startDate = new Date(prescription[i].startDate);
+								if (prescription[i].endDate) {
+									notice.endDate = new Date(prescription[i].endDate);
 								}
 
 								$scope.noticeList.push(notice);
@@ -53,9 +68,9 @@
 					}
 				}
 
-				if ($scope.diagnose.notices && $scope.diagnose.notices.length>0) {
+				if (notices && notices.length>0) {
 					// 在 notices 里面的都是已经选择了的。
-					$scope.notices = $scope.diagnose.notices.map(function(notice) {
+					$scope.notices = notices.map(function(notice) {
 						notice.selected = true;
 						return notice;
 					});

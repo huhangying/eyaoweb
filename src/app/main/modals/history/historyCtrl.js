@@ -12,11 +12,6 @@
 			var ctrl = this;
 			$scope.history = {};
 
-			$scope.selectOk = function() {
-				$scope.readonly = undefined; // clear up
-				this.$close($scope.conclusion);
-			};
-
 			// load data for each tab
 			$scope.loadTab = function(tabIndex) {
 				$scope.activeTab = tabIndex;

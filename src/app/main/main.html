@@ -75,7 +75,7 @@
 				<i class="fa fa-medkit {{(diagnose.prescription && diagnose.prescription.length>0)? 'text-success':''}}" aria-hidden="true"></i>
 				新开处方
 			</button>
-			<button class="btn btn-default" ng-click="vm.selectNotices(readonly)" ng-if="switchInMode(0) && diagnose.prescription.length>0">
+			<button class="btn btn-default" ng-click="vm.editNotices(readonly, diagnose)" ng-if="switchInMode(0) && diagnose.prescription.length>0">
 				<i class="fa fa-bell {{(diagnose.notices && diagnose.notices.length>0)? 'text-success':'text-muted'}}" aria-hidden="true"></i>
 				监测计划
 			</button>
