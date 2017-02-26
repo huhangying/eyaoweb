@@ -4,7 +4,7 @@
 		<div class="h3 pull-left">药师门诊 </div>
 
 		<div class="pull-right" ng-if="switchInMode(1)">
-			<span class="btn btn-warning" style="padding: 4px 11px;margin-top:15px" ng-click="vm.viewPatientHistory()">
+			<span class="btn {{isFirstVisit? 'btn-info': 'btn-warning'}}" style="padding: 4px 11px;margin-top:15px" ng-click="vm.viewPatientHistory()">
 				{{ patient? patient.name : '未选患者' }}&nbsp;
 				<span class="divider-vertical"></span>
 				<i class="fa fa-history" aria-hidden="true"></i>
@@ -72,16 +72,19 @@
 		<div class="pt-2 text-info" ng-if="switchInMode(0)">
 			<h5>用药计划（处方）</h5>
 			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchInMode(1)">
-				<i class="fa fa-medkit" aria-hidden="true"></i>
+				<i class="fa fa-medkit {{(diagnose.prescription && diagnose.prescription.length>0)? 'text-success':''}}" aria-hidden="true"></i>
 				新开处方
 			</button>
-			<button class="btn btn-default" ng-click="vm.selectNotices(readonly)" ng-if="switchInMode(0) && diagnose.prescription.length>0">监测计划</button>
+			<button class="btn btn-default" ng-click="vm.selectNotices(readonly)" ng-if="switchInMode(0) && diagnose.prescription.length>0">
+				<i class="fa fa-bell {{(diagnose.notices && diagnose.notices.length>0)? 'text-success':'text-muted'}}" aria-hidden="true"></i>
+				监测计划
+			</button>
 			<button type="button" class="btn btn-default" ng-if="switchInMode(1)" ng-click="vm.createLabResult()">
 				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
 
-			<button class="btn btn-default pull-right" ng-click="vm.saveDiagnose()" ng-if="switchInMode(1)">
+			<button class="btn btn-default pull-right" ng-click="vm.saveDiagnose()" ng-if="false && switchInMode(1)">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
 			</button>
@@ -118,7 +121,7 @@
 			使用说明内容。。。
 		</div>
 
-		<div ng-if="false">
+		<div ng-if="true">
 			<hr/>
 			{{diagnose}}
 			<hr/>

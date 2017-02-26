@@ -120,9 +120,6 @@
 								}
 								$scope.diagnose = response.data;
 
-								// update
-								vm.saveDiagnose();
-
 							},
 							function(){
 								toastr.error(CONFIG.Error.Internal);
@@ -163,11 +160,13 @@
 							return;
 						}
 						$scope.diagnose = response.data;
+						$scope.dirty = false;
 
 					},
 					function(){
 						toastr.error(CONFIG.Error.Internal);
 					});
+			return $scope.myPromise;
 		};
 
 		vm.selectBooking = function () {
@@ -259,6 +258,7 @@
 			else {
 				$scope.viewSurveyList = undefined;
 			}
+
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -380,33 +380,6 @@
 			sendWechatMessage(type, 'http://www.google.ca')
 		};
 
-		vm.drawConclusion = function () {
-
-			$uibModal.open({
-				scope: $scope,
-				animation: true,
-				ariaLabelledBy: 'modal-title-top',
-				ariaDescribedBy: 'modal-body-top',
-				templateUrl: 'app/main/modals/conclusion.html',
-				controller: 'ConclusionController',
-				size: 'lg'
-			})
-				.result.then(
-				function (conclusion) { // same as open/edit surveys
-					// add survey ids into diagnose
-					var surveyIds = [];
-
-					conclusion.surveys.map(function(survey) {
-						surveyIds.push(survey._id);
-					});
-
-					$scope.diagnose.surveys = _.union($scope.diagnose.surveys, surveyIds);
-				},
-				function (err) {
-					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
-				});
-		};
-
 		vm.addMedicine = function () {
 			$scope.editedMedicine = undefined;
 			$uibModal.open({
@@ -421,6 +394,7 @@
 				.result.then(
 				function (medicine) {
 					$scope.diagnose.prescription.push(medicine);
+					vm.saveDiagnose();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -478,6 +452,7 @@
 
 
 			$scope.diagnose.prescription.splice(index, 1);
+			vm.saveDiagnose();
 		};
 
 		vm.selectNotices = function (readonly) {
@@ -495,6 +470,7 @@
 				function (notices) {
 					$scope.readonly = undefined;
 					$scope.diagnose.notices = notices;
+					vm.saveDiagnose();
 				},
 				function (err) {
 					$scope.readonly = undefined;
@@ -526,6 +502,7 @@
 											return;
 										}
 										$scope.diagnose.labResults.push(response.data._id);
+										vm.saveDiagnose();
 
 									},
 									function(error){
@@ -542,6 +519,7 @@
 											return;
 										}
 										$scope.diagnose.labResults.push(response.data._id);
+										vm.saveDiagnose();
 
 									},
 									function(error){
@@ -550,26 +528,6 @@
 						}
 
 					});
-				},
-				function (err) {
-					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
-				});
-		};
-
-		vm.createPatient = function () {
-
-			$uibModal.open({
-				scope: $scope,
-				animation: true,
-				ariaLabelledBy: 'modal-title-top',
-				ariaDescribedBy: 'modal-body-top',
-				templateUrl: 'app/main/modals/newPatient.html',
-				controller: 'NewPatientController',
-				size: 'lg'
-			})
-				.result.then(
-				function (patient) {
-					$scope.patient = patient;
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -598,6 +556,9 @@
 		};
 
 		vm.submitDiagnose = function () {
+
+			// save prescription first
+
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -640,12 +601,20 @@
 					$q.all(promises).then(function(values) {
 						// save status
 						$scope.diagnose.status = status;
-						vm.saveDiagnose();
+						vm.saveDiagnose().then(
+							function() {
+								//todo: send out 随访问卷和药师门诊评估
 
-						//todo: send out 随访问卷和药师门诊评估
 
-						// reset environment
-						$scope.diagnose = {};
+								// reset environment
+								resetEnvironment();
+							},
+							function(err) {
+								toastr.error('发送门诊失败!');
+							}
+
+						);
+
 					});
 
 				},
@@ -663,6 +632,18 @@
 		};
 
 
+		var resetEnvironment = function() {
+			$scope.diagnose = {
+				doctor: $rootScope.login._id,
+				prescription: [],
+				notices: []
+			};
+			$scope.prescription = [];
+			$scope.prescriptionNotices = [];	// notices for doctor to select
+			$scope.notices = [];				// notices for users
+			// ! cannot reset patient info (including visitedDepartments)
+		};
+
 		var init = function () {
 			if ($scope.history && $scope.history.diagnose) {
 				//loadDiagnose($scope.history.diagnoseId);
@@ -670,20 +651,10 @@
 				return;
 			}
 			else {
-				$scope.diagnose = {
-					doctor: $rootScope.login._id,
-					prescription: [],
-					notices: []
-				};
+				resetEnvironment();
 			}
 
-			$scope.patient = {
-
-			};
-			$scope.prescription = [];
-			$scope.prescriptionNotices = [];	// notices for doctor to select
-			$scope.notices = [];				// notices for users
-
+			$scope.patient = {};
 			$http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
 				.success(function (response) {
 					//console.log(JSON.stringify(response))

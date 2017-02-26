@@ -78,7 +78,7 @@
 							$uibModalInstance.close($scope.surveys);
 						},
 						function(err) {
-
+							toastr.error(CONFIG.Error.Internal);
 						});
 				}
 				else {

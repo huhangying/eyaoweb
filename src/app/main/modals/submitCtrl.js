@@ -8,7 +8,7 @@
 	angular
 		.module('app.main.submit', [])
 
-		.controller('SubmitController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('SubmitController', function ($scope, $rootScope, $http, $q, $uibModalInstance, toastr, CONFIG) {
 			var ctrl = this;
 			$scope.conclusion = {};
 
@@ -23,8 +23,14 @@
 						break;
 					}
 				}
+				var promises = [];
 				if (!isExisted) {
-					$scope.patient.visitedDepartments.push($rootScope.login.department);
+
+					//todo: push not working
+					var department = $rootScope.login.department;
+					$scope.patient.visitedDepartments.push(department);
+
+
 					// update
 					$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'user/wechat/' + $scope.patient.link_id,
 						{ visitedDepartments: $scope.patient.visitedDepartments })
@@ -41,9 +47,15 @@
 							function(){
 								toastr.error(CONFIG.Error.Internal);
 							});
+					promises.push($scope.myPromise);
 				}
 
-				this.$close(CONFIG.diagnoseStatus.Archived);
+				$q.all(promises).then(
+					function(values) {
+						$uibModalInstance.close(CONFIG.diagnoseStatus.Archived);
+					}
+				);
+
 			};
 
 			$scope.rollbackVisitedDepartments = function () {
