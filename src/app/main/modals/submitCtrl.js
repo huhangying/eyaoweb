@@ -26,10 +26,7 @@
 				var promises = [];
 				if (!isExisted) {
 
-					//todo: push not working
-					var department = $rootScope.login.department;
-					$scope.patient.visitedDepartments.push(department);
-
+					$scope.patient.visitedDepartments.push($rootScope.login.department);
 
 					// update
 					$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'user/wechat/' + $scope.patient.link_id,
