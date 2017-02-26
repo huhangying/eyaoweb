@@ -7,7 +7,7 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, CONFIG) {
+    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, $q, CONFIG) {
         var vm = this;
 
 		//
@@ -23,7 +23,7 @@
 
 			switch(mode) {
 				case 0: // edit & view
-					if ($scope.history && $scope.history.diagnoseId) { // in view mode
+					if ($scope.history && $scope.history.diagnose) { // in view mode
 						return display1 || true;
 					}
 					else {	// in edit mode
@@ -32,13 +32,13 @@
 					break;
 
 				case 1: // edit only
-					if (!($scope.history && $scope.history.diagnoseId)) {
+					if (!($scope.history && $scope.history.diagnose)) {
 						return display || $scope.diagnose.user;
 					}
 					break;
 
 				case 2: // view only
-					if ($scope.history && $scope.history.diagnoseId) { // in view mode
+					if ($scope.history && $scope.history.diagnose) { // in view mode
 						return display || false;
 					}
 					break;
@@ -58,25 +58,6 @@
 						break;
 					}
 				}
-			}
-		};
-
-		var loadDiagnose = function (id) {
-			if ($scope.history && $scope.history.diagnoseId) {
-				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'diagnose/' + $scope.history.diagnoseId)
-					.then(function (response) {
-							// check if return null
-							if (response.data && response.data.return && response.data.return == 'null'){
-								toastr.error(CONFIG.Error.NoData);
-							}
-							else {
-								$scope.diagnose = response.data;
-							}
-
-						},
-						function(){
-							toastr.error(CONFIG.Error.Internal);
-						});
 			}
 		};
 
@@ -260,12 +241,24 @@
 				});
 		};
 
-		vm.openSurvey = function (type, readonly) {
+		vm.openSurvey = function (type, readonly, diagnose) {
 			$scope.selectedSurveyType = type;
 			if (type == 1) {
 				$scope.selectedSurveyType = $scope.isFirstVisit ? 1 : 2;
 			}
 			$scope.readonly = readonly;
+			if (readonly) {
+				// 如果是查看门诊历史记录, 那么survey list 可以从门诊里直接得到
+				for (var i=0; i<diagnose.surveys.length; i++) {
+					if (diagnose.surveys[i].type == type) {
+						$scope.viewSurveyList = diagnose.surveys[i].list;
+						break;
+					}
+				}
+			}
+			else {
+				$scope.viewSurveyList = undefined;
+			}
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -618,34 +611,42 @@
 				function (status) {
 					// reset environment
 
+					var promises = [];
 					// set status of surveys inside to 'finished'
 					$scope.diagnose.surveys.map(function(survey) {
-						if (!survey.finished) {
-							// update
-							$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'survey/' + survey._id,
-								{ finished: true })
-								.then(function (response) {
-										// check if return null
-										if (response.data.return && response.data.return == 'null'){
-											//toastr.warning('后台无此问卷' + survey.name);
-											//return;
-										}
-										//$scope.patient = response.data;
-										//toastr.success('更新成功')
+						if (!survey.finished && survey.list && survey.list.length > 0) {
+							survey.list.map(function(surveyId) {
+								// update
+								$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'survey/' + surveyId,
+									{ finished: true })
+									.then(function (response) {
+											// check if return null
+											if (response.data.return && response.data.return == 'null'){
+												//toastr.warning('后台无此问卷' + survey.name);
+												//return;
+											}
+											//$scope.patient = response.data;
+											//toastr.success('更新成功')
 
-									},
-									function(){
-										toastr.error(CONFIG.Error.Internal);
-									});
+										},
+										function(){
+											toastr.error(CONFIG.Error.Internal);
+										});
+								promises.push($scope.myPromise);
+							});
 						}
 					});
 
-					// save status
-					$scope.diagnose.status = status;
-					vm.saveDiagnose();
+					$q.all(promises).then(function(values) {
+						// save status
+						$scope.diagnose.status = status;
+						vm.saveDiagnose();
 
-					//todo: send out 随访问卷和药师门诊评估
+						//todo: send out 随访问卷和药师门诊评估
 
+						// reset environment
+						$scope.diagnose = {};
+					});
 
 				},
 				function (err) {
@@ -663,18 +664,21 @@
 
 
 		var init = function () {
-			if ($scope.history && $scope.history.diagnoseId) {
-				loadDiagnose($scope.history.diagnoseId);
+			if ($scope.history && $scope.history.diagnose) {
+				//loadDiagnose($scope.history.diagnoseId);
+				$scope.diagnose = $scope.history.diagnose;
 				return;
+			}
+			else {
+				$scope.diagnose = {
+					doctor: $rootScope.login._id,
+					prescription: [],
+					notices: []
+				};
 			}
 
 			$scope.patient = {
 
-			};
-			$scope.diagnose = {
-				doctor: $rootScope.login._id,
-				prescription: [],
-				notices: []
 			};
 			$scope.prescription = [];
 			$scope.prescriptionNotices = [];	// notices for doctor to select

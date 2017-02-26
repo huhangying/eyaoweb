@@ -143,10 +143,10 @@
 				});
 			};
 
-			$scope.viewDiagnoseDetails = function (id) {
+			$scope.viewDiagnoseDetails = function (item) {
 				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
 				$scope.history = $scope.history || {};
-				$scope.history.diagnoseId = id;
+				$scope.history.diagnose = item;
 				$scope.readonly = true;
 				$uibModal.open({
 					scope: $scope,

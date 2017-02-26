@@ -72,9 +72,12 @@
 				<table class="table table-hover table-condensed">
 					<thead class="bold-text bg-info">
 					<tr>
-						<td style="width:30%">专科</td>
-						<td style="width:30%">药师</td>
-						<td style="width:30%">门诊时间</td>
+						<td style="width:20%">专科</td>
+						<td style="width:20%">药师</td>
+						<td style="width:15%">药方个数</td>
+						<td style="width:15%">提醒个数</td>
+						<td style="width:20%">门诊时间</td>
+
 						<td style="width:10%"></td>
 					</tr>
 					</thead>
@@ -87,16 +90,21 @@
 							{{ result.doctor.name }}{{ result.doctor.title }}
 						</td>
 						<td>
+							{{ result.prescription.length }}
+						</td>
+						<td>
+							{{ result.notices.length }}
+						</td>
+						<td>
 							{{ result.updatedAt | amDateFormat: 'YYYY年MM月DD日' }}
 						</td>
 
 						<td style="white-space: nowrap">
-						<span class="btn btn-primary-outline btn-sm" ng-click="viewDiagnoseDetails(result._id)">
+						<span class="btn btn-primary-outline btn-sm" ng-click="viewDiagnoseDetails(result)">
 							<i class="fa fa-eye" aria-hidden="true"></i>
 						</span>
 
 						</td>
-						<div ng-show="result.expanded">ddd</div>
 					</tr>
 
 					</tbody>

@@ -42,20 +42,20 @@
 				<div class="btn-group" ng-if="switchInMode(0)">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<i class="fa {{surveyFirst? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
-						<span ng-click="vm.openSurvey(isFirstVisit?1:2, readonly)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
+						<span ng-click="vm.openSurvey(isFirstVisit?1:2, readonly, diagnose)">{{isFirstVisit?'初诊':'复诊'}}问卷</span>
 						<span class="divider-vertical"></span>
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
 						<li class="dropdown-item"><a ng-click="vm.sendSurvey(isFirstVisit?1:2)" ng-if="switchInMode(1)">
 							发送{{isFirstVisit?'初诊':'复诊'}}问卷</a></li>
-						<li class="dropdown-item"><a ng-click="vm.openSurvey(3, readonly)">编辑查看随访问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.openSurvey(3, readonly, diagnose)">编辑查看随访问卷</a></li>
 						<li class="dropdown-item"><a ng-click="vm.sendSurvey(3)" ng-if="switchInMode(1)">发送随访问卷</a></li>
-						<li class="dropdown-item"><a ng-click="vm.openSurvey(4, readonly)">编辑查看用药知识自测问卷</a></li>
+						<li class="dropdown-item"><a ng-click="vm.openSurvey(4, readonly, diagnose)">编辑查看用药知识自测问卷</a></li>
 						<li class="dropdown-item"><a ng-click="vm.sendSurvey(4, true)" ng-if="switchInMode(1)">发送用药知识自测问卷</a></li>
 					</ul>
 				</div>
-				<button class="btn btn-default" ng-click="vm.openSurvey(5, readonly)"
+				<button class="btn btn-default" ng-click="vm.openSurvey(5, readonly, diagnose)"
 								ng-if="switchInMode(0)">
 					门诊结论</button>
 
@@ -118,7 +118,7 @@
 			使用说明内容。。。
 		</div>
 
-		<div ng-if="true">
+		<div ng-if="false">
 			<hr/>
 			{{diagnose}}
 			<hr/>

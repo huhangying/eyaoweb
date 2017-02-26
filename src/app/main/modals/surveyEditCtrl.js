@@ -81,6 +81,9 @@
 
 						});
 				}
+				else {
+					$uibModalInstance.dismiss();
+				}
 
 
 			};
@@ -183,16 +186,21 @@
 				department = $stateParams.department || $rootScope.login.department;
 				doctor = $stateParams.doctor || $rootScope.login._id;
 				user = $stateParams.user || $scope.diagnose.user;
-				list = $stateParams.list;
-				if (!list) {
-					if ($scope.diagnose.surveys && $scope.diagnose.surveys.length > 0) {
-						var tempList = [];
-						for (var i=0; i<$scope.diagnose.surveys.length;i++) {
-							if ($scope.diagnose.surveys[i].type == type) {
-								tempList.push($scope.diagnose.surveys[i].list);
+				if ($scope.viewSurveyList) {
+					list = $scope.viewSurveyList.join('|');
+				}
+				else {
+					list = $stateParams.list;
+					if (!list) {
+						if ($scope.diagnose.surveys && $scope.diagnose.surveys.length > 0) {
+							var tempList = [];
+							for (var i=0; i<$scope.diagnose.surveys.length;i++) {
+								if ($scope.diagnose.surveys[i].type == type) {
+									tempList.push($scope.diagnose.surveys[i].list);
+								}
 							}
+							list = tempList.join('|');
 						}
-						list = tempList.join('|');
 					}
 				}
 
