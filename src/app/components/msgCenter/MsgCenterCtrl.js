@@ -12,10 +12,10 @@
 				return;
 			}
 
-			if ($scope.object.type === 0) {
+			if ($scope.object.type === 0) { // chat
 
+				$scope.object.messages = [];
 				$scope.object.checkResultList.map(function(chatroom) {
-					$scope.object.messages = [];
 
 					$http.get(CONFIG.baseApiUrl + 'user/' + chatroom.user)
 						.then(function (response) {
@@ -41,7 +41,7 @@
 
 
 			}
-			else if ($scope.object.type > 0) {
+			else if ($scope.object.type > 0) { // feedback
 				$http.get(CONFIG.baseApiUrl + 'feedbacks/unread/' + $scope.object.type +'/' + $rootScope.login._id)
 					.then(function (response) {
 							// check if return null

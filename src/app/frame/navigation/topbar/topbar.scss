@@ -19,7 +19,7 @@
 	.menu-img {
 	  width: 20px;
 	  height: 20px;
-	  margin: 0 6px;
+	  margin-right: 4px;
 	}
 	a {
 		color: $topbar-color;
@@ -47,5 +47,22 @@
   .inline-block {
 	display: inline-block
   }
+
+  .navbar-fixed-right
+  {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	margin:0 auto;
+  }
+  .navbar-notices {
+	float: right;
+	padding: 15px 15px;
+	font-size: 18px;
+	line-height: 20px;
+	height: 50px;
+  }
+
 
 }
