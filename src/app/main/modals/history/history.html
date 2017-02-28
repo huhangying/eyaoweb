@@ -69,20 +69,20 @@
 			</uib-tab-heading>
 			<div class="tab-content">
 				包含该患者的所有门诊记录(过去的,已经发布的)
-				<table class="table table-hover table-condensed">
+				<table  st-safe-src="history.diagnoses" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
 						<td style="width:20%">专科</td>
 						<td style="width:20%">药师</td>
 						<td style="width:15%">药方个数</td>
 						<td style="width:15%">提醒个数</td>
-						<td style="width:20%">门诊时间</td>
+						<td st-sort="updatedAt" style="width:20%">门诊时间</td>
 
 						<td style="width:10%"></td>
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.diagnoses track by $index" class="editable-row">
+					<tr ng-repeat="result in displayCollection" class="editable-row">
 						<td>
 							{{ result.doctor.department.name || '空' }}
 						</td>
@@ -103,11 +103,16 @@
 						<span class="btn btn-primary-outline btn-sm" ng-click="viewDiagnoseDetails(result)">
 							<i class="fa fa-eye" aria-hidden="true"></i>
 						</span>
-
 						</td>
 					</tr>
-
 					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="6" class="text-center">
+							<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+						</td>
+					</tr>
+					</tfoot>
 				</table>
 
 				<div ng-if="history.diagnoses.length<1"> 
@@ -166,7 +171,7 @@
 				不良反应
 			</uib-tab-heading>
 			<div class="tab-content">
-				<table class="table table-hover table-condensed">
+				<table st-safe-src="history.feedback1" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
 						<td style="width:15%">药师</td>
@@ -176,7 +181,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.feedback1 track by $index" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
+					<tr ng-repeat="result in displayCollection" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
 							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
 						</td>
@@ -191,8 +196,14 @@
 						</td>
 
 					</tr>
-
 					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="4" class="text-center">
+							<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+						</td>
+					</tr>
+					</tfoot>
 				</table>
 
 				<div ng-if="history.feedback1.length<1"> 
@@ -207,7 +218,7 @@
 				联合用药
 			</uib-tab-heading>
 			<div class="tab-content">
-				<table class="table table-hover table-condensed">
+				<table st-safe-src="history.feedback2" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
 						<td style="width:15%">药师</td>
@@ -217,7 +228,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.feedback2 track by $index" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
+					<tr ng-repeat="result in displayCollection" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
 							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
 						</td>
@@ -232,8 +243,14 @@
 						</td>
 
 					</tr>
-
 					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="4" class="text-center">
+							<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+						</td>
+					</tr>
+					</tfoot>
 				</table>
 
 				<div ng-if="history.feedback2.length<1"> 

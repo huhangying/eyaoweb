@@ -27,7 +27,8 @@
     "angular-xeditable": "^0.6.0",
     "lodash": "^4.17.4",
     "angular-ui-select": "^0.19.6",
-    "angular-sanitize": "1.4.14"
+    "angular-sanitize": "1.4.14",
+    "angular-smart-table": "^2.1.8"
   },
   "resolutions": {
     "angular": "~1.4.14"

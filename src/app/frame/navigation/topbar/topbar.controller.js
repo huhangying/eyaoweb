@@ -11,10 +11,10 @@
 
         var vm = this;
 		$scope.statusList = [
-			{icon: 'fa-check-circle text-success', name: '在线', value: 0},
+			{icon: 'fa-user text-success', name: '在线', value: 0},
 			{icon: 'fa-minus-circle text-danger', name: '忙碌', value: 1},
 			{icon: 'fa-clock-o', name: '离开', value: 2},
-			{icon: 'fa-clock-o', name: '离线', value: 3}
+			{icon: 'fa-user-o text-muted', name: '离线', value: 3}
 		];
 
 		$scope.updateStatus = function(status) {

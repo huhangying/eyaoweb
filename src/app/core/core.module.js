@@ -13,7 +13,8 @@
 				'cgBusy',
 				'xeditable',
 				'ui.select',
-				'ngSanitize'
+				'ngSanitize',
+				'smart-table'
             ])
 		.value('cgBusyDefaults',{
 			message:'正在处理...',

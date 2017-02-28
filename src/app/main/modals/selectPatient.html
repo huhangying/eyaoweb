@@ -10,7 +10,8 @@
 <div cg-busy="myPromise"></div>
 <form name="form">
 	<div class="modal-body" id="modal-body">
-		<div class="row">
+
+		<div class="row pb-3">
 			<div class="col-sm-5">
 				<div class="form-inline">
 					<label class="form-control-label"> 请选择</label>
@@ -31,24 +32,35 @@
 
 			</div>
 		</div>
-		<hr/>
-		<div ng-repeat="patient in patients track by $index" class="m-a-0 p-a-0 p-l-md clearfix" > 
-			<div class="row">
-				<label class="text-primary">
-					&nbsp;&nbsp;
-					<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
-					&nbsp;{{patient.name}}
-					&nbsp;&nbsp;电话号码: {{patient.cell}}
-					&nbsp;&nbsp;生日: {{patient.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
-				</label>
-			</div> 
-		</div>
+
+		<table st-safe-src="patients" st-table="displayCollection" class="table table-striped mb-0">
+			<tbody>
+			<tr ng-repeat="patient in displayCollection">
+				<td>
+					<label class="text-primary w-100">
+						<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
+						&nbsp;&nbsp;&nbsp;{{patient.name}}
+						<span class="text-muted pl-2">手机:</span> {{patient.cell}}
+						<span class="text-muted pl-2">生日:</span> {{patient.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
+					</label>
+				</td>
+			</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="1" class="text-center">
+						<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
 		<div class="well text-info" ng-if="patients && patients.length < 1 && getResults">
 			无搜索结果
 		</div>
 	</div>
 	<div class="modal-footer clearfix">
-		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !selectedPatient" ng-click="selectOk()">确认</button>
+		<button class="btn btn-primary" type="button" ng-disabled="form.$invalid || !selectedPatient" ng-click="selectOk()">选择</button>
 		<button class="btn btn-warning" type="button" ng-click="$dismiss('cancel')">取消</button>
 	</div>
 </form>
