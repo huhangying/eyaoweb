@@ -53,7 +53,7 @@
 						break;
 					case 3: // 不良反应反馈
 						$scope.history.feedback1 = [];
-						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/unread/1/user/' + $scope.diagnose.user)
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/user/1/' + $scope.diagnose.user)
 							.then(function (response) {
 									// check if return null
 									if (response.data && response.data.return && response.data.return == 'null'){
@@ -70,7 +70,7 @@
 						break;
 					case 4: // 联合用药
 						$scope.history.feedback2 = [];
-						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/unread/2/user/' + $scope.diagnose.user)
+						$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'feedbacks/user/2/' + $scope.diagnose.user)
 							.then(function (response) {
 									// check if return null
 									if (response.data && response.data.return && response.data.return == 'null'){

@@ -176,9 +176,9 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.feedback1 track by $index" class="editable-row">
+					<tr ng-repeat="result in history.feedback1 track by $index" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
-							{{ result.doctor.name }} {{ result.doctor.title }}
+							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
 						</td>
 						<td>
 							{{ result.name }}
@@ -217,9 +217,9 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.feedback2 track by $index" class="editable-row">
+					<tr ng-repeat="result in history.feedback2 track by $index" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
-							{{ result.doctor.name }} {{ result.doctor.title }}
+							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
 						</td>
 						<td>
 							{{ result.name }}
