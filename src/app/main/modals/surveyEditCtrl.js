@@ -196,7 +196,7 @@
 							var tempList = [];
 							for (var i=0; i<$scope.diagnose.surveys.length;i++) {
 								if ($scope.diagnose.surveys[i].type == type) {
-									tempList.push($scope.diagnose.surveys[i].list);
+									tempList.push($scope.diagnose.surveys[i].list.join('|'));
 								}
 							}
 							list = tempList.join('|');

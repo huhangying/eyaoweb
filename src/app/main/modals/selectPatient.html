@@ -41,7 +41,7 @@
 						<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
 						&nbsp;&nbsp;&nbsp;{{patient.name}}
 						<span class="text-muted pl-2">手机:</span> {{patient.cell}}
-						<span class="text-muted pl-2">生日:</span> {{patient.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
+						<span class="text-muted pl-2">生日:</span> {{patient.birthdate | amLocal | amDateFormat: 'YYYY年MM月DD日'}}
 					</label>
 				</td>
 			</tr>

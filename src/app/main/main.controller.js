@@ -615,6 +615,34 @@
 							function() {
 								//todo: send out 随访问卷和药师门诊评估
 
+								// 发送消息给微信
+								var reqBody = {
+									openidList: [$scope.patient.link_id],
+									articles: [
+										{
+											title: '药师门诊评估',
+											description: '感谢您选择新华医院 ' + $rootScope.login.name + $rootScope.login.title + '门诊! 请对我们的服务进行评估。',
+											url: CONFIG.peerPageUrl + 'web/serviceEvaluation?userid=' + $scope.patient._id + '&doctorid=' + $rootScope.login._id,
+											picurl: ''
+										}
+									]
+								};
+
+								$http.defaults.headers.post['Content-Type'] = 'text/plain';
+								$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
+									.success(function(response) {
+										if (!response || response.result != 1) {
+											toastr.error('药师门诊评估发送失败.');
+											return;
+										}
+
+										toastr.success('药师门诊评估发送成功。');
+									})
+									.error(function(err){
+										toastr.error("药师门诊评估发送失败");
+									});
+
+
 
 								// reset environment
 								resetEnvironment();
