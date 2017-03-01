@@ -183,7 +183,7 @@
 					<tbody>
 					<tr ng-repeat="result in displayCollection" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
-							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
+							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'&gt;':'&lt;'}}
 						</td>
 						<td>
 							{{ result.name }}
@@ -230,7 +230,7 @@
 					<tbody>
 					<tr ng-repeat="result in displayCollection" class="editable-row" ng-class="{'bg-success': (result.status>1)}">
 						<td>
-							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'>':'<'}}
+							{{ result.doctor.name }} {{ result.doctor.title }} {{result.status>1?'&gt;':'&lt;'}}
 						</td>
 						<td>
 							{{ result.name }}
