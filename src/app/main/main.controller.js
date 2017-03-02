@@ -66,6 +66,10 @@
 
 		var updateDiagnose = function(loadDiagnose, fromBooking) {
 
+			var bookingId;
+			if (fromBooking) {
+				bookingId = $scope.diagnose.booking;
+			}
 			if ($scope.diagnose._id) {
 
 				if (loadDiagnose) {
@@ -86,6 +90,9 @@
 								}
 								else {
 									$scope.diagnose = response.data;
+									if (fromBooking) {
+										$scope.diagnose.booking = bookingId;
+									}
 								}
 
 								// replace/update
@@ -122,6 +129,9 @@
 									return;
 								}
 								$scope.diagnose = response.data;
+								if (fromBooking) {
+									$scope.diagnose.booking = bookingId;
+								}
 
 							},
 							function(){
@@ -187,7 +197,7 @@
 				function (booking) {
 					// $scope.booking = booking;
 					// $scope.patient = booking.user;
-					$scope.diagnose.booking = booking;
+					$scope.diagnose.booking = booking._id;
 					$scope.patient = booking.user;
 					checkFirstVisit();
 					$scope.diagnose.user = booking.user._id;
