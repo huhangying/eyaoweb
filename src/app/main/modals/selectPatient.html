@@ -12,9 +12,9 @@
 	<div class="modal-body" id="modal-body">
 
 		<div class="row pb-3">
-			<div class="col-sm-5">
+			<div class="col-sm-4">
 				<div class="form-inline">
-					<label class="form-control-label"> 请选择</label>
+					<label class="form-control-label text-muted"> 请选择</label>
 					<select class="form-control form-control-" data-ng-model="searchOption">
 						<!--<option value="0" selected>搜索选项</option>-->
 						<option value=1>门诊号</option>
@@ -24,7 +24,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-sm-7">
+			<div class="col-sm-8">
 				<div class="form-inline">
 					<input class="form-control" type="text" placeholder="请输入..." ng-model="searchValue" autofocus required>
 					<button class="btn btn-primary" ng-click="searchPatients()">搜索</button>
@@ -40,8 +40,9 @@
 					<label class="text-primary w-100">
 						<input type="radio" name="searchResults" ng-model="$parent.selectedPatient" ng-value="patient">
 						&nbsp;&nbsp;&nbsp;{{patient.name}}
-						<span class="text-muted pl-2">手机:</span> {{patient.cell}}
-						<span class="text-muted pl-2">生日:</span> {{patient.birthdate | amLocal | amDateFormat: 'YYYY年MM月DD日'}}
+						<i class="fa {{patient.gender=='F' ? 'text-danger fa-female' :(patient.gender=='M'?'fa-male text-primary':'')}}" aria-hidden="true"></i>
+						<span class="text-muted pl-3">手机:</span> {{patient.cell}}
+						<span class="text-muted pl-3">生日:</span> {{patient.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
 					</label>
 				</td>
 			</tr>
@@ -55,7 +56,7 @@
 			</tfoot>
 		</table>
 
-		<div class="well text-info" ng-if="patients && patients.length < 1 && getResults">
+		<div class="well text-info" ng-if="patients && patients.length < 1 && getResults && myPromise">
 			无搜索结果
 		</div>
 	</div>

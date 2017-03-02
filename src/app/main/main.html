@@ -21,7 +21,10 @@
 	<div class="box-body clearfix">
 		<div class="row">
 			<div class="col-sm-12">
-				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchInMode(1, true)">选择预约</button>
+				<button class="btn btn-default" ng-click="vm.selectBooking()" ng-if="switchInMode(1, true)">
+					<i class="fa {{diagnose.booking? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
+					选择预约
+				</button>
 
 				<button class="btn btn-default" ng-click="vm.selectPatient()" ng-if="switchInMode(1, true)">
 					<i class="fa {{diagnose.user? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>

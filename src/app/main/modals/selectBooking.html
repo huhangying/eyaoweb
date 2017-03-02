@@ -5,23 +5,29 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
-	<em class="text-muted">从今天的门诊预约列表中选择</em>
 </div>
 <div cg-busy="myPromise"></div>
 <form name="form">
 	<div class="modal-body" id="modal-body">
 
-		<div ng-repeat="booking in bookings track by $index" class="clearfix p-l-md" ng-if="bookings && bookings.length>0"> 
-			<div class="row">
-				<label class="text-primary">
-					&nbsp;
-					<input type="radio" name="searchResults" ng-click="selectBooking($index)">
-					&nbsp;{{booking.user.name}}
-					&nbsp;手机: {{booking.user.cell}}
-					&nbsp;状态: {{booking.status}}
-				</label>
-			</div> 
-		</div>
+		<div class="text-muted mb-3">今日门诊预约:</div>
+
+		<table st-safe-src="bookings" st-table="displayCollection" class="table table-striped mb-0">
+			<tbody>
+			<tr ng-repeat="booking in displayCollection track by $index">
+				<td>
+					<label class="text-primary w-100">
+						<input type="radio" name="searchResults" ng-click="selectBooking($index)">
+						&nbsp;&nbsp;&nbsp;{{booking.user.name}}
+						<i class="fa {{booking.user.gender=='F' ? 'text-danger fa-female' :(booking.user.gender=='M'?'fa-male text-primary':'')}}" aria-hidden="true"></i>
+						<span class="text-muted pl-3">手机:</span> {{booking.user.cell}}
+						<span class="text-muted pl-3">时间:</span> {{booking.schedule.period.name}}
+						<span class="text-muted pl-3">生日:</span> {{booking.user.birthdate | amDateFormat: 'YYYY年MM月DD日'}}
+					</label>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
 		<div ng-if="!bookings || bookings.length<1"> 
 			无今日可用预约。
