@@ -253,23 +253,33 @@
 				});
 		};
 
+		// readonly 只读模式下运行
+		// check diagnose下有没有填写问卷
+		vm.hasAvailableSurveys = function(diagnose, type) {
+			diagnose.surveys.map(function(survey) {
+				if (survey.type == type) {
+					return survey.list && survey.list.length > 0;
+				}
+			});
+			return false;
+		};
+
 		vm.openSurvey = function (type, readonly, diagnose) {
 			$scope.selectedSurveyType = type;
 			if (type == 1) {
 				$scope.selectedSurveyType = $scope.isFirstVisit ? 1 : 2;
 			}
 			$scope.readonly = readonly;
+			$scope.viewSurveyList = undefined;
 			if (readonly) {
 				// 如果是查看门诊历史记录, 那么survey list 可以从门诊里直接得到
 				for (var i=0; i<diagnose.surveys.length; i++) {
-					if (diagnose.surveys[i].type == type) {
+					// 初诊复诊的type is from diagnose
+					if (diagnose.surveys[i].type == 1 || diagnose.surveys[i].type == 2 || diagnose.surveys[i].type == type) {
 						$scope.viewSurveyList = diagnose.surveys[i].list;
 						break;
 					}
 				}
-			}
-			else {
-				$scope.viewSurveyList = undefined;
 			}
 
 			$uibModal.open({

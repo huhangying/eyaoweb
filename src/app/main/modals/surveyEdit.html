@@ -49,7 +49,7 @@
 		</div>
 	</div>
 	<blockquote ng-if="!surveys || surveys.length<1" >
-		<p>无可用的问卷。</p>
+		<p>{{readonly? '病患没有填写该问卷' : '无可用的问卷。'}}</p>
 	</blockquote>
 
 </div>

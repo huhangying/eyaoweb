@@ -186,10 +186,10 @@
 				department = $stateParams.department || $rootScope.login.department;
 				doctor = $stateParams.doctor || $rootScope.login._id;
 				user = $stateParams.user || $scope.diagnose.user;
-				if ($scope.viewSurveyList) {
+				if ($scope.viewSurveyList) {  // $scope.viewSurveyList 只可能在 readonly 的时候有值
 					list = $scope.viewSurveyList.join('|');
 				}
-				else {
+				else if(!$scope.readonly) {
 					list = $stateParams.list;
 					if (!list) {
 						if ($scope.diagnose.surveys && $scope.diagnose.surveys.length > 0) {
@@ -206,6 +206,9 @@
 
 				// 如果list没有survey，就到surveyTemplate去取；如果有survey list，直接加载
 				$scope.surveyTitle = CONFIG.surveyTypes[type];
+				if ($scope.readonly) {
+					$scope.surveyTitle = '门诊问卷';
+				}
 				var reqUrl ='';
 				if (list) {
 					var readonly = 0;
@@ -228,7 +231,7 @@
 							toastr.error(CONFIG.Error.Internal);
 						});
 				}
-				else {
+				else if (!$scope.readonly){
 					loadFromTemplate(department, doctor, user, type, list);
 				}
 
