@@ -30,7 +30,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row">
+			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row" ng-disabled="readonly">
 				<td ng-show="false">
                 <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
                     {{item._id}}
@@ -39,7 +39,7 @@
                   {{ item.apply || false }}
                 </span>
 				</td>
-				<td><input type="checkbox" ng-model="item.selected" ng-change="updateNotices()"></td>
+				<td><input type="checkbox" ng-model="item.selected" ng-change="updateNotices()" ng-disabled="readonly"></td>
 				<td>
 					<span editable-text="item.notice" e-name="notice" e-form="rowform" e-style="width:320px;" >
 						{{ item.notice || 'empty' }}

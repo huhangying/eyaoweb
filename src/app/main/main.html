@@ -81,7 +81,7 @@
 		<div class="pt-2 text-info" ng-if="switchInMode(0)">
 			<h5>用药计划（处方）</h5>
 			<button class="btn btn-default" ng-click="vm.addMedicine()" ng-if="switchInMode(1)">
-				<i class="fa fa-medkit {{(diagnose.prescription && diagnose.prescription.length>0)? 'text-success':''}}" aria-hidden="true"></i>
+				<i class="fa fa-medkit {{(diagnose.prescription && diagnose.prescription.length>0)? 'text-success':'text-muted'}}" aria-hidden="true"></i>
 				新开处方
 			</button>
 			<button class="btn btn-default" ng-click="vm.editNotices(readonly, diagnose)" ng-if="switchInMode(0) && diagnose.prescription.length>0">
@@ -89,10 +89,10 @@
 				监测计划
 			</button>
 			<button type="button" class="btn btn-default" ng-if="switchInMode(1)" ng-click="vm.createLabResult()">
-				<i class="fa {{(diagnose.labResults && diagnose.labResults.length>0)? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
+				<i class="fa fa-flask {{(diagnose.labResults && diagnose.labResults.length>0)? 'text-success':'text-muted'}}" aria-hidden="true"></i>
 				<span>化验结果</span>
 			</button>
-
+			
 			<button class="btn btn-default pull-right" ng-click="vm.saveDiagnose()" ng-if="false && switchInMode(1)">
 				<i class="fa fa-floppy-o" aria-hidden="true"></i>
 				保存
