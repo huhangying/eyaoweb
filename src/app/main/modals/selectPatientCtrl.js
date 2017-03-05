@@ -9,6 +9,7 @@
 		.module('app.main.patient', [])
 		.controller('SelectPatientController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var vm = this;
+			$scope.loading = false;
 
 			$scope.selectOk = function() {
 				// toastr.info($scope.selectedPatient);
@@ -22,6 +23,7 @@
 					return;
 				}
 
+				$scope.loading = true;
 				var searchCriteria = {};
 				switch($scope.searchOption) {
 					case '1': // 门诊号
@@ -37,14 +39,13 @@
 						searchCriteria.sin = $scope.searchValue;
 						break;
 					default:
-						toastr.warning('暂不支持该搜索项。')
+						toastr.warning('暂不支持该搜索项。');
+						$scope.loading = false;
 						return;
 
 				}
 
 				$scope.patients = [];
-				$scope.getResults = true;
-
 				$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'users/search', searchCriteria)
 					.then(function (response) {
 						// check if return null
@@ -53,10 +54,12 @@
 							return;
 						}
 						$scope.patients = response.data;
+						$scope.loading = false;
 
 					},
 					function(error){
 						toastr.error(error.messageFormatted);
+						$scope.loading = false;
 					});
 
 			};

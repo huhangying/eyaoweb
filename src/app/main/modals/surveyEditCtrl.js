@@ -174,14 +174,18 @@
 								survey.availableBy = moment().add(survey.availableDays || 30, 'days');
 							});
 						}
+						$scope.loading = false;
 
 					})
 					.error(function(){
 						toastr.error(CONFIG.Error.Internal);
+						$scope.loading = false;
 					});
 			};
 
 			var init = function () {
+				$scope.loading = true;
+
 				type = $stateParams.type || $scope.selectedSurveyType;
 				department = $stateParams.department || $rootScope.login.department;
 				doctor = $stateParams.doctor || $rootScope.login._id;
@@ -224,18 +228,19 @@
 							}
 							else {
 								$scope.surveys = response;
+								$scope.loading = false;
 							}
 
 						})
 						.error(function(){
 							toastr.error(CONFIG.Error.Internal);
+							$scope.loading = false;
 						});
 				}
 				else if (!$scope.readonly){
 					loadFromTemplate(department, doctor, user, type, list);
 				}
-
-
+				
 			};
 
 			init();

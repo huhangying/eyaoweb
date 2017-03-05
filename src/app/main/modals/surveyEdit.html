@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<blockquote ng-if="!surveys || surveys.length<1" >
+	<blockquote ng-if="!surveys || surveys.length<1 && !loading" >
 		<p>{{readonly? '病患没有填写该问卷' : '无可用的问卷。'}}</p>
 	</blockquote>
 
