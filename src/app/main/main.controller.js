@@ -346,6 +346,7 @@
 			// 发送消息给微信
 			var reqBody = {
 				openidList: [$scope.patient.link_id],
+				type: 1,
 				articles: [
 					{
 						title: CONFIG.surveyTypes[type],
@@ -638,6 +639,7 @@
 								// 发送消息给微信
 								var reqBody = {
 									openidList: [$scope.patient.link_id],
+									type: 1,
 									articles: [
 										{
 											title: '药师门诊评估',

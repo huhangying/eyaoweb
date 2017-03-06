@@ -123,6 +123,9 @@
 					})
 					.error(function(err) {
 						toastr.error('保存文章失败');
+
+
+
 						$scope.article.apply = undefined; // rollback
 					});
 			}
@@ -177,6 +180,7 @@
 			// 发送消息给微信
 			var reqBody = {
 				openidList: list,
+				type: 2,
 				articles: [
 					{
 						title: $scope.article.name,
@@ -191,7 +195,8 @@
 			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
 				.success(function(response) {
 					if (!response || response.result != 1) {
-						toastr.error('宣教材料发送失败.');
+						toastr.error('宣教材料发送失败, 病患再次进入公众号的时候会再次发送');
+						//sendFailedMessageLog($scope.article, list);
 						return;
 					}
 
@@ -199,9 +204,36 @@
 				})
 				.error(function(err){
 					toastr.error("宣教材料发送失败");
+					//sendFailedMessageLog($scope.article, list);
 				});
 
 		};
+
+		var sendFailedMessageLog = function(article, userList) {
+			// 保存消息, 等到病患再次进入公众号的时候再次发送
+			if (!userList || userList.length < 1) return;
+
+			userList.map(function(usr) {
+				var _messageLogReq = {
+					doctor: article.doctor,
+					user: usr,
+					type: 2, // 2: articlePage
+					title: article.name,
+					description: article.title,
+					url: CONFIG.baseApiUrl + 'article/' + article._id,
+					picurl: CONFIG.baseImageServer + article.title_image
+				};
+
+				$http.post(CONFIG.baseApiUrl + 'messagelog', _messageLogReq)
+					.then(
+						function() {
+						},
+						function() {
+						}
+					);
+			});
+
+		}
 
 		$scope.$watch('article', articleChanged);
 
