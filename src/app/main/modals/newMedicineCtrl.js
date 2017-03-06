@@ -36,6 +36,28 @@
 				}
 			};
 
+			/*
+			*
+			* */
+			$scope.caculateEndDate = function() {
+				var total = $scope.selectedMedicine.capacity * $scope.selectedMedicine.quantity;
+				var everyPeriod = $scope.selectedMedicine.dosage.frequency * $scope.selectedMedicine.dosage.count;
+
+				var days = total * $scope.selectedMedicine.dosage.intervalDay / everyPeriod;
+
+				$scope.selectedMedicine.endDate = new Date(moment($scope.selectedMedicine.startDate).add(days, 'days').format());
+			};
+
+			$scope.caculationAvailable = function() {
+				if ($scope.selectedMedicine.dosage.intervalDay < 1 || !$scope.selectedMedicine.startDate || $scope.selectedMedicine.endDate ||
+					$scope.selectedMedicine.capacity < 1 || $scope.selectedMedicine.quantity < 1 ||
+					$scope.selectedMedicine.dosage.frequency < 1 || $scope.selectedMedicine.dosage.count <=0 ) {
+					return false;
+				}
+
+				return true;
+			};
+
 
 			var init = function () {
 				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'medicines')
