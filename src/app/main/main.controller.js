@@ -637,8 +637,9 @@
 						$scope.diagnose.status = status;
 						vm.saveDiagnose().then(
 							function() {
-								//todo: send out 随访问卷和药师门诊评估
+								//todo: send out 随访问卷和
 
+								// 药师门诊评估
 								// 发送消息给微信
 								var reqBody = {
 									openidList: [$scope.patient.link_id],
@@ -667,6 +668,19 @@
 										toastr.error("药师门诊评估发送失败");
 									});
 
+								// 更新 booking 的状态
+								if ($scope.diagnose.booking) {
+
+									$scope.myPromise = $http.post(CONFIG.baseApiUrl + $scope.diagnose.booking, { status: 5 }).then(
+										function(response) {
+
+										},
+										function(err) {
+											toastr.error("更新预约状态失败。");
+										}
+									);
+
+								}
 
 
 								// reset environment
