@@ -165,7 +165,9 @@
 		};
 
 		vm.saveDiagnose = function() {
-			$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'diagnose/' + $scope.diagnose._id, $scope.diagnose)
+			var diagnose = angular.copy($scope.diagnose);
+			diagnose.__v = undefined;
+			$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'diagnose/' + $scope.diagnose._id, diagnose)
 				.then(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
@@ -173,7 +175,6 @@
 							return;
 						}
 						$scope.diagnose = response.data;
-						$scope.dirty = false;
 
 					},
 					function(){
@@ -275,7 +276,7 @@
 				// 如果是查看门诊历史记录, 那么survey list 可以从门诊里直接得到
 				for (var i=0; i<diagnose.surveys.length; i++) {
 					// 初诊复诊的type is from diagnose
-					if (diagnose.surveys[i].type == 1 || diagnose.surveys[i].type == 2 || diagnose.surveys[i].type == type) {
+					if (diagnose.surveys[i].type == $scope.selectedSurveyType) {
 						$scope.viewSurveyList = diagnose.surveys[i].list;
 						break;
 					}
@@ -459,7 +460,7 @@
 				});
 		};
 
-		$scope.removePrescription = function(index) {
+		$scope.removePrescription = function(itemId) {
 
 			// remove from diagnose.notices
 			if ($scope.diagnose.notices && $scope.diagnose.notices.length > 0) {
@@ -475,7 +476,9 @@
 			}
 
 
-			$scope.diagnose.prescription.splice(index, 1);
+			$scope.diagnose.prescription = $scope.diagnose.prescription.filter(function(med) {
+				return med._id != itemId;
+			});
 			vm.saveDiagnose();
 		};
 

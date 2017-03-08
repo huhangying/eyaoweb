@@ -10,7 +10,12 @@
 	function HomeController($scope, $rootScope, CONFIG) {
 		var vm = this;
 
-		$scope.detailFrame = CONFIG.peerPageUrl + 'wx/start?doctor=' + $rootScope.login._id;
+		var init = function() {
+			if ($rootScope.login) {
+				$scope.detailFrame = CONFIG.peerPageUrl + 'wx/start?doctor=' + $rootScope.login._id;
+			}
+		};
+		init();
 	}
 
 })();

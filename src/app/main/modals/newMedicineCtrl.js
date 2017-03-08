@@ -14,7 +14,7 @@
 
 			$scope.selectOk = function() {
 				if ($scope.medicineForm.$invalid) {
-					toastr.warning('保存前请确认所有的输入项和格式。');
+					toastr.warning('保存前请确认所有的输入项和格式, 如输入的值是否有效。');
 					return;
 				}
 
@@ -23,6 +23,20 @@
 
 
 			$scope.setSelectedMedicine = function(item, modal) {
+
+				// 已经在处方里的药品不能第二次开。
+				var duplicatedMedicine = false;
+				$scope.diagnose.prescription.some(function(medicine) {
+					if (medicine._id ===  item._id) {
+						duplicatedMedicine = true;
+						return true;
+					}
+				});
+				if (duplicatedMedicine) {
+					toastr.warning('已经开过了的处方药, 不能再次被开。')
+					return;
+				}
+
 				item.startDate = item.startDate || new Date();
 				item.quantity = item.quantity || 1;
 
@@ -49,11 +63,13 @@
 			};
 
 			$scope.caculationAvailable = function() {
-				if ($scope.selectedMedicine.dosage.intervalDay < 1 || !$scope.selectedMedicine.startDate || $scope.selectedMedicine.endDate ||
+				if ( !$scope.selectedMedicine || !$scope.selectedMedicine.dosage ||
+					$scope.selectedMedicine.dosage.intervalDay < 1 || !$scope.selectedMedicine.startDate ||
 					$scope.selectedMedicine.capacity < 1 || $scope.selectedMedicine.quantity < 1 ||
 					$scope.selectedMedicine.dosage.frequency < 1 || $scope.selectedMedicine.dosage.count <=0 ) {
 					return false;
 				}
+				$scope.calculateName = $scope.selectedMedicine.endDate ? '重新计算时间' : '计算时间';
 
 				return true;
 			};
