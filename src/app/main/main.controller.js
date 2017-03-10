@@ -52,7 +52,18 @@
 
 		};
 
-		var checkFirstVisit = function () {
+		$scope.checkSurveyType = function(type) {
+			if ($scope.diagnose && $scope.diagnose.surveys && $scope.diagnose.surveys.length > 0) {
+				for (var i=0; i<$scope.diagnose.surveys.length; i++) {
+					if ($scope.diagnose.surveys[i].type == type && $scope.diagnose.surveys[i].list && $scope.diagnose.surveys[i].list.length > 0) {
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+
+		var checkFirstVisit = function (fromBooking) {
 			$scope.isFirstVisit = true;
 			if ($scope.patient.visitedDepartments && $scope.patient.visitedDepartments.length > 0) {
 				for (var i=0; i<$scope.patient.visitedDepartments.length; i++) {
@@ -62,6 +73,34 @@
 					}
 				}
 			}
+
+			if (fromBooking) {
+				// 取初诊或复诊问卷, 如果有的话,更新到diagnose
+				var surveyType = $scope.isFirstVisit ? 1 : 2;
+				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'surveys/' + $rootScope.login._id + '/' + $scope.diagnose.user +
+					'/' + surveyType + '/0').then(
+					function (response) {
+						if (response.data && response.data.return && response.data.return == 'null'){
+							return;
+						}
+						// put into diagnose.surveys
+						var surveys = response.data;
+						var list = [];
+						for (var i=0; i<surveys.length; i++) {
+							list.push(surveys[i]._id);
+						}
+						$scope.diagnose.surveys = [{
+							type: surveyType,
+							list: list
+						}];
+
+					},
+					function(error){
+
+					});
+
+			}
+
 		};
 
 		var updateDiagnose = function(loadDiagnose, fromBooking) {
@@ -200,9 +239,9 @@
 					// $scope.patient = booking.user;
 					$scope.diagnose.booking = booking._id;
 					$scope.patient = booking.user;
-					checkFirstVisit();
 					$scope.diagnose.user = booking.user._id;
 
+					checkFirstVisit(true);
 					updateDiagnose(true, true);
 				},
 				function (err) {
@@ -224,9 +263,9 @@
 				.result.then(
 				function (patient) {
 					$scope.patient = patient;
-					checkFirstVisit();
 					$scope.diagnose.user = patient._id;
 
+					checkFirstVisit();
 					updateDiagnose(true);
 				},
 				function (err) {
@@ -671,7 +710,7 @@
 								// 更新 booking 的状态
 								if ($scope.diagnose.booking) {
 
-									$scope.myPromise = $http.post(CONFIG.baseApiUrl + $scope.diagnose.booking, { status: 5 }).then(
+									$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'booking/' + $scope.diagnose.booking, { status: 5 }).then(
 										function(response) {
 
 										},
