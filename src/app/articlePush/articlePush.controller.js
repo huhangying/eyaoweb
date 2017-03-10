@@ -191,8 +191,10 @@
 				]
 			};
 
-			$http.defaults.headers.post['Content-Type'] = 'text/plain';
-			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
+			// $http.defaults.headers.post['Content-Type'] = 'text/plain';
+			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody, {
+				headers: { 'Content-Type': 'text/plain'}
+			})
 				.success(function(response) {
 					if (!response || response.result != 1) {
 						toastr.error('宣教材料发送失败, 病患再次进入公众号的时候会再次发送');

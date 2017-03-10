@@ -397,8 +397,10 @@
 				]
 			};
 
-			$http.defaults.headers.post['Content-Type'] = 'text/plain';
-			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
+			// $http.defaults.headers.post['Content-Type'] = 'text/plain';
+			$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody, {
+				headers: { 'Content-Type': 'text/plain'}
+			})
 				.success(function(response) {
 					if (!response || response.result != 1) {
 						toastr.error('问卷发送失败.');
@@ -693,8 +695,10 @@
 									]
 								};
 
-								$http.defaults.headers.post['Content-Type'] = 'text/plain';
-								$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody)
+								// $http.defaults.headers.post['Content-Type'] = 'text/plain';
+								$scope.myPromise = $http.post(CONFIG.msgPostUrl, reqBody, {
+									headers: { 'Content-Type': 'text/plain'}
+								})
 									.success(function(response) {
 										if (!response || response.result != 1) {
 											toastr.error('药师门诊评估发送失败.');
