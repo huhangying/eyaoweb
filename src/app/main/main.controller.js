@@ -382,15 +382,15 @@
 		};
 
 
-		var sendWechatMessage = function (type, targetUrl) {
+		var sendSurveyWechatMessage = function (type, targetUrl) {
 			// 发送消息给微信
 			var reqBody = {
 				openidList: [$scope.patient.link_id],
-				type: 1,
+				type: 1, // wechat message type
 				articles: [
 					{
 						title: CONFIG.surveyTypes[type],
-						description: '请填写' + CONFIG.surveyTypes[type] + '问卷, 谢谢配合!',
+						description: $rootScope.login.name + ($rootScope.login.title || '') + '给您发送了一份' + CONFIG.surveyTypes[type] + '问卷, 请填写。谢谢配合!',
 						url: targetUrl,
 						picurl: ''
 					}
@@ -415,9 +415,11 @@
 		};
 
 		vm.sendSurvey = function (type, selectSurveys) {
-
+			$scope.selectedSurveyType = type;
+			var url = CONFIG.peerPageUrl + 'web/followTest?doctorid=' + $scope.diagnose.doctor +
+				'&userid=' + $scope.diagnose.user + '&companyId=' + CONFIG.peerCompanyId + '&type=' + type;
 			if (selectSurveys) {
-				$scope.selectedSurveyType = type;
+
 				$uibModal.open({
 					scope: $scope,
 					animation: true,
@@ -429,12 +431,9 @@
 				})
 					.result.then(
 					function (surveyIdList) {
-						// todo: send to wechat
-						var url = 'http://localhost:3001/surveyEdit/' + $rootScope.login.department + '/' +
-							$scope.diagnose.doctor + '/' + $scope.diagnose.user + '/' +
-							$scope.selectedSurveyType + '/' + surveyIdList.join('|');
+						url +=  '&list=' + surveyIdList.join('|');
 						//console.log(url);
-						sendWechatMessage(type, url)
+						sendSurveyWechatMessage(type, url);
 					},
 					function (err) {
 						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
@@ -443,7 +442,8 @@
 				return;
 			}
 
-			sendWechatMessage(type, 'http://www.google.ca')
+			//
+			sendSurveyWechatMessage(type, url);
 		};
 
 		vm.addMedicine = function () {
