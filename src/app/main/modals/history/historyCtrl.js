@@ -141,6 +141,7 @@
 			$scope.viewDiagnoseDetails = function (item) {
 				//$scope.history.labResults[index].expanded = !$scope.history.labResults[index].expanded;
 				$scope.history = $scope.history || {};
+				$rootScope.historySelectedDoctor = item.doctor._id;
 				$scope.history.diagnose = item;
 				$scope.readonly = true;
 				$uibModal.open({

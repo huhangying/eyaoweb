@@ -188,7 +188,12 @@
 
 				type = $stateParams.type || $scope.selectedSurveyType;
 				department = $stateParams.department || $rootScope.login.department;
-				doctor = $stateParams.doctor || $rootScope.login._id;
+				if ($scope.readonly) {
+					doctor = $rootScope.historySelectedDoctor;
+				}
+				else {
+					doctor = $stateParams.doctor || $scope.diagnose.doctor;
+				}
 				user = $stateParams.user || $scope.diagnose.user;
 				if ($scope.viewSurveyList) {  // $scope.viewSurveyList 只可能在 readonly 的时候有值
 					list = $scope.viewSurveyList.join('|');
@@ -240,7 +245,7 @@
 				else if (!$scope.readonly){
 					loadFromTemplate(department, doctor, user, type, list);
 				}
-				
+
 			};
 
 			init();
