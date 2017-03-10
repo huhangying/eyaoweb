@@ -8,20 +8,51 @@
 	angular
 		.module('app.main.surveySelect', [])
 
-		.controller('SurveySelectController', function ($scope, $rootScope, $http, toastr, CONFIG) {
+		.controller('SurveySelectController', function ($scope, $rootScope, $http, $q, $uibModalInstance, toastr, CONFIG) {
 			var ctrl = this;
-			$scope.surveys = [];
+			$scope.surveyTemplates = [];
 
 			$scope.selectOk = function() {
 				var selectedSurveyIdList = [];
-				for (var i=0; i<$scope.surveys.length; i++) {
-					if ($scope.surveys[i].selected) {
-						selectedSurveyIdList.push($scope.surveys[i]._id);
-					}
-				}
 
-				// return to main process
-				this.$close(selectedSurveyIdList);
+				// save surveys from survey templates
+				var promises = [];
+				$scope.surveyTemplates.map(function(template) {
+					var survey = angular.copy(template);
+					survey.surveyTemplate = template._id;
+					survey.doctor = $scope.diagnose.doctor;
+					survey.user = $scope.diagnose.user;
+					survey._id = undefined;
+					// convert availableDays to availableBy
+					survey.availableBy = moment().add(template.availableDays || 30, 'days');
+
+					$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'survey', survey)
+						.then(function (response) {
+								// check if return null
+								if (response.data.return && response.data.return == 'null'){
+									//toastr.warning('后台无此问卷' + survey.name);
+									//return;
+								}
+								else {
+									selectedSurveyIdList.push(response.data._id);
+								}
+							},
+							function(){
+								toastr.error(CONFIG.Error.Internal);
+							});
+					promises.push($scope.myPromise);
+
+				});
+
+				$q.all(promises).then(
+					function(values) {
+						// return to main process
+						$uibModalInstance.close(selectedSurveyIdList);
+					},
+					function(err){
+						$uibModalInstance.dismiss(err);
+					});
+
 			};
 
 			$scope.getQuestionList = function(survey) {
@@ -40,10 +71,10 @@
 					.success(function (response) {
 						// check if return null
 						if (response.return && response.return == 'null'){
-							$scope.surveys = [];
+							$scope.surveyTemplates = [];
 						}
 						else {
-							$scope.surveys = response;
+							$scope.surveyTemplates = response;
 							// $scope.surveys.map(function(survey) {
 							// 	survey.surveyTemplate = survey._id;
 							// 	survey.doctor = $rootScope.login._id;
@@ -65,8 +96,6 @@
 
 
 				loadFromTemplate($rootScope.login.department);
-
-
 			};
 
 			init();

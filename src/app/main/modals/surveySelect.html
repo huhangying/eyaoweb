@@ -9,23 +9,23 @@
 <div cg-busy="myPromise"></div>
 <div class="modal-body clearfix" id="modal-body">
 
-	<div ng-repeat="survey in surveys track by $index" class="p-l-md"	ng-if="surveys && surveys.length>0">
+	<div ng-repeat="template in surveyTemplates track by $index" class="p-l-md"	ng-if="surveyTemplates && surveyTemplates.length>0">
 		<div class="text-muted checkbox">
 			<label>
 				<input type="checkbox"
-							 ng-checked="survey.selected"
-							 ng-model="survey.selected"
-							 ng-click="changeSelection(survey, $index)">
+							 ng-checked="template.selected"
+							 ng-model="template.selected"
+							 ng-click="changeSelection(template, $index)">
 
-				<span>&nbsp;&nbsp;{{survey.name}}</span>
+				<span>&nbsp;&nbsp;{{template.name}}</span>
 			</label>
 			&nbsp;&nbsp;
-			<span class="btn btn-link btn-primary" uib-tooltip="{{getQuestionList(survey)}}" tooltip-placement="bottom">
+			<span class="btn btn-link btn-primary" uib-tooltip="{{getQuestionList(template)}}" tooltip-placement="bottom">
 				<i class="fa fa-list-ul" aria-hidden="true"></i>
 			</span>
 		</div>
 	</div>
-	<blockquote ng-if="!surveys || surveys.length<1" >
+	<blockquote ng-if="!surveyTemplates || surveyTemplates.length<1" >
 		<p>无可用问卷。请联系管理者到后台增加。</p>
 	</blockquote>
 

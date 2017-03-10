@@ -432,11 +432,11 @@
 					.result.then(
 					function (surveyIdList) {
 						url +=  '&list=' + surveyIdList.join('|');
-						//console.log(url);
+						console.log(url);
 						sendSurveyWechatMessage(type, url);
 					},
 					function (err) {
-						//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
+						toastr.info('错误: ' + err + ' @' + new Date());
 					});
 
 				return;
