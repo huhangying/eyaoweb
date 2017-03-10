@@ -21,19 +21,22 @@
 
 
 			var init = function () {
-
+				$scope.loading = true;
 				$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'bookings/today/doctor/' + $rootScope.login._id)
 					.then(function (response) {
 							// check if return null
 							if (response.return && response.return == 'null'){
 								$scope.bookings = [];
+								$scope.loading = false;
 								return;
 							}
 							$scope.bookings = response.data;
+							$scope.loading = false;
 
 						},
 						function(){
 							toastr.error(CONFIG.Error.Internal);
+							$scope.loading = false;
 						});
 
 			};

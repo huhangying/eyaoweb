@@ -710,7 +710,7 @@
 								// 更新 booking 的状态
 								if ($scope.diagnose.booking) {
 
-									$scope.myPromise = $http.post(CONFIG.baseApiUrl + 'booking/' + $scope.diagnose.booking, { status: 5 }).then(
+									$scope.myPromise = $http.patch(CONFIG.baseApiUrl + 'booking/' + $scope.diagnose.booking, { status: 5 }).then(
 										function(response) {
 
 										},

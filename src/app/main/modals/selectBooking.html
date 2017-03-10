@@ -29,7 +29,7 @@
 			</tbody>
 		</table>
 
-		<div ng-if="!bookings || bookings.length<1"> 
+		<div ng-if="(!bookings || bookings.length<1) && !loading"> 
 			无今日可用预约。
 		</div>
 	</div>
