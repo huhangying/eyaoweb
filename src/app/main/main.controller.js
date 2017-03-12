@@ -563,7 +563,7 @@
 			})
 				.result.then(
 				function (labResults) {
-					$scope.diagnose.labResults = [];
+					$scope.diagnose.labResults = $scope.diagnose.labResults || [];
 					labResults.map(function(result) {
 						if (result._id) {
 							// update
@@ -574,8 +574,9 @@
 											toastr.error('没能更新数据到数据库');
 											return;
 										}
-										$scope.diagnose.labResults.push(response.data._id);
-										vm.saveDiagnose();
+										// id has already existed in diagnose. no need to update.
+										//$scope.diagnose.labResults.push(response.data._id);
+										//vm.saveDiagnose();
 
 									},
 									function(error){

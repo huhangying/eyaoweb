@@ -69,16 +69,15 @@
 			</uib-tab-heading>
 			<div class="tab-content">
 				包含该患者的所有门诊记录(过去的,已经发布的)
-				<table  st-safe-src="history.diagnoses" st-table="displayCollection" class="table table-hover table-condensed mb-0">
+				<table st-safe-src="history.diagnoses" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
-						<td style="width:20%">专科</td>
-						<td style="width:20%">药师</td>
-						<td style="width:15%">药方个数</td>
-						<td style="width:15%">提醒个数</td>
-						<td st-sort="updatedAt" style="width:20%">门诊时间</td>
-
-						<td style="width:10%"></td>
+						<th style="width:20%">专科</th>
+						<th style="width:20%">药师</th>
+						<th style="width:15%">药方个数</th>
+						<th style="width:15%">提醒个数</th>
+						<th st-sort="updatedAt" style="width:20%">门诊时间</th>
+						<th style="width:10%"></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -109,7 +108,7 @@
 					<tfoot>
 					<tr>
 						<td colspan="6" class="text-center">
-							<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+							<div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
 						</td>
 					</tr>
 					</tfoot>
@@ -128,17 +127,17 @@
 				化验结果
 			</uib-tab-heading>
 			<div class="tab-content">
-				<table class="table table-hover table-condensed">
+				<table st-safe-src="history.labResults" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
-						<td style="width:50%">化验单名</td>
-						<td style="width:30%">化验日期</td>
-						<td style="width:10%">检查项</td>
-						<td style="width:10%"></td>
+						<th st-sort="name" style="width:50%">化验单名</th>
+						<th st-sort="testDate" style="width:30%">化验日期</th>
+						<th style="width:10%">检查项</th>
+						<th style="width:10%"></th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="result in history.labResults track by $index" class="editable-row">
+					<tr ng-repeat="result in displayCollection track by $index" class="editable-row">
 						<td>
 							{{ result.name || '空' }}
 						</td>
@@ -157,6 +156,13 @@
 					</tr>
 
 					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="4" class="text-center">
+							<div st-pagination="" st-items-by-page="10" st-displayed-pages="8"></div>
+						</td>
+					</tr>
+					</tfoot>
 				</table>
 
 				<div ng-if="history.labResults.length<1"> 
@@ -174,10 +180,10 @@
 				<table st-safe-src="history.feedback1" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
-						<td style="width:15%">药师</td>
-						<td style="width:30%">标题</td>
-						<td style="width:40%">描述</td>
-						<td style="width:15%">时间</td>
+						<th style="width:15%">药师</th>
+						<th style="width:30%">标题</th>
+						<th style="width:40%">描述</th>
+						<th style="width:15%">时间</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -221,10 +227,10 @@
 				<table st-safe-src="history.feedback2" st-table="displayCollection" class="table table-hover table-condensed mb-0">
 					<thead class="bold-text bg-info">
 					<tr>
-						<td style="width:15%">药师</td>
-						<td style="width:30%">标题</td>
-						<td style="width:40%">描述</td>
-						<td style="width:15%">时间</td>
+						<th style="width:15%">药师</th>
+						<th style="width:30%">标题</th>
+						<th style="width:40%">描述</th>
+						<th style="width:15%">时间</th>
 					</tr>
 					</thead>
 					<tbody>
