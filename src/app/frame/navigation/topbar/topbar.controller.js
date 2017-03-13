@@ -34,7 +34,7 @@
 					function(){
 						toastr.error(CONFIG.Error.Internal);
 					});
-		}
+		};
 
 
 		if ($window.sessionStorage.user) {

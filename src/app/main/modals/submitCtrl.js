@@ -34,11 +34,11 @@
 						.then(function (response) {
 								// check if return null
 								if (response.data.return && response.data.return == 'null'){
-									toastr.warning('后台无此数据')
+									toastr.warning('后台无此数据');
 									return;
 								}
 								//$scope.patient = response.data;
-								toastr.success('更新成功')
+								toastr.success('更新成功');
 
 							},
 							function(){
@@ -76,11 +76,11 @@
 						.then(function (response) {
 								// check if return null
 								if (response.data.return && response.data.return == 'null'){
-									toastr.warning('后台无此数据')
+									toastr.warning('后台无此数据');
 									return;
 								}
 								//$scope.patient = response.data;
-								toastr.success('更新成功')
+								toastr.success('更新成功');
 
 							},
 							function(){
