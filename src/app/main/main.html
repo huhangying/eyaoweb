@@ -72,7 +72,7 @@
 					<i class="fa {{checkSurveyType(5)? 'fa-check-circle text-success':''}}" aria-hidden="true"></i>
 					门诊结论</button>
 
-				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()"
+				<button class="btn btn-primary pull-right" ng-click="vm.submitDiagnose()" ng-disabled="!checkSurveyType(5)"
 								ng-if="(diagnose.surveys.length>0)&&switchInMode(1)">
 					<i class="fa fa-paper-plane" aria-hidden="true"></i>
 					结束门诊
