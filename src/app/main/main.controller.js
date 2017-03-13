@@ -726,6 +726,15 @@
 
 								}
 
+								// 关闭所有该药师和该用户相关的surveys（set finished=true for type in [1,2,5]）
+								$http.patch(CONFIG.baseApiUrl + 'surveys/close/' + $scope.diagnose.doctor + '/' + $scope.diagnose.user).then(
+									function(response) {
+
+									},
+									function(err) {
+										toastr.error("关闭其它问卷失败。");
+									}
+								);
 
 								// reset environment
 								resetEnvironment();
