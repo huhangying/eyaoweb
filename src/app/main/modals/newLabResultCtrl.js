@@ -50,7 +50,7 @@
 			$scope.editLabResult = function (result) {
 				result.testDate = new Date(result.testDate);
 				$scope.editResult = angular.copy(result);
-			}
+			};
 
 			$scope.addLabResult = function() {
 				$scope.editResult = {

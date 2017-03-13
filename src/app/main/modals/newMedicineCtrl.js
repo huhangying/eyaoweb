@@ -102,7 +102,7 @@
 					.success(function (response) {
 						//console.log(JSON.stringify(response))
 						if (!response ){
-							toastr.error('无数据!')
+							toastr.error('无数据!');
 						}
 						else if (response.return == 'error') {
 							toastr.error(response.message);

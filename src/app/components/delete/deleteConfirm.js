@@ -14,7 +14,7 @@
                 else { // default
                     $scope.yesDelete($scope.itemId);
                 }
-            }
+            };
 
         });
 })();
