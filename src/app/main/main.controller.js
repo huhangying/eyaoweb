@@ -504,18 +504,25 @@
 		$scope.removePrescription = function(itemId) {
 
 			// remove from diagnose.notices
+			var index;
 			if ($scope.diagnose.notices && $scope.diagnose.notices.length > 0) {
-				var removedNotices = $scope.diagnose.prescription[index].notices || [];
-				$scope.diagnose.notices = $scope.diagnose.notices.filter(function(notice) {
-					for (var i=0; i<removedNotices.length; i++) {
-						if (notice._id === removedNotices[i]._id) {
-							return false;
-						}
+				for (var i=0; i<$scope.diagnose.prescription.length; i++) {
+					if ($scope.diagnose.prescription[i]._id === itemId) {
+						index = i;
+						break;
 					}
-					return true;
-				})
+				}
 			}
 
+			var removedNotices = $scope.diagnose.prescription[index].notices || [];
+			$scope.diagnose.notices = $scope.diagnose.notices.filter(function(notice) {
+				for (var i=0; i<removedNotices.length; i++) {
+					if (notice._id === removedNotices[i]._id) {
+						return false;
+					}
+				}
+				return true;
+			});
 
 			$scope.diagnose.prescription = $scope.diagnose.prescription.filter(function(med) {
 				return med._id != itemId;
