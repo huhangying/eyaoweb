@@ -32,9 +32,9 @@
 					<li data-toggle="collapse" data-target=".navbar-collapse.in">
 						<a class="dropdown-item" href ui-sref="app.shortcut">
 						<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;&nbsp;快捷回复管理</a></li>
-					<li data-toggle="collapse" data-target=".navbar-collapse.in">
-						<a class="dropdown-item" href ui-sref="app.pushMessage">
-						<i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;推送消息记录</a></li>
+					<!--<li data-toggle="collapse" data-target=".navbar-collapse.in">-->
+						<!--<a class="dropdown-item" href ui-sref="app.pushMessage">-->
+						<!--<i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;推送消息记录</a></li>-->
 				</ul>
 			</li>
 
@@ -60,7 +60,7 @@
 				<a class="nav-link dropdown-toggle" ng-class="{'pull-right': isNavCollapsed}" id="myAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 					<span class="badge bg-danger" ng-if="debug&&debug!='undefined'">{{debug}}</span>
-					<img class="avatar menu-img" ng-src="{{doctorIcon}}">
+					<img class="menu-img" ng-src="{{doctorIcon}}">
 					{{login.name}}
 					&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
 				</a>
@@ -96,7 +96,7 @@
 					<ul class="dropdown-menu pull-right mr-4" style="right: auto;" aria-labelledby="myStatus">
 						<li ng-repeat="status in statusList">
 							<a class="dropdown-item my-item" ng-click="updateStatus(status)">
-								<i class="fa {{status.icon}}" aria-hidden="true"></i>
+								<i class="fa {{status.icon}} pr-2" aria-hidden="true"></i>
 								{{status.name}}
 							</a>
 						</li>

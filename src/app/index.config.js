@@ -15,7 +15,8 @@
 			'https://*/**',
 			// Allow loading from our assets domain.  Notice the difference between * and **.
 			'http://116.62.29.222/**',
-			'http://zys.rostensoft.com/**'
+			'http://zys.rostensoft.com/**',
+			'http://yyl.rostensoft.com/**'
 		]);
 
 	}

@@ -44,8 +44,8 @@
 		if (!$rootScope.login || !$rootScope.login.name) {
 			$state.go('app.login');
 		}
-		$scope.doctorIcon = $rootScope.login.icon;
-		// $scope.doctorIcon = CONFIG.peerPageUrl + $rootScope.login.icon;
+		// /zhaoys/doctor/getCompressImage?attachment=%2Fusr%2Flocal%2Ftomcat%2FrostenFileUpload%2Frs%2Fdoctor%2F20170315140233807.jpg&width=100&height=120
+		$scope.doctorIcon = CONFIG.peerPageUrl + 'doctor/getCompressImage?attachment=' + $rootScope.login.icon + '&width=20&height=20';
 
 		$scope.debug = $window.sessionStorage.debug;
 		if ($scope.debug !== undefined) {
