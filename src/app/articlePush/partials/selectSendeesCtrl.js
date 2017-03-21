@@ -7,6 +7,26 @@
 
 	angular
 		.module('app.articlePush.receivers', [])
+		.filter("localeOrderBy", [function () {
+			return function (array, sortPredicate, reverseOrder) {
+				if (!Array.isArray(array)) return array;
+				if (!sortPredicate) return array;
+
+				var arrayCopy = [];
+				angular.forEach(array, function (item) {
+					arrayCopy.push(item);
+				});
+
+				arrayCopy.sort(function (a, b) {
+					var valueA = a[sortPredicate];
+					var valueB = b[sortPredicate];
+
+					return !reverseOrder ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+				});
+
+				return arrayCopy;
+			}
+		}])
 		.controller('SelectSendeesController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var ctrl = this;
 
@@ -21,7 +41,11 @@
 					user.selected = gs;
 				});
 				$scope.groups[index].selected = gs;
-			}
+			};
+
+			$scope.sortByName = function(item) {
+				return item.name;
+			};
 
 			var getGroupIndexByName = function (group_name) { 
 				for (var i=0; i<$scope.groups.length; i++) { 
@@ -79,7 +103,6 @@
 									}
 								}
 							}
-
 
 						})
 						.error(function(err){

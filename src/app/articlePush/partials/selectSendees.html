@@ -14,7 +14,7 @@
 				<input type="checkbox" ng-click="toggleGroup($index)">&nbsp;{{group.name}}</label>
 		</div> 
 		<div class="row my-content-adjust"> 
-			<label class="col-sm-3" ng-repeat="user in group.users">
+			<label class="col-sm-3" ng-repeat="user in group.users | localeOrderBy:'name' ">
 				<input type="checkbox" class="form-check-input" ng-model="user.selected">&nbsp;{{user.name}}
 			</label>
 		</div> 
