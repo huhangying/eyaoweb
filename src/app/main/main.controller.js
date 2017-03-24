@@ -224,6 +224,8 @@
 
 		vm.selectBooking = function () {
 
+			resetEnvironment();
+
 			$uibModal.open({
 				scope: $scope,
 				animation: true,
@@ -250,6 +252,8 @@
 		};
 
 		vm.selectPatient = function () {
+
+			resetEnvironment();
 
 			$uibModal.open({
 				scope: $scope,
