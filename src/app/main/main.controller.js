@@ -495,6 +495,7 @@
 							break;
 						}
 					}
+					vm.saveDiagnose();
 				},
 				function (err) {
 					//toastr.info('错误: ' + err.messageFormatted + ' @' + new Date());
