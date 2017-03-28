@@ -48,6 +48,9 @@
 						return notice.apply;
 					});
 				}
+
+				// 自动计算EndDate
+				$scope.caculateEndDate();
 			};
 
 			/*

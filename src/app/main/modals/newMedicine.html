@@ -127,10 +127,10 @@
 
 				</div>
 			</div>
-			<div class="col-sm-4 pull-right" >
+			<div class="col-sm-2 col-sm-offset-2 pull-right" >
 				<div class="form-group">
-					<br>
-					<button class="btn btn-default" ng-click="caculateEndDate()" ng-if="caculationAvailable()">
+					<label for="btnCalculate" class="control-label"><br/></label>
+					<button id="btnCalculate" class="btn btn-primary form-control" ng-click="caculateEndDate()" ng-if="caculationAvailable()">
 						{{ calculateName }}
 					</button>
 				</div>
