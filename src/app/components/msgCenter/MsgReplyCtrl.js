@@ -9,8 +9,8 @@
 
 		$scope.sendReply = function() {
 			//validation first
-			if (!$scope.reply.notes || !$scope.reply.name) {
-				toastr.warning('标题和描述都是必须项');
+			if (!$scope.reply.name) {
+				toastr.warning('标题是必选项');
 				return;
 			}
 
@@ -19,7 +19,7 @@
 				doctor: $scope.replyMsg.doctor,
 				user: $scope.replyMsg.user._id,
 				name: $scope.reply.name,
-				notes: $scope.reply.notes,
+				//notes: $scope.reply.notes,
 				status: 2
 			};
 
@@ -62,6 +62,14 @@
 		$scope.reply = {
 			name: '回复: ' + $scope.replyMsg.name
 		};
+
+		$scope.attachedImg = undefined;
+		var init = function() {
+			if ($scope.replyMsg.notes) {
+				$scope.attachedImg = CONFIG.peerBaseUrl + $scope.replyMsg.notes;
+			}
+		};
+		init();
 
 	}
 })();

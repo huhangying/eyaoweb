@@ -10,6 +10,7 @@
 			// peerPageUrl: 'http://223.93.176.119:8880',
 			//peerPageUrl: 'http://116.62.29.222/zhaoys/',
 			peerPageUrl: 'http://yyl.rostensoft.com/zhaoys/',
+			peerBaseUrl: 'http://yyl.rostensoft.com',
 			peerCompanyId: '8a99b2ca-58d3e601-0158-d3e63fa3-000d',
 			//baseApiUrl: 'http://127.0.0.1:3000/',
 			baseApiUrl: 'http://139.224.68.92:3000/',

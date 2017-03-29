@@ -13,21 +13,29 @@
 			<div class="col-sm-2">标题:</div>
 			<div class="col-sm-10">{{replyMsg.name}}</div>
 		</div>
-		<div class="row">
+		<div class="row" ng-if="replyMsg.startDate">
+			<div class="col-sm-2">开始时间:</div>
+			<div class="col-sm-10">{{replyMsg.startDate | date:'yyyy-MM-dd HH:mm' }}</div>
+		</div>
+		<div class="row" ng-if="replyMsg.endDate">
+			<div class="col-sm-2">结束时间:</div>
+			<div class="col-sm-10">{{replyMsg.endDate | date:'yyyy-MM-dd HH:mm' }}</div>
+		</div>
+		<div class="row" ng-if="replyMsg.type==2 && replyMsg.how">
 			<div class="col-sm-2">描述:</div>
-			<div class="col-sm-10">{{replyMsg.notes}}</div>
+			<div class="col-sm-10">{{replyMsg.how }}</div>
+		</div>
+		<div class="row" ng-if="replyMsg.notes && attachedImg">
+			<div class="col-sm-2">附加图片:</div>
+			<div class="col-sm-10"><img class="img-responsive" ng-src="{{attachedImg}}" /></div>
 		</div>
 	</div>
 
 	<div class="left-info">
 		<div class="h4">您的回复:</div>
 		<fieldset class="form-group">
-			<label class="text-muted" for="replayName">标题</label>
-			<input type="text" class="form-control" id="replayName" placeholder="请输入标题" ng-model="reply.name" required>
-		</fieldset>
-		<fieldset class="form-group">
-			<label class="text-muted" for="replayNotes">具体描述</label>
-			<textarea class="form-control" id="replayNotes" placeholder="请输入具体描述" rows="4" autofocus ng-model="reply.notes" required />
+			<label class="text-muted" for="replayName">具体内容</label>
+			<textarea class="form-control" id="replayName" placeholder="请输入具体描述" rows="4" autofocus ng-model="reply.name" required />
 		</fieldset>
 	</div>
 </div>
