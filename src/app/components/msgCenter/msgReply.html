@@ -14,12 +14,12 @@
 			<div class="col-sm-10">{{replyMsg.name}}</div>
 		</div>
 		<div class="row" ng-if="replyMsg.startDate">
-			<div class="col-sm-2">开始时间:</div>
-			<div class="col-sm-10">{{replyMsg.startDate | date:'yyyy-MM-dd HH:mm' }}</div>
+			<div class="col-sm-2">开始日期:</div>
+			<div class="col-sm-10">{{replyMsg.startDate | date:'yyyy-MM-dd' }}</div>
 		</div>
 		<div class="row" ng-if="replyMsg.endDate">
-			<div class="col-sm-2">结束时间:</div>
-			<div class="col-sm-10">{{replyMsg.endDate | date:'yyyy-MM-dd HH:mm' }}</div>
+			<div class="col-sm-2">结束日期:</div>
+			<div class="col-sm-10">{{replyMsg.endDate | date:'yyyy-MM-dd' }}</div>
 		</div>
 		<div class="row" ng-if="replyMsg.type==2 && replyMsg.how">
 			<div class="col-sm-2">描述:</div>
