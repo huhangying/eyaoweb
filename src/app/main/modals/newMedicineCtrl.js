@@ -40,7 +40,8 @@
 				item.startDate = item.startDate || new Date();
 				item.quantity = item.quantity || 1;
 
-				$scope.selectedMedicine = item;
+				$scope.selectedMedicine = angular.copy(item);
+				$scope.selectedMedicine.name = $scope.selectedMedicine.name.split('|')[0];
 
 				// filter out non-applied notices
 				if ($scope.selectedMedicine.notices && $scope.selectedMedicine.notices.length > 0) {
