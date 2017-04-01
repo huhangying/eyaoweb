@@ -116,6 +116,20 @@
 						}
 					});
 
+				$http.get(CONFIG.baseApiUrl + 'const/medicine_units')
+					.success(function (response) {
+						//console.log(JSON.stringify(response))
+						if (!response ){
+							toastr.error('无数据!');
+						}
+						else if (response.return == 'error') {
+							toastr.error(response.message);
+						}
+						else{
+							$scope.units = response.value.split('|');
+						}
+					});
+
 				// move it to main process
 				// $http.get(CONFIG.baseApiUrl + 'const/medicine_periods')
 				// 	.success(function (response) {
