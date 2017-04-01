@@ -60,7 +60,7 @@
 		};
 
 		$scope.reply = {
-			name: '回复: ' + $scope.replyMsg.name
+			name: ''//'回复: ' + $scope.replyMsg.name
 		};
 
 		$scope.attachedImg = undefined;
