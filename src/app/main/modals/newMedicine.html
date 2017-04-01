@@ -15,7 +15,7 @@
 				<ui-select-match placeholder=" 选择或搜索药品名...">
 					{{$select.selected.name}}
 				</ui-select-match>
-				<ui-select-choices repeat="item in medicines | filter: {name: $select.search}">
+				<ui-select-choices repeat="item in medicines | localeOrderBy: 'name' | filter: {name: $select.search}">
 					<div ng-bind-html="item.name | highlight: $select.search"></div>
 				</ui-select-choices>
 				<ui-select-no-choice>
