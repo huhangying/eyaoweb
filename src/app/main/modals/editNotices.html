@@ -31,20 +31,21 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat="item in noticeList" ng-class="item.selected ? 'text-success':''" class="editable-row" ng-disabled="readonly">
-				<td ng-show="false">
-                <span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
-                    {{item._id}}
-                </span>
-                <span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
-                  {{ item.apply || false }}
-                </span>
-				</td>
-				<td><input type="checkbox" ng-model="item.selected" ng-change="updateNotices()" ng-disabled="readonly"></td>
 				<td>
-					<span editable-text="item.notice" e-name="notice" e-form="rowform" e-style="width:320px;" >
-						{{ item.notice || 'empty' }}
+					<input type="checkbox" ng-model="item.selected" ng-change="updateNotices()" ng-disabled="readonly">
+				</td>
+				<td ng-show="false">
+					<span editable-text="item._id" e-name="_id" e-form="rowform" e-required>
+							{{item._id}}
 					</span>
-					<!--<input type="text" class="form-control" ng-model="item.notice" placeholder="设置提醒名称">-->
+					<span editable-checkbox="item.apply" e-name="apply" e-form="rowform" e-required>
+						{{ item.apply || false }}
+					</span>
+				</td>
+				<td>
+					<span editable-text="item.notice" e-name="notice" e-form="rowform" e-required>
+						{{ item.notice || '空' }}
+					</span>
 				</td>
 				<td>
 					<span editable-date="item.startDate" e-name="startDate" e-form="rowform" e-required >
@@ -71,14 +72,17 @@
 					</span>
 				</td>
 				<td style="white-space: nowrap"> 
-					<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" 
-								shown="inserted == item" ng-if="!readonly"> 
+					<form editable-form name="rowform" ng-show="rowform.$visible && !readonly" class="form-buttons form-inline" 
+								shown="inserted == item"> 
 						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary btn-sm"> 保存 </button> 
 						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default btn-sm"> 取消 </button>
 					</form> 
-					<span class="btn btn-link btn-sm text-primary" ng-click="rowform.$show()" ng-show="!rowform.$visible"> 
-						<i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
-					</span> 
+					<div class="editable-buttons" ng-show="!rowform.$visible && !readonly">
+						<button type="button" class="btn btn-sm text-primary" ng-click="rowform.$show()" > 
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+						</button> 
+					</div>
+
 				</td> 
 			</tr>
 			</tbody>

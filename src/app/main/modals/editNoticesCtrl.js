@@ -8,7 +8,7 @@
 
 	angular
 		.module('app.main.notices', [])
-		.controller('EditNoticesController', function ($scope, $rootScope, $http, toastr, CONFIG, $timeout) {
+		.controller('EditNoticesController', function ($scope, $rootScope, $http, toastr, CONFIG) {
 			var vm = this;
 
 			$scope.selectOk = function() {
@@ -29,14 +29,14 @@
 			$scope.addNotice = function() {
 				$scope.inserted = {
 					notice: '',
+					startDate: '',
+					endDate: '',
 					days_to_start: -1,
-					during: 1,
-					require_confirm: true
+					during: '',
+					require_confirm: true,
+					apply: true
 				};
 				$scope.noticeList.unshift($scope.inserted);
-				$timeout(function(){
-					$scope.rowform.show(); // enter edit mode
-				});
 			};
 
 			var init = function () {
