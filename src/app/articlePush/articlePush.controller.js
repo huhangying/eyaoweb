@@ -179,6 +179,7 @@
 
 			// 发送消息给微信
 			var reqBody = {
+				doctorId: $rootScope.login._id,
 				openidList: list,
 				type: 2,
 				articles: [

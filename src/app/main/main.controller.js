@@ -389,6 +389,7 @@
 		var sendSurveyWechatMessage = function (type, targetUrl) {
 			// 发送消息给微信
 			var reqBody = {
+				doctorId: $rootScope.login._id,
 				openidList: [$scope.patient.link_id],
 				type: 1, // wechat message type
 				articles: [
@@ -696,6 +697,7 @@
 								// 药师门诊评估
 								// 发送消息给微信
 								var reqBody = {
+									doctorId: $rootScope.login._id,
 									openidList: [$scope.patient.link_id],
 									type: 1,
 									articles: [
