@@ -58,7 +58,7 @@
 			}
 		}
 		else {
-			CONFIG.baseApiUrl = 'http://139.224.68.92:3000/';
+			CONFIG.baseApiUrl = 'http://yyl.rostensoft.com:3000/';
 		}
 
 		$scope.logout = function () {
