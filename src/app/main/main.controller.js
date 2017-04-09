@@ -7,7 +7,7 @@
         .controller('MainController', MainController);
 
     /** @ngInject */
-    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, $q, CONFIG) {
+    function MainController($scope, $rootScope, $http, toastr, $uibModal, $filter, $q, CONFIG, utilService) {
         var vm = this;
 
 		//
@@ -421,8 +421,11 @@
 
 		vm.sendSurvey = function (type, selectSurveys) {
 			$scope.selectedSurveyType = type;
+			var uniqueId = utilService.getRandomUniqueId(24);
 			var url = CONFIG.peerPageUrl + 'web/followTest?doctorid=' + $scope.diagnose.doctor +
-				'&userid=' + $scope.diagnose.user + '&companyId=' + CONFIG.peerCompanyId + '&type=' + type;
+				'&userid=' + $scope.diagnose.user +
+				'&companyId=' + CONFIG.peerCompanyId +
+				'&type=' + type + '&key=' + uniqueId;
 			if (selectSurveys) {
 
 				$uibModal.open({
