@@ -421,7 +421,7 @@
 
 		vm.sendSurvey = function (type, selectSurveys) {
 			$scope.selectedSurveyType = type;
-			var uniqueId = utilService.getRandomUniqueId(24);
+			var uniqueId = 'zys' + utilService.getRandomUniqueId(21);
 			var url = CONFIG.peerPageUrl + 'web/followTest?doctorid=' + $scope.diagnose.doctor +
 				'&userid=' + $scope.diagnose.user +
 				'&companyId=' + CONFIG.peerCompanyId +
