@@ -1,3 +1,49 @@
 #home {
-	
+  color: white;
+  display: block;
+  clear: both;
+  margin: 10px 10px;
+
+  .block-icon {
+	height: 80px;
+	margin-top: 14px;
+  }
+  .block-icon1 {
+	height: 70px;
+	margin: 24px 0 0 20px;
+  }
+
+  .green-block {
+	background-color: #28b779;
+	margin: 1px;
+	display: block;
+	min-width: 240px;
+  }
+  .blue-block {
+	background-color: #27a9e3;
+	margin: 1px;
+	display: block;
+	min-width: 240px;
+  }
+  .purple-block {
+	background-color: #852b99;
+	margin: 1px;
+	display: block;
+	min-width: 240px;
+  }
+  .yellow-block {
+	background-color: #ffb848;
+	margin: 1px;
+	display: block;
+	min-width: 240px;
+  }
+
+  .hint-line {
+	display: inline-block;
+	width: 100%;
+	padding: 4px 10px;
+	min-height: 1rem;
+	background-color:rgba(0,0,0,0.1);
+  }
+
 }
