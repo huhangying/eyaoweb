@@ -15,7 +15,7 @@
 			// 	$scope.detailFrame = CONFIG.peerPageUrl + 'wx/start?doctor=' + $rootScope.login._id;
 			// }
 			// 获取用户数
-			$http.get(CONFIG.baseApiUrl + 'relationships/doctor/' + $rootScope.login._id).then(
+			$scope.myPromise = $http.get(CONFIG.baseApiUrl + 'relationships/doctor/' + $rootScope.login._id).then(
 				function(response) {
 					if (!response || response.length < 1 ||
 						(response.return && response.return.length > 0)) {
@@ -59,6 +59,23 @@
 				},
 				function(err) {
 					$scope.bookingTotal = -1;
+				}
+			);
+
+			// 今日预约数
+			$http.get(CONFIG.baseApiUrl + 'bookings/today/doctor/' + $rootScope.login._id).then(
+				function(response) {
+					if (!response || response.length < 1 ||
+						(response.return && response.return.length > 0)) {
+						toastr.error('获取今日预约数错误.');
+						$scope.diagnoseTodayTotal = -1;
+						return;
+					}
+					$scope.diagnoseTodayTotal = response.data.length;
+				},
+				function(err) {
+					$scope.diagnoseTodayTotal = -1;
+					toastr.error('获取今日预约错误.');
 				}
 			);
 
