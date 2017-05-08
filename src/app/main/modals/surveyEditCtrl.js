@@ -232,6 +232,34 @@
 								loadFromTemplate(department, doctor, user, type, list);
 							}
 							else {
+								// put into diagnose.surveys
+								var surveys = response;
+								var list = [];
+								for (var i=0; i<surveys.length; i++) {
+									list.push(surveys[i]._id);
+								}
+								if (!$scope.diagnose.surveys || $scope.diagnose.surveys.length < 1) {
+									$scope.diagnose.surveys = [{
+										type: type,
+										list: list
+									}];
+								}
+								else {
+									var found = false;
+									$scope.diagnose.surveys.map(function(surv) {
+										if (surv.type === type) {
+											surv.list = list;
+											found = true;
+										}
+									});
+									if (!found) {
+										$scope.diagnose.surveys.push({
+											type: type,
+											list: list
+										});
+									}
+								}
+
 								$scope.surveys = response;
 								$scope.loading = false;
 							}
@@ -243,7 +271,54 @@
 						});
 				}
 				else if (!$scope.readonly){
-					loadFromTemplate(department, doctor, user, type, list);
+					//loadFromTemplate(department, doctor, user, type, list);
+
+					// 正在进行的每个药师和病患和问卷类型，只能有一个！！！
+					reqUrl = CONFIG.baseApiUrl + 'surveys/' + doctor + '/' + user + '/' + type  + '/0';
+					$scope.myPromise = $http.get(reqUrl)
+						.success(function (response) {
+							// check if return null
+							if (response.return && response.return == 'null' && !$scope.readonly ){
+								loadFromTemplate(department, doctor, user, type, list);
+							}
+							else {
+								// put into diagnose.surveys
+								var surveys = response;
+								var list = [];
+								for (var i=0; i<surveys.length; i++) {
+									list.push(surveys[i]._id);
+								}
+								if (!$scope.diagnose.surveys || $scope.diagnose.surveys.length < 1) {
+									$scope.diagnose.surveys = [{
+										type: type,
+										list: list
+									}];
+								}
+								else {
+									var found = false;
+									$scope.diagnose.surveys.map(function(surv) {
+										if (surv.type === type) {
+											surv.list = list;
+											found = true;
+										}
+									});
+									if (!found) {
+										$scope.diagnose.surveys.push({
+											type: type,
+											list: list
+										});
+									}
+								}
+
+								$scope.surveys = response;
+								$scope.loading = false;
+							}
+
+						})
+						.error(function(){
+							toastr.error(CONFIG.Error.Internal);
+							$scope.loading = false;
+						});
 				}
 
 			};

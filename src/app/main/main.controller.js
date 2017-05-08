@@ -444,7 +444,7 @@
 						sendSurveyWechatMessage(type, url);
 					},
 					function (err) {
-						toastr.info('错误: ' + err + ' @' + new Date());
+						//toastr.info('错误: ' + err + ' @' + new Date());
 					});
 
 				return;
