@@ -143,6 +143,13 @@
 				$scope.history = $scope.history || {};
 				$rootScope.historySelectedDoctor = item.doctor._id;
 				$scope.history.diagnose = item;
+				if (item.surveys && item.surveys.length > 0) {
+					for (var i=0; i<item.surveys.length; i++) {
+						if (item.surveys[i].type === 1) { // survey type 1 is 初诊问卷
+							$scope.historyIsFirstSurvey = true;
+						}
+					}
+				}
 				$scope.readonly = true;
 				$uibModal.open({
 					scope: $scope,
@@ -152,7 +159,15 @@
 					templateUrl: 'app/main/main.html',
 					controller: 'MainController',
 					size: 'lg'
-				});
+				}).result.then(
+					function(rsp) {
+						// there is no normal button to close, only dismiss
+					},
+					function(err) {
+						// history clear
+						$scope.historyIsFirstSurvey = undefined;
+					}
+				);
 			};
 
 			var init = function () {

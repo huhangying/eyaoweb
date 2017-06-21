@@ -310,9 +310,6 @@
 
 		vm.openSurvey = function (type, readonly, diagnose) {
 			$scope.selectedSurveyType = type;
-			if (type == 1) {
-				$scope.selectedSurveyType = $scope.isFirstVisit ? 1 : 2;
-			}
 			$scope.readonly = readonly;
 			$scope.viewSurveyList = undefined;
 			if (readonly) {
