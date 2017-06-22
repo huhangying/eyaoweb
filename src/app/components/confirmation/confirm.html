@@ -1,0 +1,19 @@
+<div class="modal-content" ng-controller="confirmCtrl">
+  <div class="modal-header">
+		<button type="button" class="close pull-right" aria-label="Close" ng-click="$dismiss()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+    <h4 class="modal-title">
+			<i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+			{{confirmTitle || '请确认'}}
+		</h4>
+  </div>
+  <div class="modal-body clearfix">
+    {{confirmContent}}
+  </div>
+
+	<div class="modal-footer">
+		<a type="button" class="btn btn-default" ng-click="$dismiss()">取消</a>
+		<a type="button" class="btn btn-primary" ng-click="$close()"><i class="fa fa-check-square-o" aria-hidden="true"></i> 确认</a>
+	</div>
+</div>
