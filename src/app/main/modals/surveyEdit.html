@@ -38,11 +38,11 @@
 					<textarea ng-if="question.answer_type == 3" style="width:536px;"
 										ng-model="option.answer"
 										class="form-control"
-										ng-disabled="readonly"></textarea>
+										ng-readonly="readonly"></textarea>
 					<input type="text"
 								 ng-model="option.input"
 								 class="form-control"
-								 ng-disabled="readonly"
+								 ng-readonly="readonly"
 								 ng-if="option.input_required && option.selected">
 				</div>
 			</div>
